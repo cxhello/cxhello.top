@@ -1,0 +1,49 @@
+---
+heading: 'Scan Port using Python'
+title: 'Scan Port using Python'
+date: '2025-01-01'
+icon: 'Python'
+draft: false
+summary: 'How to scan a server port using a python script.'
+tags: [network]
+---
+
+```python
+import socket
+import concurrent.futures
+
+def scan_port(ip, port):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(1)  # Set timeout to 1 second
+            s.connect((ip, port))
+            return port, True
+    except (socket.timeout, socket.error):
+        return port, False
+
+def scan_ports(ip, start_port, end_port):
+    ports = range(start_port, end_port + 1)
+    open_ports = []
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+        futures = [executor.submit(scan_port, ip, port) for port in ports]
+        for future in concurrent.futures.as_completed(futures):
+            port, is_open = future.result()
+            if is_open:
+                open_ports.append(port)
+                print(f"Port {port} is open.")
+
+    return open_ports
+
+if __name__ == "__main__":
+    target_ip = "192.168.1.1"  # Replace with the target IP address
+    start_port = 1
+    end_port = 1024  # You can increase this to scan more ports
+
+    print(f"Scanning {target_ip} for open ports from {start_port} to {end_port}...")
+    open_ports = scan_ports(target_ip, start_port, end_port)
+    if open_ports:
+        print("Open ports:", open_ports)
+    else:
+        print("No open ports found.")
+```

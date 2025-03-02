@@ -1,0 +1,116 @@
+---
+title: '使用脚本快速查看 Kubernetes Deployment 日志'
+date: '2024-06-25'
+tags: ['Kubernetes']
+summary: 'Quickly View Kubernetes Deployment Logs Using Scripts.'
+images:
+  [
+    '/static/images/banners/james-harrison-vpOeXr5wmR4-unsplash.jpg',
+  ]
+authors: ['default']
+---
+
+### 前言
+
+在管理 Kubernetes 集群时，我们经常需要查看不同 Deployment 的日志，以便调试和监控。手动输入每个 Deployment 对应的 Pod 名称会很繁琐。本文介绍了一个简便的脚本，通过预定义的 Deployment 列表和参数化的方式，快速查看指定 Deployment 的日志。
+
+
+
+### 环境要求
+
+在开始之前，请确保你的环境满足以下要求：
+
+1. 已安装并配置 `kubectl` 命令行工具。
+2. 拥有访问 Kubernetes 集群的权限。
+3. 已配置默认命名空间或准备好要使用的命名空间名称。
+
+
+
+### 脚本内容
+
+以下是用于查看指定 Deployment 日志的脚本：
+
+```bash
+#!/bin/bash
+
+NAMESPACE=your-namespace
+LOG_LINES=$2
+FOLLOW=$3
+
+DEPLOYMENTS=(
+  "deployment-1"
+  "deployment-2"
+  "deployment-3"
+)
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <deployment-name> [log-lines] [-f]"
+  echo "Available deployments:"
+  for DEPLOYMENT in "${DEPLOYMENTS[@]}"; do
+    echo "  - $DEPLOYMENT"
+  done
+  exit 1
+fi
+
+DEPLOYMENT_NAME=$1
+
+# 检查输入的 Deployment 名称是否有效
+if [[ ! " ${DEPLOYMENTS[@]} " =~ " ${DEPLOYMENT_NAME} " ]]; then
+  echo "Invalid deployment name: $DEPLOYMENT_NAME"
+  echo "Available deployments:"
+  for DEPLOYMENT in "${DEPLOYMENTS[@]}"; do
+    echo "  - $DEPLOYMENT"
+  done
+  exit 1
+fi
+
+if [ -z "$LOG_LINES" ]; then
+  LOG_LINES=100  # 默认显示100行日志
+fi
+
+# 获取Deployment的Pod名称
+POD_NAME=$(kubectl get pods --namespace=$NAMESPACE -l app=$DEPLOYMENT_NAME -o jsonpath="{.items[0].metadata.name}")
+
+if [ -z "$POD_NAME" ]; then
+  echo "No pod found for deployment $DEPLOYMENT_NAME in namespace $NAMESPACE"
+  exit 1
+fi
+
+echo "Pod name: $POD_NAME"
+
+# 获取日志
+if [ "$FOLLOW" == "-f" ]; then
+  kubectl logs --namespace=$NAMESPACE $POD_NAME --tail=$LOG_LINES -f
+else
+  kubectl logs --namespace=$NAMESPACE $POD_NAME --tail=$LOG_LINES
+fi
+```
+
+保存这个脚本为 `deployment-logs`，并赋予执行权限：
+
+```bash
+chmod +x deployment-logs
+```
+
+然后你可以通过以下命令来使用这个脚本：
+
+```
+./deployment-logs <deployment-name> [log-lines] [-f]
+```
+
+如果没有输入 Deployment 名称，或者输入了无效的 Deployment 名称，脚本会显示可用的 Deployment 列表并提示正确用法。例如：
+
+```
+./deployment-logs
+```
+
+会输出：
+
+```
+Usage: ./deployment-logs <deployment-name> [log-lines] [-f]
+Available deployments:
+  - deployment-1
+  - deployment-2
+  - deployment-3
+```
+

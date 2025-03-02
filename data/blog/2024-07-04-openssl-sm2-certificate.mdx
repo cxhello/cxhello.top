@@ -1,0 +1,102 @@
+---
+title: 'OpenSSL生成SM2国密证书'
+date: '2024-07-04'
+tags: ['OpenSSL', 'SM2']
+summary: 'How to use Open SSL to generate SM2 State Secret Certificates.'
+images:
+  [
+    '/static/images/banners/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg',
+  ]
+authors: ['default']
+---
+
+## 1. 系统要求
+
+> Openssl 版本为 1.1.1 - 1.x
+>
+> https://www.openssl.org/news/changelog.txt
+
+![image-20240704143505861](https://cxhello.oss-cn-beijing.aliyuncs.com/image/image-20240704143505861.png)
+
+![image-20240704143606122](https://cxhello.oss-cn-beijing.aliyuncs.com/image/image-20240704143606122.png)
+
+## 2. 生成密钥对
+
+```bash
+#!/bin/bash
+
+# 检查输出目录参数
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <output_directory>"
+    exit 1
+fi
+
+output_dir=$1
+
+# 获取当前时间并格式化为 YYYYMMDDHHMMSS
+timestamp=$(date "+%Y%m%d%H%M%S")
+
+# 创建输出目录（如果不存在）
+mkdir -p "$output_dir"
+
+# 生成 SM2 私钥，并包括时间戳在文件名中
+openssl ecparam -genkey -name SM2 -out "${output_dir}/sm2PrivateKey_${timestamp}.pem"
+
+# 提取公钥，并包括时间戳在文件名中
+openssl ec -in "${output_dir}/sm2PrivateKey_${timestamp}.pem" -pubout -out "${output_dir}/sm2PublicKey_${timestamp}.pem"
+
+# 将私钥从 PEM 转换为 DER 格式，并包括时间戳在文件名中
+openssl pkcs8 -topk8 -inform PEM -outform DER -in "${output_dir}/sm2PrivateKey_${timestamp}.pem" -out "${output_dir}/sm2PrivateKey_${timestamp}.der" -nocrypt
+
+echo "SM2 Public and Private keys have been generated in $output_dir with timestamp $timestamp"
+echo "Private key has also been converted to DER format with timestamp."
+```
+
+```bash
+bash generate_sm2_keys.sh 公私钥生成路径
+```
+
+## 3. 生成自签名证书
+
+```bash
+#!/bin/bash
+
+# 检查输入参数
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <private_key_path> <output_directory>"
+    exit 1
+fi
+
+private_key_path=$1
+output_dir=$2
+
+# 获取当前时间并格式化为 YYYYMMDDHHMMSS
+timestamp=$(date "+%Y%m%d%H%M%S")
+
+# 创建输出目录（如果不存在）
+mkdir -p "$output_dir"
+
+# 创建 CSR，并包括时间戳在文件名中
+openssl req -new -key "$private_key_path" -out "$output_dir/sm2CertReq_${timestamp}.csr" \
+    -subj "/CN=name/O=CXHELLO Ltd./L=Beijing/ST=Beijing/C=CN"
+
+# 生成自签名证书，并包括时间戳在文件名中
+openssl x509 -req -in "$output_dir/sm2CertReq_${timestamp}.csr" -signkey "$private_key_path" -out "$output_dir/sm2Certificate_${timestamp}.pem" \
+    -days 365
+
+# 将生成的 PEM 格式证书转换为 DER 格式的 CRT 文件，并包括时间戳在文件名中
+openssl x509 -in "$output_dir/sm2Certificate_${timestamp}.pem" -outform DER -out "$output_dir/sm2Certificate_${timestamp}.crt"
+
+echo "SM2 Certificate has been generated in $output_dir with timestamp $timestamp"
+echo "The certificate has also been converted to DER format and saved as sm2Certificate_${timestamp}.crt in $output_dir"
+```
+
+```bash
+bash generate_sm2_certificate.sh 私钥PEM文件路径 证书生成路径
+```
+
+## 4. OpenSSL 3.x 后向兼容性问题
+
+> https://github.com/dromara/hutool/issues/3630
+>
+> https://github.com/guanzhi/GmSSL/issues/682

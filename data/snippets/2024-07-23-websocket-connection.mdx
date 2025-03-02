@@ -1,0 +1,31 @@
+---
+heading: 'Connecting to WebSocket Server using Python'
+title: 'Connecting to WebSocket Server using Python'
+date: '2024-07-23'
+icon: 'Python'
+draft: false
+summary: 'How to test connecting to a websocket server using a python script.'
+tags: [websocket]
+---
+
+```python
+# pip install websocket-client
+
+from websocket import create_connection
+from websocket import WebSocketConnectionClosedException
+
+def test_websocket_connection():
+    try:
+        # 尝试连接到 WebSocket 服务器
+        ws = create_connection("ws://localhost:8080/websocket/12345")
+        print("Connection established.")
+    except WebSocketConnectionClosedException as e:
+        print("Failed to connect:", e)
+    finally:
+        # 确保在结束前关闭连接
+        if ws:
+            ws.close()
+            print("Connection closed.")
+
+test_websocket_connection()
+```

@@ -1,0 +1,197 @@
+---
+title: 'Minimal setup list for web developers on a fresh macOS install'
+date: '2024-03-25'
+tags: ['Mac']
+summary: 'Having a new Mac device is always exciting for every developer, but it can also be challenging, especially when it comes to setting up a new dev environment. Here is a list of the minimal setup you need to get started with web development on a fresh macOS install.'
+images:
+  [
+    '/static/images/banners/a-laptop-computer-sitting-on-top-of-a-wooden-desk__claybanks__8q6e5hu3Ilc.jpeg',
+  ]
+authors: ['default']
+---
+
+### Homebrew
+```bash
+https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+/bin/bash install.sh
+
+https://blog.csdn.net/Lanerxx/article/details/130692516?spm=1001.2014.3001.5502
+```
+### Oh My ZSH
+```bash
+https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+/bin/bash install.sh
+```
+### zsh-autosuggestions
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+vim ~/.zshrc
+
+plugins=( 
+    # other plugins...
+    zsh-autosuggestions
+)
+```
+### iTerm2连接脚本
+```bash
+#!/usr/bin/expect
+
+set PORT 22
+set HOST 192.168.4.22
+set USER root
+set PASSWORD 123456
+
+spawn ssh -p $PORT $USER@$HOST
+expect {
+        "yes/no" {send "yes\r";exp_continue;}
+         "*password:*" { send "$PASSWORD\r" }
+        }
+interact
+```
+```bash
+#!/usr/bin/expect
+
+set PORT 22
+set HOST 192.168.10.243
+set USER root
+set PASSWORD 123456
+
+spawn ssh -p $PORT $USER@$HOST
+expect {
+        "yes/no" {send "yes\r";exp_continue;}
+         "*passphrase*" { send "$PASSWORD\r" }
+        }
+interact
+```
+> 参考文章：[https://cloud.tencent.com/developer/article/1744789](https://cloud.tencent.com/developer/article/1744789)
+
+### 生成新 SSH 密钥
+```bash
+ssh-keygen -t ed25519 -C "1061594797@qq.com"
+
+SSH 密钥密码：caixiaohui
+
+https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+```
+### IDEA激活
+```bash
+激活教程：https://www.unclecode.cn/software-activation/idea/2320.html
+
+如遇到：sed: RE error: illegal byte sequence，解决方案如下：
+
+export LC_ALL='C'
+sh ./install.sh
+
+https://blog.csdn.net/qq_39387856/article/details/131981677?spm=1001.2014.3001.5502
+
+在IDEA中git拉取代码失败：https://blog.51cto.com/u_15861646/5823288
+```
+### Maven
+```bash
+https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries
+
+vim ~/.zshrc
+
+export M2_HOME=/Users/caixiaohui/tools/apache-maven-3.6.3
+export PATH=$PATH:$M2_HOME/bin
+
+source ~/.zshrc
+
+mvn -v
+```
+### Postman
+```bash
+brew install --cask postman
+```
+### Sequel Ace
+```bash
+brew install --cask sequel-ace
+```
+### AnotherRedisDesktopManager
+```bash
+brew install --cask another-redis-desktop-manager
+
+如遇到提示无法检测恶意软件，使用如下命令解决：
+sudo xattr -rd com.apple.quarantine /Applications/Another\ Redis\ Desktop\ Manager.app
+
+https://github.com/qishibo/AnotherRedisDesktopManager/issues/1080
+```
+### Office
+```bash
+https://github.com/alsyundawy/Microsoft-Office-For-MacOS
+```
+### Sublime Text
+```bash
+brew install --cask sublime-text
+```
+### Docker
+```bash
+brew install --cask docker
+```
+### the-unarchiver
+```bash
+brew install --cask the-unarchiver
+```
+### SwitchHosts
+```bash
+brew install --cask switchhosts
+```
+### Sourcetree
+```bash
+brew install --cask sourcetree
+```
+### Node.js
+```bash
+https://nodejs.org/download/release/v16.20.2/node-v16.20.2.pkg
+npm config set registry https://registry.npm.taobao.org
+npm config get registry
+
+https://registry.npmjs.org/
+```
+### Mac查看jar结构
+```bash
+unzip -x -q insightone-base-api-0.1.0-exec.jar -d insightone-base-api
+```
+### wget
+```bash
+brew install wget
+
+brew uninstall wget
+```
+### Visual Studio Code
+```bash
+brew install --cask visual-studio-code
+```
+### DBeaver
+```bash
+brew install --cask dbeaver-community
+```
+### sdkman
+```bash
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk version
+
+https://github.com/sdkman/sdkman-cli/issues/613
+https://github.com/sdkman/sdkman-cli/issues/589
+https://github.com/sdkman/sdkman-cli/wiki/FAQ#on-mac-usrlibexecjava_home-does-not-detect-alternatives-installed-by-sdkman-what-can-i-do
+
+sdk install java 23.0.3.r17-nik
+sdk default java 23.0.3.r17-nik
+```
+### 查看JDK安装路径
+```bash
+/usr/libexec/java_home -V
+```
+### 清理不再需要的依赖
+```bash
+brew autoremove
+```
+
+### Go
+
+```bash
+brew install go@1.21
+go env -w GOPROXY=https://goproxy.cn,direct
+```
+
