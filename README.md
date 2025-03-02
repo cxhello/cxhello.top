@@ -4,7 +4,7 @@
 
 </div>
 
-![cxhello.top](https://cxhello.oss-cn-beijing.aliyuncs.com/image/postspark_export_2025-03-02_17-52-33.png)
+![cxhello.top](public/static/images/postspark_export_2025-03-02_17-52-33.png)
 
 ## Tech stack
 
