@@ -30,4 +30,4 @@ Thanks for the free resources 🙏
 
 ---
 
-Copyright (c) 2024 - Cuthbert's Blog – stories, insights, and ideas.
+Copyright (c) 2025 - Cuthbert's Blog – stories, insights, and ideas.
