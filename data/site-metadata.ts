@@ -26,8 +26,7 @@ export const SITE_METADATA = {
   analytics: {
     umamiAnalytics: {
       websiteId: process.env.NEXT_UMAMI_ID,
-      // shareUrl: 'https://analytics.cxhello.top/share/c9ErglxqzY5CQJ8g/cxhello.top',
-      shareUrl: 'https://umami.is',
+      shareUrl: 'https://cloud.umami.is/share/FgKDmdMFYOuJLeLK/cxhello.top'
     },
   },
   newsletter: {
