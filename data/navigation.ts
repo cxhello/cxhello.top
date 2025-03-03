@@ -23,7 +23,7 @@ export const FOOTER_NAV_LINKS = [
 
 export const FOOTER_PERSONAL_STUFF = [
   { href: '/about', title: 'About' },
-  // { href: '/static/resume.pdf', title: 'Resume' },
+  { href: '/static/resume.pdf', title: 'Resume' },
   // { href: '/books', title: 'Books' },
   { href: '/movies', title: 'Movies' },
   { href: SITE_METADATA.analytics.umamiAnalytics.shareUrl, title: 'Analytics' },
