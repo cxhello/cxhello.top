@@ -4,7 +4,7 @@ export const PROJECTS: Project[] = [
   {
     type: 'work',
     title: 'Sprin Boot PDF',
-    imgSrc: '/static/images/momentgif.png',
+    imgSrc: '/static/images/spring-boot-pdf-logo-512.png',
     repo: 'cxhello/springboot-pdf',
     builtWith: ['Java'],
   },
@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
     type: 'self',
     title: 'SnapToGif',
     description: `SnapToGif is an intuitive tool that transforms your Live Photos into shareable GIF animations.`,
-    imgSrc: '/static/images/momentgif.png',
+    imgSrc: '/static/images/momentgif-logo-512.png',
     url: 'https://apps.apple.com/us/app/momentgif/id6739975261',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
     links: [
@@ -30,7 +30,7 @@ export const PROJECTS: Project[] = [
     type: 'self',
     title: 'Recordify',
     description: `Recordify is a professional audio recording app with simple and elegant interface design and powerful features. Whether you want to record meetings, classroom notes, music creation or voice memos, it will perfectly meet your needs.`,
-    imgSrc: '/static/images/recordify.png',
+    imgSrc: '/static/images/recordify-logo-512.png',
     url: 'https://apps.apple.com/us/app/recordify/id6739163362',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
     links: [
@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     type: 'self',
     title: 'AI Navigation',
     description: `AI Navigation - Selected Artificial Intelligence Tools Navigation.`,
-    imgSrc: '/static/favicons/favicon.png',
+    imgSrc: '/static/images/ai-navigation-logo-512.png',
     repo: 'cxhello/nav-site',
     url: 'https://ai-navigation.top',
     builtWith: ['NextJS', 'TailwindCSS', 'Typescript']
@@ -50,7 +50,7 @@ export const PROJECTS: Project[] = [
     type: 'self',
     title: 'AI Chat',
     description: `AI Chat - Selected Artificial Intelligence Tools Chat.`,
-    imgSrc: '/static/favicons/favicon.png',
+    imgSrc: '/static/images/ai-chat-logo-512.png',
     repo: 'cxhello/chatbot',
     url: 'https://ai.cxhello.top',
     builtWith: ['NextJS', 'TailwindCSS', 'Typescript']
