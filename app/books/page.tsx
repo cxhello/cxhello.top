@@ -20,9 +20,7 @@ export default async function BooksPage() {
         description={
           <>
             <p>
-              Reading has been my hobby since childhood, starting with comics, magazines, and
-              textbooks. Today, I strive to keep reading daily, exploring topics such as science,
-              technology, nonfiction, business, education, productivity, and history.
+              Still can't say I love reading, but I'm discovering there's magic between the pages.
               <br />
               This is where I keep track of what I’ve read and what’s on my reading list.
             </p>
@@ -56,7 +54,7 @@ export default async function BooksPage() {
           <p>My real life bookshelf and working space.</p>
           <Zoom>
             <Image
-              src="/static/images/working-space.jpg"
+              src="/static/images/working-space.jpeg"
               alt="Bookshelf and working space"
               width={1600}
               height={1200}

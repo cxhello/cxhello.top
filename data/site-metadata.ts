@@ -20,8 +20,8 @@ export const SITE_METADATA = {
   // instagram: 'https://www.instagram.com',
   locale: 'en-US',
   stickyNav: true,
-  goodreadsBookshelfUrl: 'https://www.goodreads.com/review/list/179720035-leo-huynh',
-  goodreadsFeedUrl: 'https://www.goodreads.com/review/list_rss/179720035',
+  goodreadsBookshelfUrl: 'https://www.goodreads.com/user/show/188425083-xiaohui-cai',
+  goodreadsFeedUrl: 'https://www.goodreads.com/review/list_rss/188425083',
   imdbRatingsList: '  https://www.imdb.com/user/ur194975855/ratings/?view=grid',
   analytics: {
     umamiAnalytics: {
