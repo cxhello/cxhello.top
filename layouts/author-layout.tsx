@@ -189,6 +189,12 @@ export function AuthorLayout({ children }: Props) {
               </p>
               <SocialAccounts />
             </div>
+            <div>
+              <h2>Friendly Link</h2>
+              <p>
+                <a href="https://yuluo-yx.github.io" target="_blank">牧生</a>
+              </p>
+            </div>
             {/* <div>
               <h2>Support</h2>
               <p>If you appreciate my work, consider supporting me:</p>
