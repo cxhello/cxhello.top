@@ -1,0 +1,65 @@
+---
+heading: 'Use WonderShaper for network speed limit'
+title: 'Use WonderShaper for network speed limit'
+date: '2023-05-30'
+icon: 'Bash'
+draft: false
+summary: 'How to use WonderShaper for network speed limit.'
+tags: [network]
+---
+
+## 概述
+WonderShaper是用来对特定网卡进行快速限速的工具，它是对linux的tc命令进行封装后的shell脚本，所以使用成本比tc更低，可以配合测速工具speedtest一起使用。
+
+## 安装
+
+```bash
+# 限速工具
+git clone https://github.com/magnific0/wondershaper.git
+
+# 测速工具
+yum install speedtest-cli
+
+# 配置环境变量：
+vim /etc/profile
+
+# 在文件末尾添加
+export PATH=$PATH:/root/wondershaper
+
+# 退出保存后，执行
+source /etc/profile
+```
+
+## 限速
+
+```bash
+# 查看网卡
+ip addr
+#单位为Kbps -d为下行速度，-u为上传速度，ens160为网卡名称
+wondershaper -a ens160 -d 1024 -u 512  
+```
+
+## 取消限速
+```bash
+# ens160为网卡名称
+wondershaper -c -a ens160
+```
+
+## 测速
+
+```bash
+# 执行命令测试上传下载速度
+speedtest-cli
+
+# ------------------------------------
+# 执行结果
+Retrieving speedtest.net configuration...
+Testing from China Unicom (103.43.187.218)...
+Retrieving speedtest.net server list...
+Selecting best server based on ping...
+Hosted by China Mobile Henan 5G (Zhengzhou) [9.32 km]: 18.939 ms
+Testing download speed................................................................................
+Download: 1.50 Mbit/s
+Testing upload speed......................................................................................................
+Upload: 2.20 Mbit/s
+```
