@@ -1,0 +1,48 @@
+---
+heading: 'CPU instruction set check'
+title: 'CPU instruction set che'
+date: '2024-01-10'
+icon: 'Bash'
+draft: false
+summary: 'How to use Linux scripts to detect CPU instruction sets.'
+tags: [Linux]
+---
+
+```bash
+#!/bin/bash
+
+# 2pc指令集
+two_pc="sse2 sse4.1 avx avx2"
+
+# 3pc指令集
+three_pc="aes sse2 sse mmx"
+
+# psi指令集
+psi="aes sse2 sse4.1 pclmul"
+
+check_instruction() {
+    missing_instr=""
+    for instr in $1; do
+        grep -q "^flags.*\b$instr\b" /proc/cpuinfo
+        if [[ $? -ne 0 ]]; then
+            # 添加缺少的指令集到列表
+            missing_instr+="$instr "
+        fi
+    done
+
+    if [[ -n $missing_instr ]]; then
+        echo "Missing instructions: $missing_instr"
+    else
+        echo "All instructions present."
+    fi
+}
+
+echo "Checking 2pc instructions..."
+check_instruction "$two_pc"
+
+echo "Checking 3pc instructions..."
+check_instruction "$three_pc"
+
+echo "Checking psi instructions..."
+check_instruction "$psi"
+```
