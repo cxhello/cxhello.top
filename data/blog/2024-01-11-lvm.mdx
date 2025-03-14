@@ -37,7 +37,7 @@ LVM 是 Linux 系统中用于管理磁盘驱动器和类似存储设备的一种
 ### 实际需求
 
 需求说明：平台部署至客户服务器，目前服务器磁盘目前为500GB，平台运行占用磁盘空间无法确定大小，所以先将其中一块硬盘挂载到 /data 目录下，后期如果不够用再将其它硬盘扩容到 /data 目录下，这可以通过使用 LVM 实现，LVM 允许你以后方便地扩展存储空间。下面是详细的步骤：
-![](../../assets/images/lvm-2.png)
+![](/static/images/lvm-2.png)
 
 #### 挂载 /dev/vdb 到 /data
 
@@ -92,7 +92,7 @@ sudo mount /dev/data_vg/data_lv /data
 /dev/data_vg/data_lv /data ext4 defaults 0 2
 ```
 
-![](../../assets/images/lvm-1.png)
+![](/static/images/lvm-1.png)
 
 #### 将来扩展 /data 目录
 
