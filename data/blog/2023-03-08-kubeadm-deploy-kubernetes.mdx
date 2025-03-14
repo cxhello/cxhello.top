@@ -156,13 +156,13 @@ kubectl get node
 kubeadm join 192.168.72.5:6443 --token ywtnex.9mb4fmopgte85d9a \
 	--discovery-token-ca-cert-hash sha256:b531439b43991d4ed4da6d64354615936e21c4b3986e54d2305995537558619c
 ```
-![image.png]('/static/images/1678181516641-ca4fcf07-7f26-4d4e-8d69-b4b096cee756.png)
+![image.png](/static/images/1678181516641-ca4fcf07-7f26-4d4e-8d69-b4b096cee756.png)
 ## 8.测试
 ```bash
 kubectl run ngx --image=nginx:alpine
 kubectl get pod -o wide
 ```
-![image.png]('/static/images/1678182280283-4274a510-3613-4df5-ae70-4ce9c0cc0c60.png)
+![image.png](/static/images/1678182280283-4274a510-3613-4df5-ae70-4ce9c0cc0c60.png)
 ## 9.k8s-worker-node1节点使用kubectl
 ```bash
 # k8s-worker-node1执行
