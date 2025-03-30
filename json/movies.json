@@ -11,7 +11,7 @@
         "runtime": "142",
         "year": "2018",
         "genres": "动作片, 剧情片, 惊悚片, 战争片",
-        "num_votes": "8267",
+        "num_votes": "8279",
         "release_date": "2018-02-16",
         "directors": "Dante Lam",
         "actors": "Yi Zhang, Johnny Huang, Hai-Qing",
@@ -33,393 +33,6 @@
         ]
     },
     {
-        "const": "tt0373074",
-        "your_rating": "9",
-        "date_rated": "2025-03-08",
-        "title": "Kung Fu Hustle",
-        "original_title": "Kung Fu Hustle",
-        "url": "https://www.imdb.com/title/tt0373074",
-        "title_type": "Movie",
-        "imdb_rating": "7.7",
-        "runtime": "99",
-        "year": "2004",
-        "genres": "动作片, 喜剧片, 奇幻片",
-        "num_votes": "156043",
-        "release_date": "2004-12-23",
-        "directors": "Stephen Chow",
-        "actors": "Stephen Chow, Wah Yuen, Qiu Yuen",
-        "plot": "Set in Canton, China in the 1940s, the story revolves in a town ruled by the Axe Gang, Sing who desperately wants to become a member. He stumbles into a slum ruled by eccentric landlords who turns out to be the greatest kung-fu masters in disguise. Sing's actions eventually cause the Axe Gang and the slumlords to engage in an explosive kung-fu battle. Only one side will win and only one hero will emerge as the greatest kung-fu master of all.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BNGU2OWVlM2ItZGZlOC00Yzk2LWE1NzEtMDYwMzE4YTE5MzQ2XkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Mandarin, Cantonese",
-        "country": "Hong Kong, China, United States",
-        "awards": "Nominated for 1 BAFTA Award25 wins & 47 nominations total",
-        "box_office": "$17,108,591",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "7.7/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "91%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "78/100"
-            }
-        ]
-    },
-    {
-        "const": "tt0816692",
-        "your_rating": "10",
-        "date_rated": "2025-03-08",
-        "title": "Interstellar",
-        "original_title": "Interstellar",
-        "url": "https://www.imdb.com/title/tt0816692",
-        "title_type": "Movie",
-        "imdb_rating": "8.7",
-        "runtime": "169",
-        "year": "2014",
-        "genres": "科幻片, 惊险片, 剧情片",
-        "num_votes": "2309650",
-        "release_date": "2014-11-12",
-        "directors": "Christopher Nolan",
-        "actors": "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
-        "plot": "Earth's future has been riddled by disasters, famines, and droughts. There is only one way to ensure mankind's survival: Interstellar travel. A newly discovered wormhole in the far reaches of our solar system allows a team of astronauts to go where no man has gone before, a planet that may have the right environment to sustain human life.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "English",
-        "country": "United States, United Kingdom, Canada",
-        "awards": "Won 1 Oscar. 44 wins & 148 nominations total",
-        "box_office": "$203,227,580",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.7/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "73%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "74/100"
-            }
-        ]
-    },
-    {
-        "const": "tt11210032",
-        "your_rating": "8",
-        "date_rated": "2025-03-08",
-        "title": "Wu sha",
-        "original_title": "Wu sha",
-        "url": "https://www.imdb.com/title/tt11210032",
-        "title_type": "Movie",
-        "imdb_rating": "6.8",
-        "runtime": "112",
-        "year": "2019",
-        "genres": "剧情片, 犯罪片, 惊悚片",
-        "num_votes": "2053",
-        "release_date": "2019-12-13",
-        "directors": "Sam Quah",
-        "actors": "Yang Xiao, Zhuo Tan, Joan Chen",
-        "plot": "Li and his wife A Yu run a small business in Thailand and enjoy a happy home life with their two daughters. When their eldest daughter is violently assaulted, blackmailed and left traumatised by another student, her parents intervene, leading to a dead body which needs to be hidden, and every trace of the boy buried to cover up the accident.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BZTgxZWVmNzMtMjYwMC00NzNlLTk2YTctNThiNDE3YjM0OGFkXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Mandarin, Thai",
-        "country": "China",
-        "awards": "7 wins & 39 nominations",
-        "box_office": "N/A",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "6.8/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "100%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "73/100"
-            }
-        ]
-    },
-    {
-        "const": "tt30829309",
-        "your_rating": "8",
-        "date_rated": "2025-03-08",
-        "title": "Fei chi ren sheng 2",
-        "original_title": "Fei chi ren sheng 2",
-        "url": "https://www.imdb.com/title/tt30829309",
-        "title_type": "Movie",
-        "imdb_rating": "7.0",
-        "runtime": "121",
-        "year": "2024",
-        "genres": "剧情片, 运动片, 喜剧片",
-        "num_votes": "1232",
-        "release_date": "2024-02-10",
-        "directors": "Han Han",
-        "actors": "Teng Shen, Chengcheng Fan, Zheng Yin",
-        "plot": "A former rally driving champion, now down on his luck, finds new partners to re-enter a famed rally race.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMDVjODUzNDYtYjU1ZC00MDZlLWJhNWItZjAyZDMwZTUzNGEyXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Chinese, English, Shanghainese",
-        "country": "China",
-        "awards": "7 wins & 8 nominations total",
-        "box_office": "N/A",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "7.0/10"
-            }
-        ]
-    },
-    {
-        "const": "tt7298400",
-        "your_rating": "9",
-        "date_rated": "2025-03-08",
-        "title": "Jiang hu er nü",
-        "original_title": "Jiang hu er nü",
-        "url": "https://www.imdb.com/title/tt7298400",
-        "title_type": "Movie",
-        "imdb_rating": "7.0",
-        "runtime": "136",
-        "year": "2018",
-        "genres": "剧情片, 爱情片, 犯罪片",
-        "num_votes": "11049",
-        "release_date": "2018-09-21",
-        "directors": "Jia Zhang-ke",
-        "actors": "Tao Zhao, Fan Liao, Zheng Xu",
-        "plot": "Opening in 2001 in Datong an former coal mining town, Bin was a mob gangster of Jianghu when the leader was dethroned he takes it up. Qiao loves Bin very much and one day to save Bin from henchmen she uses his pistol and fire it fakely. she gets arrested and prisoned for 5 years and never been visited by Bin. When she is released she reaches Bin who has no interest for Qiao and is in love with other girl. 16 years later She gets a Call from Bin who is in need of a moral support",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMGI0NTZlYmEtYWVkOC00ZTA5LThiMTQtZWU4ZWRmNTNkODgxXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Chinese, Mandarin",
-        "country": "China, France, Japan",
-        "awards": "25 wins & 56 nominations total",
-        "box_office": "$422,814",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "7.0/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "99%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "85/100"
-            }
-        ]
-    },
-    {
-        "const": "tt1533117",
-        "your_rating": "10",
-        "date_rated": "2025-03-08",
-        "title": "Rang zi dan fei",
-        "original_title": "Rang zi dan fei",
-        "url": "https://www.imdb.com/title/tt1533117",
-        "title_type": "Movie",
-        "imdb_rating": "7.3",
-        "runtime": "132",
-        "year": "2010",
-        "genres": "动作片, 喜剧片, 西部片, 剧情片",
-        "num_votes": "13767",
-        "release_date": "2010-12-16",
-        "directors": "Wen Jiang",
-        "actors": "Chow Yun-Fat, Wen Jiang, You Ge",
-        "plot": "Set in China during the warring 1920s, notorious bandit chief Zhang descends upon a remote provincial town posing as its new mayor, an identity that he had hijacked from Old Tang, himself a small-time imposter. Hell-bent on making a fast buck, Zhang soon meets his match in the tyrannical local gentry Huang as a deadly battle of wit and brutality ensues.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMjI2NDQ5Mzg0NF5BMl5BanBnXkFtZTgwMDM3NjI2MDE@._V1_SX300.jpg",
-        "language": "Mandarin, Chinese",
-        "country": "China, Hong Kong",
-        "awards": "30 wins & 38 nominations total",
-        "box_office": "$63,012",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "7.3/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "75%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "66/100"
-            }
-        ]
-    },
-    {
-        "const": "tt0111161",
-        "your_rating": "10",
-        "date_rated": "2025-03-08",
-        "title": "The Shawshank Redemption",
-        "original_title": "The Shawshank Redemption",
-        "url": "https://www.imdb.com/title/tt0111161",
-        "title_type": "Movie",
-        "imdb_rating": "9.3",
-        "runtime": "142",
-        "year": "1994",
-        "genres": "剧情片",
-        "num_votes": "3018787",
-        "release_date": "1994-10-14",
-        "directors": "Frank Darabont",
-        "actors": "Tim Robbins, Morgan Freeman, Bob Gunton",
-        "plot": "Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man's unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "English",
-        "country": "United States",
-        "awards": "Nominated for 7 Oscars. 21 wins & 42 nominations total",
-        "box_office": "$28,767,189",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "9.3/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "89%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "82/100"
-            }
-        ]
-    },
-    {
-        "const": "tt2948372",
-        "your_rating": "9",
-        "date_rated": "2025-03-08",
-        "title": "Soul",
-        "original_title": "Soul",
-        "url": "https://www.imdb.com/title/tt2948372",
-        "title_type": "Movie",
-        "imdb_rating": "8.0",
-        "runtime": "100",
-        "year": "2020",
-        "genres": "动画片, 家庭片, 惊险片, 奇幻片, 音乐剧, 喜剧片, 剧情片",
-        "num_votes": "403875",
-        "release_date": "2020-12-25",
-        "directors": "Pete Docter,Kemp Powers",
-        "actors": "Jamie Foxx, Tina Fey, Graham Norton",
-        "plot": "Joe is a middle-school band teacher whose life hasn't quite gone the way he expected. His true passion is jazz and he's good. But when he travels to another realm to help someone find their passion, he soon discovers what it means to have soul.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BZTZkYjA5MDEtMjY1ZC00ODk5LThjOTUtZDYxODEzYWNjMTU2XkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "English, Korean, Inuktitut",
-        "country": "United States",
-        "awards": "Won 2 Oscars. 126 wins & 94 nominations total",
-        "box_office": "$946,154",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.0/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "95%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "83/100"
-            }
-        ]
-    },
-    {
-        "const": "tt9597190",
-        "your_rating": "9",
-        "date_rated": "2025-03-08",
-        "title": "Fei chi ren sheng",
-        "original_title": "Fei chi ren sheng",
-        "url": "https://www.imdb.com/title/tt9597190",
-        "title_type": "Movie",
-        "imdb_rating": "6.3",
-        "runtime": "98",
-        "year": "2019",
-        "genres": "喜剧片, 运动片",
-        "num_votes": "2585",
-        "release_date": "2019-02-05",
-        "directors": "Han Han",
-        "actors": "Teng Shen, Johnny Huang, Zheng Yin",
-        "plot": "Five years ago, veteran driver Zhang Chi was suspended for illegal racing. When he returned to the game, he found himself starting all over again. After some difficulties, he and his car appeared again on the Bayinbrooke circuit. He's willing to risk everything, including his life, in order to win.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMzY0NDBlY2MtNGQwMS00NjVhLTg3NTUtYTgyZjE3ZDgwODE5XkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Mandarin, Chinese, Cantonese",
-        "country": "China",
-        "awards": "2 wins & 12 nominations total",
-        "box_office": "N/A",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "6.3/10"
-            }
-        ]
-    },
-    {
-        "const": "tt0338564",
-        "your_rating": "10",
-        "date_rated": "2025-03-08",
-        "title": "Mou gaan dou",
-        "original_title": "Mou gaan dou",
-        "url": "https://www.imdb.com/title/tt0338564",
-        "title_type": "Movie",
-        "imdb_rating": "8.0",
-        "runtime": "101",
-        "year": "2002",
-        "genres": "惊悚片, 悬疑片, 剧情片, 犯罪片",
-        "num_votes": "134360",
-        "release_date": "2003-09-05",
-        "directors": "Wai Keung Lau,Alan Mak",
-        "actors": "Andy Lau, Tony Leung Chiu-wai, Anthony Chau-Sang Wong",
-        "plot": "Chan Wing Yan, a young police officer, has been sent undercover as a mole in the local mafia. Lau Kin Ming, a young mafia member, infiltrates the police force. Years later, their older counterparts, Chen Wing Yan and Inspector Lau Kin Ming, respectively, race against time to expose the mole within their midst.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BNWZjNDdiOWUtZDI0Ni00YmY1LTk4MmYtM2Y0YTY3ZTc3OWFiXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Cantonese, English, Thai",
-        "country": "Hong Kong",
-        "awards": "24 wins & 26 nominations total",
-        "box_office": "$169,659",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.0/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "94%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "75/100"
-            }
-        ]
-    },
-    {
-        "const": "tt5074352",
-        "your_rating": "8",
-        "date_rated": "2025-03-08",
-        "title": "Dangal",
-        "original_title": "Dangal",
-        "url": "https://www.imdb.com/title/tt5074352",
-        "title_type": "Movie",
-        "imdb_rating": "8.3",
-        "runtime": "161",
-        "year": "2016",
-        "genres": "传记片, 运动片, 剧情片, 动作片",
-        "num_votes": "223065",
-        "release_date": "2017-05-05",
-        "directors": "Nitesh Tiwari",
-        "actors": "Aamir Khan, Sakshi Tanwar, Fatima Sana Shaikh",
-        "plot": "Biopic of Mahavir Singh Phogat, who taught wrestling to his daughters Babita Kumari and Geeta Phogat. Geeta Phogat was India's first female wrestler to win at the 2010 Commonwealth Games, where she won the gold medal (55 kg) while her sister Babita Kumari won the silver (51 kg).",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@._V1_SX300.jpg",
-        "language": "Hindi, English",
-        "country": "India, United States",
-        "awards": "41 wins & 38 nominations total",
-        "box_office": "$12,391,761",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.3/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "89%"
-            }
-        ]
-    },
-    {
         "const": "tt1187043",
         "your_rating": "9",
         "date_rated": "2025-03-08",
@@ -431,7 +44,7 @@
         "runtime": "170",
         "year": "2009",
         "genres": "剧情片, 喜剧片",
-        "num_votes": "454413",
+        "num_votes": "454901",
         "release_date": "2011-12-08",
         "directors": "Rajkumar Hirani",
         "actors": "Aamir Khan, Madhavan, Mona Singh",
@@ -457,27 +70,27 @@
         ]
     },
     {
-        "const": "tt6751668",
-        "your_rating": "9",
+        "const": "tt1675434",
+        "your_rating": "10",
         "date_rated": "2025-03-08",
-        "title": "Gisaengchung",
-        "original_title": "Gisaengchung",
-        "url": "https://www.imdb.com/title/tt6751668",
+        "title": "Intouchables",
+        "original_title": "Intouchables",
+        "url": "https://www.imdb.com/title/tt1675434",
         "title_type": "Movie",
         "imdb_rating": "8.5",
-        "runtime": "132",
-        "year": "2019",
-        "genres": "剧情片, 惊悚片",
-        "num_votes": "1045400",
-        "release_date": "2019-05-30",
-        "directors": "Bong Joon Ho",
-        "actors": "Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",
-        "plot": "The Kims - mother and father Chung-sook and Ki-taek, and their young adult offspring, son Ki-woo and daughter Ki-jung - are a poor family living in a shabby and cramped half basement apartment in a busy lower working class commercial district of Seoul. Without even knowing it, they, especially Mr. and Mrs. Kim, literally smell of poverty. Often as a collective, they perpetrate minor scams to get by, and even when they have jobs, they do the minimum work required. Ki-woo is the one who has dreams of getting out of poverty by one day going to university. Despite not having that university education, Ki-woo is chosen by his university student friend Min, who is leaving to go to school, to take over his tutoring job to Park Da-hye, who Min plans to date once he returns to Seoul and she herself is in university. The Parks are a wealthy family who for four years have lived in their modernistic house designed by and the former residence of famed architect Namgoong. While Mr. and Mrs. Park are all about status, Mrs. Park has a flighty, simpleminded mentality and temperament, which Min tells Ki-woo to feel comfortable in lying to her about his education to get the job. In getting the job, Ki-woo further learns that Mrs. Park is looking for an art therapist for the Parks' adolescent son, Da-song, Ki-woo quickly recommending his professional art therapist friend \"Jessica\", really Ki-jung who he knows can pull off the scam in being the easiest liar of the four Kims. In Ki-woo also falling for Da-hye, he begins to envision himself in that house, and thus the Kims as a collective start a plan for all the Kims, like Ki-jung using assumed names, to replace existing servants in the Parks' employ in orchestrating reasons for them to be fired. The most difficult to get rid of may be Moon-gwang, the Parks' housekeeper who literally came with the house - she Namgoong's housekeeper when he lived there - and thus knows all the little nooks and crannies of it better than the Parks themselves. The question then becomes how far the Kims can take this scam in their quest to become their version of the Parks.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BYjk1Y2U4MjQtY2ZiNS00OWQyLWI3MmYtZWUwNmRjYWRiNWNhXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Korean, English",
-        "country": "South Korea",
-        "awards": "Won 4 Oscars. 316 wins & 266 nominations total",
-        "box_office": "$53,369,749",
+        "runtime": "112",
+        "year": "2011",
+        "genres": "喜剧片, 剧情片",
+        "num_votes": "971253",
+        "release_date": "2011-11-02",
+        "directors": "Olivier Nakache,Éric Toledano",
+        "actors": "François Cluzet, Omar Sy, Anne Le Ny",
+        "plot": "In Paris, the aristocratic and intellectual Philippe is a quadriplegic millionaire who is interviewing candidates for the position of his carer, with his red-haired secretary Magalie. Out of the blue, Driss cuts the line of candidates and brings a document from the Social Security and asks Phillipe to sign it to prove that he is seeking a job position so he can receive his unemployment benefit. Philippe challenges Driss, offering him a trial period of one month to gain experience helping him. Then Driss can decide whether he would like to stay with him or not. Driss accepts the challenge and moves to the mansion, changing the boring life of Phillipe and his employees.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMTYxNDA3MDQwNl5BMl5BanBnXkFtZTcwNTU4Mzc1Nw@@._V1_SX300.jpg",
+        "language": "French, English",
+        "country": "France",
+        "awards": "Nominated for 1 BAFTA Award38 wins & 40 nominations total",
+        "box_office": "$10,198,820",
         "ratings": [
             {
                 "source": "Internet Movie Database",
@@ -485,40 +98,106 @@
             },
             {
                 "source": "Rotten Tomatoes",
-                "value": "99%"
+                "value": "76%"
             },
             {
                 "source": "Metacritic",
-                "value": "97/100"
+                "value": "57/100"
             }
         ]
     },
     {
-        "const": "tt0120382",
-        "your_rating": "8",
+        "const": "tt8267604",
+        "your_rating": "9",
         "date_rated": "2025-03-08",
-        "title": "The Truman Show",
-        "original_title": "The Truman Show",
-        "url": "https://www.imdb.com/title/tt0120382",
+        "title": "Capharnaüm",
+        "original_title": "Capharnaüm",
+        "url": "https://www.imdb.com/title/tt8267604",
         "title_type": "Movie",
-        "imdb_rating": "8.2",
-        "runtime": "103",
-        "year": "1998",
-        "genres": "喜剧片, 剧情片",
-        "num_votes": "1265379",
-        "release_date": "1998-06-05",
-        "directors": "Peter Weir",
-        "actors": "Jim Carrey, Ed Harris, Laura Linney",
-        "plot": "Since birth, a big fat lie defines the well-organised but humdrum life of the kind-hearted insurance salesman and ambitious explorer, Truman Burbank. Utterly unaware of the thousands of cleverly hidden cameras watching his every move, for nearly three decades, Truman's entire existence pivots around the will and the wild imagination of the ruthlessly manipulative television producer, Christof--the all-powerful TV-God of an extreme 24/7 reality show: The Truman Show. As a result, Truman's picturesque neighbourhood with the manicured lawns and the uncannily perfect residents is nothing but an elaborate state-of-the-art set, and the only truth he knows is what the worldwide television network and its deep financial interests dictate. Do lab rats know they are forever imprisoned?",
-        "poster": "https://m.media-amazon.com/images/M/MV5BNzA3ZjZlNzYtMTdjMy00NjMzLTk5ZGYtMTkyYzNiOGM1YmM3XkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "English",
-        "country": "United States",
-        "awards": "Nominated for 3 Oscars. 41 wins & 69 nominations total",
-        "box_office": "$125,618,201",
+        "imdb_rating": "8.4",
+        "runtime": "126",
+        "year": "2018",
+        "genres": "剧情片",
+        "num_votes": "114661",
+        "release_date": "2019-04-29",
+        "directors": "Nadine Labaki",
+        "actors": "Zain Al Rafeea, Yordanos Shiferaw, Boluwatife Treasure Bankole",
+        "plot": "Capernaüm (\"Chaos\") tells the story of Zain (Zain al-Rafeea), a Lebanese boy who sues his parents for the \"crime\" of giving him life. The film follows Zain as he journeys from gutsy, streetwise child to hardened 12-year-old \"adult\" fleeing his negligent parents, surviving through his wits on the streets, where he meets Ethiopian migrant worker Rahil, who provides him with shelter and food, as Zain takes care of her baby son Yonas in return. Zain later gets jailed for committing a violent crime, and finally seeks justice in a courtroom.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BYzEyMzQ1OTktZTljZi00OWQzLWE2ZmUtZjQyNzBjYjE1NTc0XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Arabic, Amharic",
+        "country": "Lebanon, United States, France, Cyprus, Qatar, United Kingdom",
+        "awards": "Nominated for 1 Oscar. 37 wins & 55 nominations total",
+        "box_office": "$1,661,096",
         "ratings": [
             {
                 "source": "Internet Movie Database",
-                "value": "8.2/10"
+                "value": "8.4/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "90%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "75/100"
+            }
+        ]
+    },
+    {
+        "const": "tt6628322",
+        "your_rating": "4",
+        "date_rated": "2025-03-08",
+        "title": "Shang hai bao lei",
+        "original_title": "Shang hai bao lei",
+        "url": "https://www.imdb.com/title/tt6628322",
+        "title_type": "Movie",
+        "imdb_rating": "4.4",
+        "runtime": "107",
+        "year": "2019",
+        "genres": "科幻片",
+        "num_votes": "2839",
+        "release_date": "2019-08-09",
+        "directors": "Hua-Tao Teng",
+        "actors": "Han Lu, Shu Qi, Liang Shi",
+        "plot": "Set in the future, the city of Shanghai, China battles to defend itself against an ongoing attack by an alien force that has laid siege to numerous cities around the globe in its quest to harvest a hidden energy only found on earth.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BYjk3MDQ1OWEtYjVmMS00MDE0LWEyZTQtZTliNzkzNjcxZTQwXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Mandarin, English",
+        "country": "China",
+        "awards": "1 win & 1 nomination total",
+        "box_office": "N/A",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "4.4/10"
+            }
+        ]
+    },
+    {
+        "const": "tt0338564",
+        "your_rating": "10",
+        "date_rated": "2025-03-08",
+        "title": "Mou gaan dou",
+        "original_title": "Mou gaan dou",
+        "url": "https://www.imdb.com/title/tt0338564",
+        "title_type": "Movie",
+        "imdb_rating": "8.0",
+        "runtime": "101",
+        "year": "2002",
+        "genres": "惊悚片, 悬疑片, 剧情片, 犯罪片",
+        "num_votes": "134399",
+        "release_date": "2003-09-05",
+        "directors": "Wai Keung Lau,Alan Mak",
+        "actors": "Andy Lau, Tony Leung Chiu-wai, Anthony Chau-Sang Wong",
+        "plot": "Chan Wing Yan, a young police officer, has been sent undercover as a mole in the local mafia. Lau Kin Ming, a young mafia member, infiltrates the police force. Years later, their older counterparts, Chen Wing Yan and Inspector Lau Kin Ming, respectively, race against time to expose the mole within their midst.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BNWZjNDdiOWUtZDI0Ni00YmY1LTk4MmYtM2Y0YTY3ZTc3OWFiXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Cantonese, English, Thai",
+        "country": "Hong Kong",
+        "awards": "24 wins & 26 nominations total",
+        "box_office": "$169,659",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.0/10"
             },
             {
                 "source": "Rotten Tomatoes",
@@ -526,44 +205,7 @@
             },
             {
                 "source": "Metacritic",
-                "value": "90/100"
-            }
-        ]
-    },
-    {
-        "const": "tt0109830",
-        "your_rating": "10",
-        "date_rated": "2025-03-08",
-        "title": "Forrest Gump",
-        "original_title": "Forrest Gump",
-        "url": "https://www.imdb.com/title/tt0109830",
-        "title_type": "Movie",
-        "imdb_rating": "8.8",
-        "runtime": "142",
-        "year": "1994",
-        "genres": "爱情片, 剧情片",
-        "num_votes": "2360030",
-        "release_date": "1994-07-06",
-        "directors": "Robert Zemeckis",
-        "actors": "Tom Hanks, Robin Wright, Gary Sinise",
-        "plot": "Forrest Gump is a simple man with a low I.Q. but good intentions. He is running through childhood with his best and only friend Jenny. His 'mama' teaches him the ways of life and leaves him to choose his destiny. Forrest joins the army for service in Vietnam, finding new friends called Dan and Bubba, he wins medals, creates a famous shrimp fishing fleet, inspires people to jog, starts a ping-pong craze, creates the smiley, writes bumper stickers and songs, donates to people and meets the president several times. However, this is all irrelevant to Forrest who can only think of his childhood sweetheart Jenny Curran, who has messed up her life. Although in the end all he wants to prove is that anyone can love anyone.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BNDYwNzVjMTItZmU5YS00YjQ5LTljYjgtMjY2NDVmYWMyNWFmXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "English",
-        "country": "United States",
-        "awards": "Won 6 Oscars. 51 wins & 74 nominations total",
-        "box_office": "$330,455,270",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.8/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "75%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "82/100"
+                "value": "75/100"
             }
         ]
     },
@@ -579,7 +221,7 @@
         "runtime": "114",
         "year": "2013",
         "genres": "剧情片, 奇幻片, 爱情片, 惊险片, 喜剧片",
-        "num_votes": "352836",
+        "num_votes": "353154",
         "release_date": "2013-12-25",
         "directors": "Ben Stiller",
         "actors": "Ben Stiller, Kristen Wiig, Jon Daly",
@@ -605,6 +247,187 @@
         ]
     },
     {
+        "const": "tt0095631",
+        "your_rating": "9",
+        "date_rated": "2025-03-23",
+        "title": "Midnight Run",
+        "original_title": "Midnight Run",
+        "url": "https://www.imdb.com/title/tt0095631",
+        "title_type": "Movie",
+        "imdb_rating": "7.5",
+        "runtime": "126",
+        "year": "1988",
+        "genres": "惊悚片, 犯罪片, 喜剧片, 动作片",
+        "num_votes": "98694",
+        "release_date": "1988-07-20",
+        "directors": "Martin Brest",
+        "actors": "Robert De Niro, Charles Grodin, Yaphet Kotto",
+        "plot": "Bounty hunter Jack Walsh (Robert De Niro) is sent to find and return bail jumper and former Mafia accountant, Jonathan \"The Duke\" Mardukas (Charles Grodin). The FBI has had no success in locating The Duke, so when Jack finds him in next to no time, they are a little embarrassed. In order to collect his $100,000 fee, Jack must take The Duke from New York to Los Angeles. However, the Mafia and the FBI have other ideas, as does Marvin Dorfler (John Ashton), a rival bounty hunter. On their long cross-country trip to LA, the two get to know each other and they build up a strange friendship.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BNmQ2NWU5OWYtOTNiOC00MjA1LWJhOWQtMzYyMDgwMmE5ZDE0XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "English",
+        "country": "United States",
+        "awards": "2 wins & 5 nominations",
+        "box_office": "$38,413,606",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "7.5/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "95%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "78/100"
+            }
+        ]
+    },
+    {
+        "const": "tt5074352",
+        "your_rating": "8",
+        "date_rated": "2025-03-08",
+        "title": "Dangal",
+        "original_title": "Dangal",
+        "url": "https://www.imdb.com/title/tt5074352",
+        "title_type": "Movie",
+        "imdb_rating": "8.3",
+        "runtime": "161",
+        "year": "2016",
+        "genres": "传记片, 运动片, 剧情片, 动作片",
+        "num_votes": "223306",
+        "release_date": "2017-05-05",
+        "directors": "Nitesh Tiwari",
+        "actors": "Aamir Khan, Sakshi Tanwar, Fatima Sana Shaikh",
+        "plot": "Biopic of Mahavir Singh Phogat, who taught wrestling to his daughters Babita Kumari and Geeta Phogat. Geeta Phogat was India's first female wrestler to win at the 2010 Commonwealth Games, where she won the gold medal (55 kg) while her sister Babita Kumari won the silver (51 kg).",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@._V1_SX300.jpg",
+        "language": "Hindi, English",
+        "country": "India, United States",
+        "awards": "41 wins & 38 nominations total",
+        "box_office": "$12,391,761",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.3/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "89%"
+            }
+        ]
+    },
+    {
+        "const": "tt6751668",
+        "your_rating": "9",
+        "date_rated": "2025-03-08",
+        "title": "Gisaengchung",
+        "original_title": "Gisaengchung",
+        "url": "https://www.imdb.com/title/tt6751668",
+        "title_type": "Movie",
+        "imdb_rating": "8.5",
+        "runtime": "132",
+        "year": "2019",
+        "genres": "剧情片, 惊悚片",
+        "num_votes": "1047984",
+        "release_date": "2019-05-30",
+        "directors": "Bong Joon Ho",
+        "actors": "Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",
+        "plot": "The Kims - mother and father Chung-sook and Ki-taek, and their young adult offspring, son Ki-woo and daughter Ki-jung - are a poor family living in a shabby and cramped half basement apartment in a busy lower working class commercial district of Seoul. Without even knowing it, they, especially Mr. and Mrs. Kim, literally smell of poverty. Often as a collective, they perpetrate minor scams to get by, and even when they have jobs, they do the minimum work required. Ki-woo is the one who has dreams of getting out of poverty by one day going to university. Despite not having that university education, Ki-woo is chosen by his university student friend Min, who is leaving to go to school, to take over his tutoring job to Park Da-hye, who Min plans to date once he returns to Seoul and she herself is in university. The Parks are a wealthy family who for four years have lived in their modernistic house designed by and the former residence of famed architect Namgoong. While Mr. and Mrs. Park are all about status, Mrs. Park has a flighty, simpleminded mentality and temperament, which Min tells Ki-woo to feel comfortable in lying to her about his education to get the job. In getting the job, Ki-woo further learns that Mrs. Park is looking for an art therapist for the Parks' adolescent son, Da-song, Ki-woo quickly recommending his professional art therapist friend \"Jessica\", really Ki-jung who he knows can pull off the scam in being the easiest liar of the four Kims. In Ki-woo also falling for Da-hye, he begins to envision himself in that house, and thus the Kims as a collective start a plan for all the Kims, like Ki-jung using assumed names, to replace existing servants in the Parks' employ in orchestrating reasons for them to be fired. The most difficult to get rid of may be Moon-gwang, the Parks' housekeeper who literally came with the house - she Namgoong's housekeeper when he lived there - and thus knows all the little nooks and crannies of it better than the Parks themselves. The question then becomes how far the Kims can take this scam in their quest to become their version of the Parks.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BYjk1Y2U4MjQtY2ZiNS00OWQyLWI3MmYtZWUwNmRjYWRiNWNhXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Korean, English",
+        "country": "South Korea",
+        "awards": "Won 4 Oscars. 316 wins & 266 nominations total",
+        "box_office": "$53,369,749",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.5/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "99%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "97/100"
+            }
+        ]
+    },
+    {
+        "const": "tt0816692",
+        "your_rating": "10",
+        "date_rated": "2025-03-08",
+        "title": "Interstellar",
+        "original_title": "Interstellar",
+        "url": "https://www.imdb.com/title/tt0816692",
+        "title_type": "Movie",
+        "imdb_rating": "8.7",
+        "runtime": "169",
+        "year": "2014",
+        "genres": "科幻片, 惊险片, 剧情片",
+        "num_votes": "2315120",
+        "release_date": "2014-11-12",
+        "directors": "Christopher Nolan",
+        "actors": "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
+        "plot": "Earth's future has been riddled by disasters, famines, and droughts. There is only one way to ensure mankind's survival: Interstellar travel. A newly discovered wormhole in the far reaches of our solar system allows a team of astronauts to go where no man has gone before, a planet that may have the right environment to sustain human life.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "English",
+        "country": "United States, United Kingdom, Canada",
+        "awards": "Won 1 Oscar. 44 wins & 148 nominations total",
+        "box_office": "$203,227,580",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.7/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "73%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "74/100"
+            }
+        ]
+    },
+    {
+        "const": "tt0109830",
+        "your_rating": "10",
+        "date_rated": "2025-03-08",
+        "title": "Forrest Gump",
+        "original_title": "Forrest Gump",
+        "url": "https://www.imdb.com/title/tt0109830",
+        "title_type": "Movie",
+        "imdb_rating": "8.8",
+        "runtime": "142",
+        "year": "1994",
+        "genres": "爱情片, 剧情片",
+        "num_votes": "2362356",
+        "release_date": "1994-07-06",
+        "directors": "Robert Zemeckis",
+        "actors": "Tom Hanks, Robin Wright, Gary Sinise",
+        "plot": "Forrest Gump is a simple man with a low I.Q. but good intentions. He is running through childhood with his best and only friend Jenny. His 'mama' teaches him the ways of life and leaves him to choose his destiny. Forrest joins the army for service in Vietnam, finding new friends called Dan and Bubba, he wins medals, creates a famous shrimp fishing fleet, inspires people to jog, starts a ping-pong craze, creates the smiley, writes bumper stickers and songs, donates to people and meets the president several times. However, this is all irrelevant to Forrest who can only think of his childhood sweetheart Jenny Curran, who has messed up her life. Although in the end all he wants to prove is that anyone can love anyone.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BNDYwNzVjMTItZmU5YS00YjQ5LTljYjgtMjY2NDVmYWMyNWFmXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "English",
+        "country": "United States",
+        "awards": "Won 6 Oscars. 51 wins & 74 nominations total",
+        "box_office": "$330,455,270",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.8/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "75%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "82/100"
+            }
+        ]
+    },
+    {
         "const": "tt4079152",
         "your_rating": "9",
         "date_rated": "2025-03-08",
@@ -616,7 +439,7 @@
         "runtime": "139",
         "year": "2015",
         "genres": "犯罪片, 剧情片",
-        "num_votes": "2188",
+        "num_votes": "2196",
         "release_date": "2015-08-27",
         "directors": "Baoping Cao",
         "actors": "Yihong Duan, Chao Deng, Guo Tao",
@@ -634,6 +457,187 @@
         ]
     },
     {
+        "const": "tt11210032",
+        "your_rating": "8",
+        "date_rated": "2025-03-08",
+        "title": "Wu sha",
+        "original_title": "Wu sha",
+        "url": "https://www.imdb.com/title/tt11210032",
+        "title_type": "Movie",
+        "imdb_rating": "6.8",
+        "runtime": "112",
+        "year": "2019",
+        "genres": "剧情片, 犯罪片, 惊悚片",
+        "num_votes": "2059",
+        "release_date": "2019-12-13",
+        "directors": "Sam Quah",
+        "actors": "Yang Xiao, Zhuo Tan, Joan Chen",
+        "plot": "Li and his wife A Yu run a small business in Thailand and enjoy a happy home life with their two daughters. When their eldest daughter is violently assaulted, blackmailed and left traumatised by another student, her parents intervene, leading to a dead body which needs to be hidden, and every trace of the boy buried to cover up the accident.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BZTgxZWVmNzMtMjYwMC00NzNlLTk2YTctNThiNDE3YjM0OGFkXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Mandarin, Thai",
+        "country": "China",
+        "awards": "7 wins & 39 nominations",
+        "box_office": "N/A",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "6.8/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "100%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "73/100"
+            }
+        ]
+    },
+    {
+        "const": "tt0120382",
+        "your_rating": "8",
+        "date_rated": "2025-03-08",
+        "title": "The Truman Show",
+        "original_title": "The Truman Show",
+        "url": "https://www.imdb.com/title/tt0120382",
+        "title_type": "Movie",
+        "imdb_rating": "8.2",
+        "runtime": "103",
+        "year": "1998",
+        "genres": "喜剧片, 剧情片",
+        "num_votes": "1267074",
+        "release_date": "1998-06-05",
+        "directors": "Peter Weir",
+        "actors": "Jim Carrey, Ed Harris, Laura Linney",
+        "plot": "Since birth, a big fat lie defines the well-organised but humdrum life of the kind-hearted insurance salesman and ambitious explorer, Truman Burbank. Utterly unaware of the thousands of cleverly hidden cameras watching his every move, for nearly three decades, Truman's entire existence pivots around the will and the wild imagination of the ruthlessly manipulative television producer, Christof--the all-powerful TV-God of an extreme 24/7 reality show: The Truman Show. As a result, Truman's picturesque neighbourhood with the manicured lawns and the uncannily perfect residents is nothing but an elaborate state-of-the-art set, and the only truth he knows is what the worldwide television network and its deep financial interests dictate. Do lab rats know they are forever imprisoned?",
+        "poster": "https://m.media-amazon.com/images/M/MV5BNzA3ZjZlNzYtMTdjMy00NjMzLTk5ZGYtMTkyYzNiOGM1YmM3XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "English",
+        "country": "United States",
+        "awards": "Nominated for 3 Oscars. 41 wins & 69 nominations total",
+        "box_office": "$125,618,201",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.2/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "94%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "90/100"
+            }
+        ]
+    },
+    {
+        "const": "tt0373074",
+        "your_rating": "9",
+        "date_rated": "2025-03-08",
+        "title": "Kung Fu Hustle",
+        "original_title": "Kung Fu Hustle",
+        "url": "https://www.imdb.com/title/tt0373074",
+        "title_type": "Movie",
+        "imdb_rating": "7.7",
+        "runtime": "99",
+        "year": "2004",
+        "genres": "动作片, 喜剧片, 奇幻片",
+        "num_votes": "156156",
+        "release_date": "2004-12-23",
+        "directors": "Stephen Chow",
+        "actors": "Stephen Chow, Wah Yuen, Qiu Yuen",
+        "plot": "Set in Canton, China in the 1940s, the story revolves in a town ruled by the Axe Gang, Sing who desperately wants to become a member. He stumbles into a slum ruled by eccentric landlords who turns out to be the greatest kung-fu masters in disguise. Sing's actions eventually cause the Axe Gang and the slumlords to engage in an explosive kung-fu battle. Only one side will win and only one hero will emerge as the greatest kung-fu master of all.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BNGU2OWVlM2ItZGZlOC00Yzk2LWE1NzEtMDYwMzE4YTE5MzQ2XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Mandarin, Cantonese",
+        "country": "Hong Kong, China, United States",
+        "awards": "Nominated for 1 BAFTA Award25 wins & 47 nominations total",
+        "box_office": "$17,108,591",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "7.7/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "91%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "78/100"
+            }
+        ]
+    },
+    {
+        "const": "tt2948372",
+        "your_rating": "9",
+        "date_rated": "2025-03-08",
+        "title": "Soul",
+        "original_title": "Soul",
+        "url": "https://www.imdb.com/title/tt2948372",
+        "title_type": "Movie",
+        "imdb_rating": "8.0",
+        "runtime": "100",
+        "year": "2020",
+        "genres": "动画片, 家庭片, 惊险片, 奇幻片, 音乐剧, 喜剧片, 剧情片",
+        "num_votes": "404451",
+        "release_date": "2020-12-25",
+        "directors": "Pete Docter,Kemp Powers",
+        "actors": "Jamie Foxx, Tina Fey, Graham Norton",
+        "plot": "Joe is a middle-school band teacher whose life hasn't quite gone the way he expected. His true passion is jazz and he's good. But when he travels to another realm to help someone find their passion, he soon discovers what it means to have soul.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BZTZkYjA5MDEtMjY1ZC00ODk5LThjOTUtZDYxODEzYWNjMTU2XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "English, Korean, Inuktitut",
+        "country": "United States",
+        "awards": "Won 2 Oscars. 126 wins & 94 nominations total",
+        "box_office": "$946,154",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.0/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "95%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "83/100"
+            }
+        ]
+    },
+    {
+        "const": "tt3812366",
+        "your_rating": "10",
+        "date_rated": "2025-03-01",
+        "title": "Gukjesijang",
+        "original_title": "Gukjesijang",
+        "url": "https://www.imdb.com/title/tt3812366",
+        "title_type": "Movie",
+        "imdb_rating": "7.8",
+        "runtime": "126",
+        "year": "2014",
+        "genres": "剧情片, 战争片",
+        "num_votes": "6511",
+        "release_date": "2014-12-17",
+        "directors": "JK Youn",
+        "actors": "Hwang Jung-min, Yunjin Kim, Oh Dal-su",
+        "plot": "Amid the chaos of refugees fleeing the Korean War in December 1950, a young boy, Duk-soo, sees his fate change in the blink of an eye when he loses track of his younger sister and he leaves his father behind to find her. Settling in Busan, Duk-soo devotes himself to his remaining family, working all manner of odd jobs to support them in place of his father. His dedication leads him first to the deadly coal mines of Germany, where he meets his first love, Youngja, and then to war-torn Vietnam in this generational epic about one man's personal sacrifices.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BNzU1ODg0NDUwN15BMl5BanBnXkFtZTgwNjY1MDQ1MzE@._V1_SX300.jpg",
+        "language": "Korean, English, German, Vietnamese",
+        "country": "South Korea",
+        "awards": "23 wins & 20 nominations total",
+        "box_office": "$2,300,121",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "7.8/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "75%"
+            }
+        ]
+    },
+    {
         "const": "tt3397884",
         "your_rating": "7",
         "date_rated": "2025-03-15",
@@ -645,7 +649,7 @@
         "runtime": "121",
         "year": "2015",
         "genres": "剧情片, 犯罪片, 悬疑片, 惊悚片, 动作片",
-        "num_votes": "503645",
+        "num_votes": "504453",
         "release_date": "2015-10-02",
         "directors": "Denis Villeneuve",
         "actors": "Emily Blunt, Josh Brolin, Benicio Del Toro",
@@ -682,7 +686,7 @@
         "runtime": "162",
         "year": "2009",
         "genres": "科幻片, 动作片, 惊险片, 奇幻片",
-        "num_votes": "1423927",
+        "num_votes": "1424723",
         "release_date": "2010-01-04",
         "directors": "James Cameron",
         "actors": "Sam Worthington, Zoe Saldaña, Sigourney Weaver",
@@ -708,208 +712,31 @@
         ]
     },
     {
-        "const": "tt8267604",
-        "your_rating": "9",
+        "const": "tt30829309",
+        "your_rating": "8",
         "date_rated": "2025-03-08",
-        "title": "Capharnaüm",
-        "original_title": "Capharnaüm",
-        "url": "https://www.imdb.com/title/tt8267604",
+        "title": "Fei chi ren sheng 2",
+        "original_title": "Fei chi ren sheng 2",
+        "url": "https://www.imdb.com/title/tt30829309",
         "title_type": "Movie",
-        "imdb_rating": "8.4",
-        "runtime": "126",
-        "year": "2018",
-        "genres": "剧情片",
-        "num_votes": "114453",
-        "release_date": "2019-04-29",
-        "directors": "Nadine Labaki",
-        "actors": "Zain Al Rafeea, Yordanos Shiferaw, Boluwatife Treasure Bankole",
-        "plot": "Capernaüm (\"Chaos\") tells the story of Zain (Zain al-Rafeea), a Lebanese boy who sues his parents for the \"crime\" of giving him life. The film follows Zain as he journeys from gutsy, streetwise child to hardened 12-year-old \"adult\" fleeing his negligent parents, surviving through his wits on the streets, where he meets Ethiopian migrant worker Rahil, who provides him with shelter and food, as Zain takes care of her baby son Yonas in return. Zain later gets jailed for committing a violent crime, and finally seeks justice in a courtroom.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BYzEyMzQ1OTktZTljZi00OWQzLWE2ZmUtZjQyNzBjYjE1NTc0XkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Arabic, Amharic",
-        "country": "Lebanon, United States, France, Cyprus, Qatar, United Kingdom",
-        "awards": "Nominated for 1 Oscar. 37 wins & 55 nominations total",
-        "box_office": "$1,661,096",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.4/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "90%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "75/100"
-            }
-        ]
-    },
-    {
-        "const": "tt0454921",
-        "your_rating": "10",
-        "date_rated": "2025-03-08",
-        "title": "The Pursuit of Happyness",
-        "original_title": "The Pursuit of Happyness",
-        "url": "https://www.imdb.com/title/tt0454921",
-        "title_type": "Movie",
-        "imdb_rating": "8.0",
-        "runtime": "117",
-        "year": "2006",
-        "genres": "剧情片, 传记片",
-        "num_votes": "586894",
-        "release_date": "2008-01-17",
-        "directors": "Gabriele Muccino",
-        "actors": "Will Smith, Thandiwe Newton, Jaden Smith",
-        "plot": "Based on a true story about a man named Christopher Gardner. Gardner has invested heavily in a device known as a \"bone density scanner\". He feels like he has it made selling these devices. However, they do not sell well as they are marginally better than x-ray at a much higher price. As Gardner works to make ends meet, his wife leaves him and he loses his apartment. Forced to live out in the streets with his son, Gardner continues to sell bone density scanners while concurrently taking on an unpaid internship as a stockbroker, with slim chances for advancement to a paid position. Before he can receive pay, he needs to outshine the competition through 6 months of training, and to sell his devices to stay afloat.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMTQ5NjQ0NDI3NF5BMl5BanBnXkFtZTcwNDI0MjEzMw@@._V1_SX300.jpg",
-        "language": "English, Cantonese",
-        "country": "United States",
-        "awards": "Nominated for 1 Oscar. 12 wins & 26 nominations total",
-        "box_office": "$163,566,459",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.0/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "67%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "64/100"
-            }
-        ]
-    },
-    {
-        "const": "tt6628322",
-        "your_rating": "4",
-        "date_rated": "2025-03-08",
-        "title": "Shang hai bao lei",
-        "original_title": "Shang hai bao lei",
-        "url": "https://www.imdb.com/title/tt6628322",
-        "title_type": "Movie",
-        "imdb_rating": "4.4",
-        "runtime": "107",
-        "year": "2019",
-        "genres": "科幻片",
-        "num_votes": "2839",
-        "release_date": "2019-08-09",
-        "directors": "Hua-Tao Teng",
-        "actors": "Han Lu, Shu Qi, Liang Shi",
-        "plot": "Set in the future, the city of Shanghai, China battles to defend itself against an ongoing attack by an alien force that has laid siege to numerous cities around the globe in its quest to harvest a hidden energy only found on earth.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BYjk3MDQ1OWEtYjVmMS00MDE0LWEyZTQtZTliNzkzNjcxZTQwXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Mandarin, English",
+        "imdb_rating": "7.0",
+        "runtime": "121",
+        "year": "2024",
+        "genres": "剧情片, 运动片, 喜剧片",
+        "num_votes": "1237",
+        "release_date": "2024-02-10",
+        "directors": "Han Han",
+        "actors": "Teng Shen, Chengcheng Fan, Zheng Yin",
+        "plot": "A former rally driving champion, now down on his luck, finds new partners to re-enter a famed rally race.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMDVjODUzNDYtYjU1ZC00MDZlLWJhNWItZjAyZDMwZTUzNGEyXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Chinese, English, Shanghainese",
         "country": "China",
-        "awards": "1 win & 1 nomination total",
+        "awards": "7 wins & 8 nominations total",
         "box_office": "N/A",
         "ratings": [
             {
                 "source": "Internet Movie Database",
-                "value": "4.4/10"
-            }
-        ]
-    },
-    {
-        "const": "tt1675434",
-        "your_rating": "10",
-        "date_rated": "2025-03-08",
-        "title": "Intouchables",
-        "original_title": "Intouchables",
-        "url": "https://www.imdb.com/title/tt1675434",
-        "title_type": "Movie",
-        "imdb_rating": "8.5",
-        "runtime": "112",
-        "year": "2011",
-        "genres": "喜剧片, 剧情片",
-        "num_votes": "970380",
-        "release_date": "2011-11-02",
-        "directors": "Olivier Nakache,Éric Toledano",
-        "actors": "François Cluzet, Omar Sy, Anne Le Ny",
-        "plot": "In Paris, the aristocratic and intellectual Philippe is a quadriplegic millionaire who is interviewing candidates for the position of his carer, with his red-haired secretary Magalie. Out of the blue, Driss cuts the line of candidates and brings a document from the Social Security and asks Phillipe to sign it to prove that he is seeking a job position so he can receive his unemployment benefit. Philippe challenges Driss, offering him a trial period of one month to gain experience helping him. Then Driss can decide whether he would like to stay with him or not. Driss accepts the challenge and moves to the mansion, changing the boring life of Phillipe and his employees.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMTYxNDA3MDQwNl5BMl5BanBnXkFtZTcwNTU4Mzc1Nw@@._V1_SX300.jpg",
-        "language": "French, English",
-        "country": "France",
-        "awards": "Nominated for 1 BAFTA Award38 wins & 40 nominations total",
-        "box_office": "$10,198,820",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.5/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "76%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "57/100"
-            }
-        ]
-    },
-    {
-        "const": "tt2380307",
-        "your_rating": "10",
-        "date_rated": "2025-03-01",
-        "title": "Coco",
-        "original_title": "Coco",
-        "url": "https://www.imdb.com/title/tt2380307",
-        "title_type": "Movie",
-        "imdb_rating": "8.4",
-        "runtime": "105",
-        "year": "2017",
-        "genres": "动画片, 家庭片, 惊险片, 奇幻片, 悬疑片, 音乐剧, 剧情片",
-        "num_votes": "640953",
-        "release_date": "2017-11-24",
-        "directors": "Lee Unkrich,Adrian Molina",
-        "actors": "Anthony Gonzalez, Gael García Bernal, Benjamin Bratt",
-        "plot": "Despite his family's baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events. Along the way, he meets charming trickster Hector, and together, they set off on an extraordinary journey to unlock the real story behind Miguel's family history.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMDIyM2E2NTAtMzlhNy00ZGUxLWI1NjgtZDY5MzhiMDc5NGU3XkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "English, Spanish",
-        "country": "United States, Mexico",
-        "awards": "Won 2 Oscars. 112 wins & 42 nominations total",
-        "box_office": "$210,460,015",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "8.4/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "97%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "81/100"
-            }
-        ]
-    },
-    {
-        "const": "tt2036416",
-        "your_rating": "9",
-        "date_rated": "2025-03-08",
-        "title": "Na xie nian, wo men yi qi zhui de nu hai",
-        "original_title": "Na xie nian, wo men yi qi zhui de nu hai",
-        "url": "https://www.imdb.com/title/tt2036416",
-        "title_type": "Movie",
-        "imdb_rating": "7.5",
-        "runtime": "109",
-        "year": "2011",
-        "genres": "剧情片, 爱情片, 喜剧片",
-        "num_votes": "11994",
-        "release_date": "2011-08-19",
-        "directors": "Giddens Ko",
-        "actors": "Kai Ko, Michelle Chen, Shao-Wen Hao",
-        "plot": "A coming-of-age story featuring a group of Taiwanese teenage friends and their experiences as they all fall in love with the same girl: Shen Jiayi, the star student of the school. A story about the complexities and bittersweetness of high-school life set against the backdrop of Taiwanese culture and traditions.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BZWVmZGQ2YTYtNmY2MS00Yzk1LWE4MzgtMTg0YTkwYWJhOTdmXkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "Mandarin",
-        "country": "Taiwan",
-        "awards": "9 wins & 12 nominations total",
-        "box_office": "N/A",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "7.5/10"
+                "value": "7.0/10"
             }
         ]
     },
@@ -925,7 +752,7 @@
         "runtime": "180",
         "year": "2023",
         "genres": "传记片, 剧情片, 历史片",
-        "num_votes": "864279",
+        "num_votes": "867027",
         "release_date": "2023-08-30",
         "directors": "Christopher Nolan",
         "actors": "Cillian Murphy, Emily Blunt, Matt Damon",
@@ -951,76 +778,6 @@
         ]
     },
     {
-        "const": "tt0120812",
-        "your_rating": "9",
-        "date_rated": "2025-03-08",
-        "title": "Rush Hour",
-        "original_title": "Rush Hour",
-        "url": "https://www.imdb.com/title/tt0120812",
-        "title_type": "Movie",
-        "imdb_rating": "7.0",
-        "runtime": "98",
-        "year": "1998",
-        "genres": "惊悚片, 犯罪片, 喜剧片, 动作片",
-        "num_votes": "308951",
-        "release_date": "1998-09-18",
-        "directors": "Brett Ratner",
-        "actors": "Jackie Chan, Chris Tucker, Ken Leung",
-        "plot": "Cultures clash and tempers flares as the two cops named Detective Inspector Lee a Hong Kong Detective and Detective James Carter FBI, a big-mouthed work-alone Los Angeles cop who are from different worlds discovers one thing in common: they can't stand each other. With time running out, they must join forces to catch the criminals and save the eleven-year-old Chinese girl of the Chinese consul named Soo Yung.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BMGZiMzViNmEtNTNlZi00MzFmLTk5NTEtNDE2OTUzNmNlMTY4XkEyXkFqcGc@._V1_SX300.jpg",
-        "language": "English, Cantonese, Mandarin, Japanese, Chinese",
-        "country": "United States",
-        "awards": "6 wins & 9 nominations total",
-        "box_office": "$141,186,864",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "7.0/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "62%"
-            },
-            {
-                "source": "Metacritic",
-                "value": "61/100"
-            }
-        ]
-    },
-    {
-        "const": "tt3812366",
-        "your_rating": "10",
-        "date_rated": "2025-03-01",
-        "title": "Gukjesijang",
-        "original_title": "Gukjesijang",
-        "url": "https://www.imdb.com/title/tt3812366",
-        "title_type": "Movie",
-        "imdb_rating": "7.8",
-        "runtime": "126",
-        "year": "2014",
-        "genres": "剧情片, 战争片",
-        "num_votes": "6497",
-        "release_date": "2014-12-17",
-        "directors": "JK Youn",
-        "actors": "Hwang Jung-min, Yunjin Kim, Oh Dal-su",
-        "plot": "Amid the chaos of refugees fleeing the Korean War in December 1950, a young boy, Duk-soo, sees his fate change in the blink of an eye when he loses track of his younger sister and he leaves his father behind to find her. Settling in Busan, Duk-soo devotes himself to his remaining family, working all manner of odd jobs to support them in place of his father. His dedication leads him first to the deadly coal mines of Germany, where he meets his first love, Youngja, and then to war-torn Vietnam in this generational epic about one man's personal sacrifices.",
-        "poster": "https://m.media-amazon.com/images/M/MV5BNzU1ODg0NDUwN15BMl5BanBnXkFtZTgwNjY1MDQ1MzE@._V1_SX300.jpg",
-        "language": "Korean, English, German, Vietnamese",
-        "country": "South Korea",
-        "awards": "23 wins & 20 nominations total",
-        "box_office": "$2,300,121",
-        "ratings": [
-            {
-                "source": "Internet Movie Database",
-                "value": "7.8/10"
-            },
-            {
-                "source": "Rotten Tomatoes",
-                "value": "75%"
-            }
-        ]
-    },
-    {
         "const": "tt0099785",
         "your_rating": "9",
         "date_rated": "2025-03-08",
@@ -1032,7 +789,7 @@
         "runtime": "103",
         "year": "1990",
         "genres": "喜剧片, 家庭片",
-        "num_votes": "691942",
+        "num_votes": "692469",
         "release_date": "1990-11-16",
         "directors": "Chris Columbus",
         "actors": "Macaulay Culkin, Joe Pesci, Daniel Stern",
@@ -1058,6 +815,43 @@
         ]
     },
     {
+        "const": "tt0111161",
+        "your_rating": "10",
+        "date_rated": "2025-03-08",
+        "title": "The Shawshank Redemption",
+        "original_title": "The Shawshank Redemption",
+        "url": "https://www.imdb.com/title/tt0111161",
+        "title_type": "Movie",
+        "imdb_rating": "9.3",
+        "runtime": "142",
+        "year": "1994",
+        "genres": "剧情片",
+        "num_votes": "3021924",
+        "release_date": "1994-10-14",
+        "directors": "Frank Darabont",
+        "actors": "Tim Robbins, Morgan Freeman, Bob Gunton",
+        "plot": "Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man's unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "English",
+        "country": "United States",
+        "awards": "Nominated for 7 Oscars. 21 wins & 42 nominations total",
+        "box_office": "$28,767,189",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "9.3/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "89%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "82/100"
+            }
+        ]
+    },
+    {
         "const": "tt6966692",
         "your_rating": "8",
         "date_rated": "2025-03-08",
@@ -1069,7 +863,7 @@
         "runtime": "130",
         "year": "2018",
         "genres": "剧情片, 传记片, 喜剧片, 音乐剧",
-        "num_votes": "626422",
+        "num_votes": "627692",
         "release_date": "2019-03-01",
         "directors": "Peter Farrelly",
         "actors": "Viggo Mortensen, Mahershala Ali, Linda Cardellini",
@@ -1091,6 +885,249 @@
             {
                 "source": "Metacritic",
                 "value": "69/100"
+            }
+        ]
+    },
+    {
+        "const": "tt0454921",
+        "your_rating": "10",
+        "date_rated": "2025-03-08",
+        "title": "The Pursuit of Happyness",
+        "original_title": "The Pursuit of Happyness",
+        "url": "https://www.imdb.com/title/tt0454921",
+        "title_type": "Movie",
+        "imdb_rating": "8.0",
+        "runtime": "117",
+        "year": "2006",
+        "genres": "剧情片, 传记片",
+        "num_votes": "587581",
+        "release_date": "2008-01-17",
+        "directors": "Gabriele Muccino",
+        "actors": "Will Smith, Thandiwe Newton, Jaden Smith",
+        "plot": "Based on a true story about a man named Christopher Gardner. Gardner has invested heavily in a device known as a \"bone density scanner\". He feels like he has it made selling these devices. However, they do not sell well as they are marginally better than x-ray at a much higher price. As Gardner works to make ends meet, his wife leaves him and he loses his apartment. Forced to live out in the streets with his son, Gardner continues to sell bone density scanners while concurrently taking on an unpaid internship as a stockbroker, with slim chances for advancement to a paid position. Before he can receive pay, he needs to outshine the competition through 6 months of training, and to sell his devices to stay afloat.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMTQ5NjQ0NDI3NF5BMl5BanBnXkFtZTcwNDI0MjEzMw@@._V1_SX300.jpg",
+        "language": "English, Cantonese",
+        "country": "United States",
+        "awards": "Nominated for 1 Oscar. 12 wins & 26 nominations total",
+        "box_office": "$163,566,459",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.0/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "67%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "64/100"
+            }
+        ]
+    },
+    {
+        "const": "tt9597190",
+        "your_rating": "9",
+        "date_rated": "2025-03-08",
+        "title": "Fei chi ren sheng",
+        "original_title": "Fei chi ren sheng",
+        "url": "https://www.imdb.com/title/tt9597190",
+        "title_type": "Movie",
+        "imdb_rating": "6.3",
+        "runtime": "98",
+        "year": "2019",
+        "genres": "喜剧片, 运动片",
+        "num_votes": "2589",
+        "release_date": "2019-02-05",
+        "directors": "Han Han",
+        "actors": "Teng Shen, Johnny Huang, Zheng Yin",
+        "plot": "Five years ago, veteran driver Zhang Chi was suspended for illegal racing. When he returned to the game, he found himself starting all over again. After some difficulties, he and his car appeared again on the Bayinbrooke circuit. He's willing to risk everything, including his life, in order to win.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMzY0NDBlY2MtNGQwMS00NjVhLTg3NTUtYTgyZjE3ZDgwODE5XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Mandarin, Chinese, Cantonese",
+        "country": "China",
+        "awards": "2 wins & 12 nominations total",
+        "box_office": "N/A",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "6.3/10"
+            }
+        ]
+    },
+    {
+        "const": "tt7298400",
+        "your_rating": "9",
+        "date_rated": "2025-03-08",
+        "title": "Jiang hu er nü",
+        "original_title": "Jiang hu er nü",
+        "url": "https://www.imdb.com/title/tt7298400",
+        "title_type": "Movie",
+        "imdb_rating": "7.0",
+        "runtime": "136",
+        "year": "2018",
+        "genres": "剧情片, 爱情片, 犯罪片",
+        "num_votes": "11051",
+        "release_date": "2018-09-21",
+        "directors": "Jia Zhang-ke",
+        "actors": "Tao Zhao, Fan Liao, Zheng Xu",
+        "plot": "Opening in 2001 in Datong an former coal mining town, Bin was a mob gangster of Jianghu when the leader was dethroned he takes it up. Qiao loves Bin very much and one day to save Bin from henchmen she uses his pistol and fire it fakely. she gets arrested and prisoned for 5 years and never been visited by Bin. When she is released she reaches Bin who has no interest for Qiao and is in love with other girl. 16 years later She gets a Call from Bin who is in need of a moral support",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMGI0NTZlYmEtYWVkOC00ZTA5LThiMTQtZWU4ZWRmNTNkODgxXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Chinese, Mandarin",
+        "country": "China, France, Japan",
+        "awards": "25 wins & 56 nominations total",
+        "box_office": "$422,814",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "7.0/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "99%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "85/100"
+            }
+        ]
+    },
+    {
+        "const": "tt2036416",
+        "your_rating": "9",
+        "date_rated": "2025-03-08",
+        "title": "Na xie nian, wo men yi qi zhui de nu hai",
+        "original_title": "Na xie nian, wo men yi qi zhui de nu hai",
+        "url": "https://www.imdb.com/title/tt2036416",
+        "title_type": "Movie",
+        "imdb_rating": "7.5",
+        "runtime": "109",
+        "year": "2011",
+        "genres": "剧情片, 爱情片, 喜剧片",
+        "num_votes": "12009",
+        "release_date": "2011-08-19",
+        "directors": "Giddens Ko",
+        "actors": "Kai Ko, Michelle Chen, Shao-Wen Hao",
+        "plot": "A coming-of-age story featuring a group of Taiwanese teenage friends and their experiences as they all fall in love with the same girl: Shen Jiayi, the star student of the school. A story about the complexities and bittersweetness of high-school life set against the backdrop of Taiwanese culture and traditions.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BZWVmZGQ2YTYtNmY2MS00Yzk1LWE4MzgtMTg0YTkwYWJhOTdmXkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "Mandarin",
+        "country": "Taiwan",
+        "awards": "9 wins & 12 nominations total",
+        "box_office": "N/A",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "7.5/10"
+            }
+        ]
+    },
+    {
+        "const": "tt1533117",
+        "your_rating": "10",
+        "date_rated": "2025-03-08",
+        "title": "Rang zi dan fei",
+        "original_title": "Rang zi dan fei",
+        "url": "https://www.imdb.com/title/tt1533117",
+        "title_type": "Movie",
+        "imdb_rating": "7.3",
+        "runtime": "132",
+        "year": "2010",
+        "genres": "动作片, 喜剧片, 西部片, 剧情片",
+        "num_votes": "13785",
+        "release_date": "2010-12-16",
+        "directors": "Wen Jiang",
+        "actors": "Chow Yun-Fat, Wen Jiang, You Ge",
+        "plot": "Set in China during the warring 1920s, notorious bandit chief Zhang descends upon a remote provincial town posing as its new mayor, an identity that he had hijacked from Old Tang, himself a small-time imposter. Hell-bent on making a fast buck, Zhang soon meets his match in the tyrannical local gentry Huang as a deadly battle of wit and brutality ensues.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMjI2NDQ5Mzg0NF5BMl5BanBnXkFtZTgwMDM3NjI2MDE@._V1_SX300.jpg",
+        "language": "Mandarin, Chinese",
+        "country": "China, Hong Kong",
+        "awards": "30 wins & 38 nominations total",
+        "box_office": "$63,012",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "7.3/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "75%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "66/100"
+            }
+        ]
+    },
+    {
+        "const": "tt0120812",
+        "your_rating": "9",
+        "date_rated": "2025-03-08",
+        "title": "Rush Hour",
+        "original_title": "Rush Hour",
+        "url": "https://www.imdb.com/title/tt0120812",
+        "title_type": "Movie",
+        "imdb_rating": "7.0",
+        "runtime": "98",
+        "year": "1998",
+        "genres": "惊悚片, 犯罪片, 喜剧片, 动作片",
+        "num_votes": "309266",
+        "release_date": "1998-09-18",
+        "directors": "Brett Ratner",
+        "actors": "Jackie Chan, Chris Tucker, Ken Leung",
+        "plot": "Cultures clash and tempers flares as the two cops named Detective Inspector Lee a Hong Kong Detective and Detective James Carter FBI, a big-mouthed work-alone Los Angeles cop who are from different worlds discovers one thing in common: they can't stand each other. With time running out, they must join forces to catch the criminals and save the eleven-year-old Chinese girl of the Chinese consul named Soo Yung.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMGZiMzViNmEtNTNlZi00MzFmLTk5NTEtNDE2OTUzNmNlMTY4XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "English, Cantonese, Mandarin, Japanese, Chinese",
+        "country": "United States",
+        "awards": "6 wins & 9 nominations total",
+        "box_office": "$141,186,864",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "7.0/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "62%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "61/100"
+            }
+        ]
+    },
+    {
+        "const": "tt2380307",
+        "your_rating": "10",
+        "date_rated": "2025-03-01",
+        "title": "Coco",
+        "original_title": "Coco",
+        "url": "https://www.imdb.com/title/tt2380307",
+        "title_type": "Movie",
+        "imdb_rating": "8.4",
+        "runtime": "105",
+        "year": "2017",
+        "genres": "动画片, 家庭片, 惊险片, 奇幻片, 悬疑片, 音乐剧, 剧情片",
+        "num_votes": "642040",
+        "release_date": "2017-11-24",
+        "directors": "Lee Unkrich,Adrian Molina",
+        "actors": "Anthony Gonzalez, Gael García Bernal, Benjamin Bratt",
+        "plot": "Despite his family's baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events. Along the way, he meets charming trickster Hector, and together, they set off on an extraordinary journey to unlock the real story behind Miguel's family history.",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMDIyM2E2NTAtMzlhNy00ZGUxLWI1NjgtZDY5MzhiMDc5NGU3XkEyXkFqcGc@._V1_SX300.jpg",
+        "language": "English, Spanish",
+        "country": "United States, Mexico",
+        "awards": "Won 2 Oscars. 112 wins & 42 nominations total",
+        "box_office": "$210,460,015",
+        "ratings": [
+            {
+                "source": "Internet Movie Database",
+                "value": "8.4/10"
+            },
+            {
+                "source": "Rotten Tomatoes",
+                "value": "97%"
+            },
+            {
+                "source": "Metacritic",
+                "value": "81/100"
             }
         ]
     }
