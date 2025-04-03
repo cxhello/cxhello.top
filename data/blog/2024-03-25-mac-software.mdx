@@ -1,6 +1,7 @@
 ---
 title: 'Minimal setup list for web developers on a fresh macOS install'
 date: '2024-03-25'
+lastmod: '2025-04-03'
 tags: ['Mac']
 summary: 'Having a new Mac device is always exciting for every developer, but it can also be challenging, especially when it comes to setting up a new dev environment. Here is a list of the minimal setup you need to get started with web development on a fresh macOS install.'
 images:
@@ -10,29 +11,66 @@ images:
 authors: ['default']
 ---
 
+### Set Proxy For Terminal
+
+> [!NOTE]
+> Open Clash
+
+```bash
+
+vim .zshrc
+
+proxy () {
+    export http_proxy="http://127.0.0.1:7890"
+    export https_proxy="http://127.0.0.1:7890"
+    echo "Proxy on"
+}
+
+noproxy () {
+    unset http_proxy
+    unset https_proxy
+    echo "Proxy off"
+}
+
+source .zshrc
+
+# 打开代理
+proxy
+
+# 关闭代理
+noproxy
+```
+
 ### Homebrew
+
 ```bash
 https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 /bin/bash install.sh
 
 https://blog.csdn.net/Lanerxx/article/details/130692516?spm=1001.2014.3001.5502
 ```
+
 ### Oh My ZSH
+
 ```bash
 https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 /bin/bash install.sh
 ```
+
 ### zsh-autosuggestions
+
 ```bash
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 vim ~/.zshrc
 
-plugins=( 
+plugins=(
     # other plugins...
     zsh-autosuggestions
 )
 ```
+
 ### iTerm2连接脚本
+
 ```bash
 #!/usr/bin/expect
 
@@ -48,6 +86,7 @@ expect {
         }
 interact
 ```
+
 ```bash
 #!/usr/bin/expect
 
@@ -63,9 +102,11 @@ expect {
         }
 interact
 ```
+
 > 参考文章：[https://cloud.tencent.com/developer/article/1744789](https://cloud.tencent.com/developer/article/1744789)
 
 ### 生成新 SSH 密钥
+
 ```bash
 ssh-keygen -t ed25519 -C "1061594797@qq.com"
 
@@ -73,7 +114,9 @@ SSH 密钥密码：caixiaohui
 
 https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 ```
+
 ### IDEA激活
+
 ```bash
 激活教程：https://www.unclecode.cn/software-activation/idea/2320.html
 
@@ -86,7 +129,9 @@ https://blog.csdn.net/qq_39387856/article/details/131981677?spm=1001.2014.3001.5
 
 在IDEA中git拉取代码失败：https://blog.51cto.com/u_15861646/5823288
 ```
+
 ### Maven
+
 ```bash
 https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries
 
@@ -99,15 +144,21 @@ source ~/.zshrc
 
 mvn -v
 ```
+
 ### Postman
+
 ```bash
 brew install --cask postman
 ```
+
 ### Sequel Ace
+
 ```bash
 brew install --cask sequel-ace
 ```
+
 ### AnotherRedisDesktopManager
+
 ```bash
 brew install --cask another-redis-desktop-manager
 
@@ -116,57 +167,94 @@ sudo xattr -rd com.apple.quarantine /Applications/Another\ Redis\ Desktop\ Manag
 
 https://github.com/qishibo/AnotherRedisDesktopManager/issues/1080
 ```
+
 ### Office
+
 ```bash
 https://github.com/alsyundawy/Microsoft-Office-For-MacOS
 ```
+
 ### Sublime Text
+
 ```bash
 brew install --cask sublime-text
 ```
+
 ### Docker
+
 ```bash
 brew install --cask docker
 ```
+
 ### the-unarchiver
+
 ```bash
 brew install --cask the-unarchiver
 ```
+
 ### SwitchHosts
+
 ```bash
 brew install --cask switchhosts
 ```
+
 ### Sourcetree
+
 ```bash
 brew install --cask sourcetree
 ```
+
 ### Node.js
+
 ```bash
+curl -o- https://fnm.vercel.app/install | bash
+
+vim .zshrc
+
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+source .zshrc
+
+fnm install 22
+fnm use 22
+fnm default 22
+
+# 其他方案
 https://nodejs.org/download/release/v16.20.2/node-v16.20.2.pkg
 npm config set registry https://registry.npm.taobao.org
 npm config get registry
 
 https://registry.npmjs.org/
 ```
+
 ### Mac查看jar结构
+
 ```bash
 unzip -x -q insightone-base-api-0.1.0-exec.jar -d insightone-base-api
 ```
+
 ### wget
+
 ```bash
 brew install wget
 
 brew uninstall wget
 ```
+
 ### Visual Studio Code
+
 ```bash
 brew install --cask visual-studio-code
 ```
+
 ### DBeaver
+
 ```bash
 brew install --cask dbeaver-community
 ```
+
 ### sdkman
+
 ```bash
 curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
@@ -179,11 +267,15 @@ https://github.com/sdkman/sdkman-cli/wiki/FAQ#on-mac-usrlibexecjava_home-does-no
 sdk install java 23.0.3.r17-nik
 sdk default java 23.0.3.r17-nik
 ```
+
 ### 查看JDK安装路径
+
 ```bash
 /usr/libexec/java_home -V
 ```
+
 ### 清理不再需要的依赖
+
 ```bash
 brew autoremove
 ```
@@ -191,7 +283,18 @@ brew autoremove
 ### Go
 
 ```bash
+brew install goenv
+
+vim .zshrc
+
+eval "$(goenv init -)"
+
+source .zshrc
+
+goenv install 1.24.2
+goenv global 1.24.2
+
+# 其他方案
 brew install go@1.21
 go env -w GOPROXY=https://goproxy.cn,direct
 ```
-
