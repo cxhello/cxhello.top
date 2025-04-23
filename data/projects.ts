@@ -3,7 +3,7 @@ import type { Project } from '~/types/data'
 export const PROJECTS: Project[] = [
   {
     type: 'work',
-    title: 'Sprin Boot PDF',
+    title: 'Spring Boot PDF',
     imgSrc: '/static/images/spring-boot-pdf-logo-512.png',
     repo: 'cxhello/springboot-pdf',
     builtWith: ['Java'],
