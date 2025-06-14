@@ -31,6 +31,7 @@
   "filter": 1,
   "network": 2,
   "websocket": 1,
+  "cursor": 1,
   "github": 1,
   "ssh": 1,
   "security": 1,
