@@ -1,0 +1,392 @@
+---
+title: 'System Design Patterns in Practice: General Factory + Abstract Strategy'
+date: '2025-06-29'
+tags: ['Design Patterns']
+summary: 'System Design Patterns in Practice: General Factory + Abstract Strategy.'
+images: ['/static/images/banners/photo-1552238979-402eb7a9258c.jpg']
+authors: ['default']
+---
+
+其实一直以来在项目开发中设计模式应用的比较少，更多的是看一些框架组件的底层实现。像 Spring 使用工厂模式通过 BeanFactory & ApplicationContext 创建 Bean对象、Spring Bean 默认的单例模式、AOP 中的代理模式、Spring Security 的责任链模式等等。最近接触了一个新的项目，在梳理代码以及开发的过程中发现相关的实现可以在很多场景都可以得到运用。
+
+我将通过一个比较生活化的示例，咖啡店点餐系统，来说明这种设计模式的强大之处。在这个系统中，我们根据顾客的会员等级（普通、银卡、金卡）以及顾客的订单类型（咖啡、茶、甜点）来提供不同的服务和优惠。
+
+设计思路大概如下：
+
+1. 基础组件：请求参数（BaseRequest）、通用工厂接口`（CommonFactoryService<T>）`、策略选择器（CommonStrategyBeanSelector）；
+2. 业务领域
+   1. 会员服务（AbstractCustomerService）：根据会员等级提供不同的服务（普通、会员、VIP）；
+   2. 订单服务（AbstractOrderService）：处理不同类型的订单（普通订单、会员订单、VIP订单）；
+   3. 支付服务（AbstractPaymentService）：根据订单类型和会员等级提供不同的支付方式（普通、会员、VIP）
+
+每个业务领域都有自己的工厂类以及对抽象基类。具体到业务逻辑层面，就可以继承对应业务领域的抽象基类，然后实现自己的内部逻辑。也可以复用抽象类中的方法。为了方便理解，画了几个图。
+
+## 业务架构图
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20250627220938145.png)
+
+## 类图
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20250628000957046.png)
+
+## 示例
+
+### 基础组件
+
+```java
+package top.cxhello.coffee.request;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * 基础请求
+ * @author cxhello
+ * @date 2025/6/27
+ */
+@Getter
+@Setter
+public class BaseRequest {
+
+    /**
+     * 用户类型 REGULAR、MEMBER、VIP
+     */
+    private String customerType;
+
+    /**
+     * 订单类型 COFFEE、TEA、DESSERT、COMBO
+     */
+    private String orderType;
+
+    /**
+     * 支付方式 Wechat、Alipay、Points
+     */
+    private String paymentMethod;
+
+    /**
+     *
+     */
+    private int quantity;
+
+    /**
+     *
+     */
+    private double price;
+
+}
+```
+
+```java
+package top.cxhello.coffee.factory;
+
+import top.cxhello.coffee.request.BaseRequest;
+
+/**
+ * 通用工厂接口
+ * @author cxhello
+ * @date 2025/6/27
+ */
+public interface CommonFactoryService<T> {
+
+    /**
+     * 获取服务类型
+     * @param baseRequest
+     * @return
+     */
+    T getService(BaseRequest baseRequest);
+}
+
+```
+
+```java
+package top.cxhello.coffee.strategy;
+
+import jakarta.annotation.Resource;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import top.cxhello.coffee.request.BaseRequest;
+
+/**
+ * 策略选择器
+ * @author cxhello
+ * @date 2025/6/27
+ */
+@Component
+public class CommonStrategyBeanSelector {
+
+    @Resource
+    private ApplicationContext context;
+
+    public <T> T getService(BaseRequest baseRequest, String pattern) {
+        String suffix = determineSuffix(baseRequest);
+        String beanName = String.format(pattern, suffix);
+        return (T) context.getBean(beanName);
+    }
+
+    private String determineSuffix(BaseRequest baseRequest) {
+        // 根据顾客类型和订单类型确定策略
+        if ("VIP".equals(baseRequest.getCustomerType())) {
+            return "vip";
+        } else if ("MEMBER".equals(baseRequest.getCustomerType())) {
+            return "member";
+        }
+        return "regular";
+    }
+
+}
+```
+
+### 会员业务领域
+
+```java
+package top.cxhello.coffee.service;
+
+/**
+ * 会员服务
+ * @author cxhello
+ * @date 2025/6/27
+ */
+public interface CustomerService {
+}
+```
+
+```java
+package top.cxhello.coffee.service.base;
+
+import org.springframework.stereotype.Service;
+import top.cxhello.coffee.request.BaseRequest;
+import top.cxhello.coffee.service.CustomerService;
+
+/**
+ * 会员抽象服务
+ * @author cxhello
+ * @date 2025/6/27
+ */
+@Service
+public abstract class AbstractCustomerService implements CustomerService {
+
+    public abstract String provideService(BaseRequest baseRequest);
+
+    // 公共方法
+    protected String greetCustomer(String customerType) {
+        return String.format("👋 欢迎 %s 光临咖啡店! </br>", customerType);
+    }
+
+}
+```
+
+```java
+package top.cxhello.coffee.service.impl;
+
+import org.springframework.stereotype.Service;
+import top.cxhello.coffee.request.BaseRequest;
+import top.cxhello.coffee.service.base.AbstractCustomerService;
+
+/**
+ * 普通用户策略
+ * @author cxhello
+ * @date 2025/6/27
+ */
+@Service
+public class RegularCustomerService extends AbstractCustomerService {
+
+    @Override
+    public String provideService(BaseRequest baseRequest) {
+        return greetCustomer("普通顾客") + " </br>" +
+                "📋 提供标准服务" + " </br>" +
+                "普通客户服务完成 </br>";
+    }
+
+}
+```
+
+```java
+package top.cxhello.coffee.service.impl;
+
+import org.springframework.stereotype.Service;
+import top.cxhello.coffee.request.BaseRequest;
+import top.cxhello.coffee.service.base.AbstractCustomerService;
+
+/**
+ * 会员用户处理策略
+ * @author cxhello
+ * @date 2025/6/27
+ */
+@Service
+public class MemberCustomerService extends AbstractCustomerService {
+
+    @Override
+    public String provideService(BaseRequest baseRequest) {
+        return greetCustomer("会员") + " </br>" +
+                "📱 扫码登记会员" + " </br>" +
+                "🎯 推荐会员专属优惠" + " </br>" +
+                "会员服务完成  </br>";
+    }
+
+}
+```
+
+```java
+package top.cxhello.coffee.service.impl;
+
+import org.springframework.stereotype.Service;
+import top.cxhello.coffee.request.BaseRequest;
+import top.cxhello.coffee.service.base.AbstractCustomerService;
+
+/**
+ * VIP用户处理策略
+ * @author cxhello
+ * @date 2025/6/27
+ */
+@Service
+public class VipCustomerService extends AbstractCustomerService {
+
+    @Override
+    public String provideService(BaseRequest baseRequest) {
+        return greetCustomer("VIP") + " </br>" +
+                "👔 专属客服接待" + " </br>" +
+                "📖 提供VIP专属菜单" + " </br>" +
+                "VIP服务完成  </br>";
+    }
+
+}
+```
+
+```java
+package top.cxhello.coffee.factory.impl;
+
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+import top.cxhello.coffee.factory.CommonFactoryService;
+import top.cxhello.coffee.request.BaseRequest;
+import top.cxhello.coffee.service.base.AbstractCustomerService;
+import top.cxhello.coffee.strategy.CommonStrategyBeanSelector;
+
+/**
+ * 用户工厂
+ * @author cxhello
+ * @date 2025/6/27
+ */
+@Service("customerFactoryService")
+public class CustomerFactoryServiceImpl implements CommonFactoryService<AbstractCustomerService> {
+
+    @Resource
+    private CommonStrategyBeanSelector selector;
+
+    @Override
+    public AbstractCustomerService getService(BaseRequest baseRequest) {
+        return selector.getService(baseRequest, "%sCustomerService");
+    }
+
+}
+```
+
+订单业务领域&支付业务领域可参考完整代码
+
+### Controller接口测试
+
+```java
+package top.cxhello.coffee.controller;
+
+import jakarta.annotation.Resource;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import top.cxhello.coffee.factory.CommonFactoryService;
+import top.cxhello.coffee.request.BaseRequest;
+import top.cxhello.coffee.service.base.AbstractCustomerService;
+import top.cxhello.coffee.service.base.AbstractOrderService;
+import top.cxhello.coffee.service.base.AbstractPaymentService;
+
+/**
+ * @author cxhello
+ * @date 2025/6/27
+ */
+@RestController
+public class TestController {
+
+    @Resource(name = "customerFactoryService")
+    private CommonFactoryService<AbstractCustomerService> customerFactoryService;
+
+    @Resource(name = "orderFactoryService")
+    private CommonFactoryService<AbstractOrderService> orderFactoryService;
+
+    @Resource(name = "paymentFactoryService")
+    private CommonFactoryService<AbstractPaymentService> paymentFactoryService;
+
+    @GetMapping("/test1")
+    public String test1() {
+        BaseRequest baseRequest = new BaseRequest();
+        baseRequest.setCustomerType("REGULAR");
+        baseRequest.setOrderType("COFFEE");
+        baseRequest.setPaymentMethod("CASH");
+        baseRequest.setQuantity(1);
+        baseRequest.setPrice(30.0);
+        StringBuilder result = new StringBuilder();
+
+        result.append("====== 订单处理开始 ====== </br>");
+        AbstractCustomerService abstractCustomerService = customerFactoryService.getService(baseRequest);
+        AbstractOrderService abstractOrderService = orderFactoryService.getService(baseRequest);
+        AbstractPaymentService abstractPaymentService = paymentFactoryService.getService(baseRequest);
+
+        result.append(abstractCustomerService.provideService(baseRequest)).append("\n");
+        result.append(abstractOrderService.prepareOrder(baseRequest)).append("\n");
+        result.append(abstractPaymentService.pay(baseRequest)).append("\n");
+
+        result.append("====== 订单处理完成 ====== </br>");
+        return result.toString();
+    }
+
+    @GetMapping("/test2")
+    public String test2() {
+        BaseRequest baseRequest = new BaseRequest();
+        baseRequest.setCustomerType("MEMBER");
+        baseRequest.setOrderType("COMBO");
+        baseRequest.setPaymentMethod("MOBILE");
+        baseRequest.setQuantity(2);
+        baseRequest.setPrice(60.0);
+        StringBuilder result = new StringBuilder();
+
+        result.append("====== 订单处理开始 ====== </br>");
+        AbstractCustomerService abstractCustomerService = customerFactoryService.getService(baseRequest);
+        AbstractOrderService abstractOrderService = orderFactoryService.getService(baseRequest);
+        AbstractPaymentService abstractPaymentService = paymentFactoryService.getService(baseRequest);
+
+        result.append(abstractCustomerService.provideService(baseRequest)).append("\n");
+        result.append(abstractOrderService.prepareOrder(baseRequest)).append("\n");
+        result.append(abstractPaymentService.pay(baseRequest)).append("\n");
+
+        result.append("====== 订单处理完成 ====== </br>");
+        return result.toString();
+    }
+
+    @GetMapping("/test3")
+    public String test3() {
+        BaseRequest baseRequest = new BaseRequest();
+        baseRequest.setCustomerType("VIP");
+        baseRequest.setOrderType("DESSERT");
+        baseRequest.setPaymentMethod("CARD");
+        baseRequest.setQuantity(1);
+        baseRequest.setPrice(40.0);
+        StringBuilder result = new StringBuilder();
+
+        result.append("====== 订单处理开始 ====== </br>");
+        AbstractCustomerService abstractCustomerService = customerFactoryService.getService(baseRequest);
+        AbstractOrderService abstractOrderService = orderFactoryService.getService(baseRequest);
+        AbstractPaymentService abstractPaymentService = paymentFactoryService.getService(baseRequest);
+
+        result.append(abstractCustomerService.provideService(baseRequest)).append("\n");
+        result.append(abstractOrderService.prepareOrder(baseRequest)).append("\n");
+        result.append(abstractPaymentService.pay(baseRequest)).append("\n");
+
+        result.append("====== 订单处理完成 ====== </br>");
+        return result.toString();
+    }
+
+}
+```
+
+该设计模式其实也可以扩展到其他生活场景，比如说：餐厅订座系统、电影院售票系统、健身房管理系统、还有一些 SaaS 平台。
+
+完整代码示例如下：
+
+> https://github.com/cxhello/coffee-shop-design-patterns

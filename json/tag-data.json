@@ -21,6 +21,7 @@
   "prometheus": 1,
   "loki": 1,
   "grafana": 1,
+  "design-patterns": 1,
   "redis": 1,
   "nginx": 1,
   "jenkins": 1,
