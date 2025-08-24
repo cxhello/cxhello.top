@@ -1,0 +1,193 @@
+---
+title: 'Use Gitlab CI, Jacoco, Sonar, Unit Test Coverage'
+date: '2025-08-24'
+tags: ['Gitlab CI', 'Jacoco', 'Sonar', 'Unit Test']
+summary: 'Use Gitlab CI, Jacoco, Sonar, Unit Test Coverage.'
+images: ['/static/images/banners/photo-1531030874896-fdef6826f2f7.jpg']
+authors: ['default']
+---
+
+## 背景
+
+在工作日常开发中，我们经常需要对代码进行单元测试，以确保代码的正确性和稳定性。但是，单元测试的覆盖率往往难以达到 100%，这就需要我们使用一些工具来提高测试覆盖率。我们一般在开发一个功能时，会根据业务代码编写单元测试。当然也会存在单元测试编写后置的情况。
+
+在功能分支开发完成后，需要将代码合并到主分支。在合并之前，我们需要确保单元测试的覆盖率。如果单元测试的覆盖率不达标，则需要我们进行修复。所以这时候我们就需要用一些自动化的工具来帮助我们完成这个任务。Gitlab CI 是一个非常强大的工具，可以自动化我们的测试流程，包括单元测试、集成测试、性能测试等。
+
+我们用到的工具如下：
+
+- Gitlab CI
+- Jacoco
+- Sonar
+- Unit Test
+
+## 实现
+
+以 `git@github.com:cxhello/springboot-admin.git` 为例，我们使用 Gitlab CI 来完成单元测试、覆盖率、Sonar 分析等任务。
+
+### 1. SonarQube 新建项目
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20250824154204770.png)
+
+新建项目后，需要配置项目名称、项目 key、项目语言、项目版本、项目描述等。
+
+### 2. 配置 Gitlab Runner
+
+在 Gitlab CI/CD 中配置 Gitlab Runner
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20250824152915582.png)
+
+```bash
+docker run -d --name gitlab-runner --restart always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  gitlab/gitlab-runner:latest
+
+docker exec -it gitlab-runner gitlab-runner register \
+  --non-interactive \
+  --url "${GITLAB_URL}" \
+  --registration-token "${GITLAB_REGISTRATION_TOKEN}" \
+  --executor "docker" \
+  --description "docker-runner" \
+  --tag-list "docker" \
+  --docker-image "maven:3.9.11-eclipse-temurin-8" \
+  --docker-network-mode "host"
+```
+
+### 3. 配置 Gitlab CI/CD 环境变量
+
+在 Gitlab CI/CD 中配置 sonarqube 地址和 token 的环境变量
+
+```bash
+SONAR_HOST_URL=${SONAR_HOST_URL}
+SONAR_TOKEN=${SONAR_TOKEN}
+```
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20250824153235937.png)
+
+### 4. 配置 pom.xml
+
+在 pom.xml 中添加 Jacoco 和 Sonar 的插件。
+
+```xml
+    <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.13</version>
+        <executions>
+            <execution>
+                <id>prepare-agent</id>
+                <goals>
+                    <goal>prepare-agent</goal>
+                </goals>
+            </execution>
+            <execution>
+                <id>report</id>
+                <phase>verify</phase>
+                <goals>
+                    <goal>report</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
+                    <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+    <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+    <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.10.0.2594</version>
+    </plugin>
+```
+
+### 5. 配置 .gitlab-ci.yml
+
+```yaml
+stages:
+  - build
+  - test
+  - quality
+
+# 1. 编译检查
+build-job:
+  stage: build
+  script:
+    - mvn clean compile -DskipTests
+  artifacts:
+    paths:
+      - target/classes
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+      when: always
+    - when: never
+  tags:
+    - docker
+
+# 2. 单测 + 覆盖率
+test-job:
+  stage: test
+  script:
+    - mvn clean verify jacoco:report -DskipTests=false
+    - |
+      # 输出总覆盖率百分比，GitLab 会用 coverage 正则抓取
+      awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, " instructions covered"; print 100*covered/instructions, "% covered" }' target/site/jacoco/jacoco.csv
+  coverage: '/([0-9]{1,3}\.?[0-9]*) % covered/'
+  artifacts:
+    paths:
+      - target/site/jacoco/jacoco.xml
+      - target/jacoco.exec
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+      when: always
+    - when: never
+  tags:
+    - docker
+
+# 3. SonarQube 分析
+sonar-job:
+  stage: quality
+  needs: ['build-job', 'test-job']
+  script:
+    - >
+      mvn sonar:sonar
+      -Dsonar.projectKey=springboot-admin
+      -Dsonar.host.url=$SONAR_HOST_URL
+      -Dsonar.login=$SONAR_TOKEN
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+      when: always
+    - when: never
+  tags:
+    - docker
+```
+
+### 6.初始化提交代码
+
+```bash
+git add .
+git commit -m "Initial commit"
+git push origin main
+```
+
+### 7. 开发新功能
+
+```bash
+git checkout -b feature-jacoco-sonar-test-1
+git add .
+git commit -m "test: update unit test"
+git push origin feature-jacoco-sonar-test-1
+```
+
+### 8. 创建 Merge Request
+
+在 Gitlab 中创建 Merge Request
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20250824154823454.png)
+
+当 Merge Request 创建后，Gitlab CI 会自动执行单元测试、覆盖率、Sonar 分析等任务。当任务执行完成后，我们可以看到单元测试覆盖率的结果。或者到 SonarQube 中查看分析结果。
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20250824155105644.png)
+
+当然你也可以根据团队需求设置 Merge Request 的合并条件，比如 CI/CD 所有 Job 都执行成功后，才能合并。或者本次 Merge Request 的单元测试覆盖率低于 80%，则不能合并。
