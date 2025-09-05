@@ -1,0 +1,101 @@
+---
+heading: 'jq Cheat Sheet'
+title: 'jq Cheat Sheet'
+date: '2025-09-05'
+icon: 'Bash'
+draft: false
+summary: 'How to use jq to manipulate JSON data.'
+tags: [jq]
+---
+
+## 🟢 基础操作
+
+```bash
+jq '.' file.json                        # 格式化输出 JSON
+jq '.userId' file.json                  # 取字段
+jq '.candidateUserList[0]' file.json    # 取数组第1个元素
+jq '.candidateUserList[]' file.json     # 遍历数组所有元素
+jq -r '.userId' file.json               # 原始字符串输出 (去掉引号)
+```
+
+---
+
+## 🟢 筛选 (select)
+
+```bash
+jq '.[] | select(.userId == "123")' file.json
+jq '.[] | select(.candidateUserList | length > 0)' file.json
+jq '.[] | select(.age > 18 and .gender == "male")' file.json
+```
+
+---
+
+## 🟢 字段处理
+
+```bash
+jq '.[] | {id: .userId, users: .candidateUserList}' file.json   # 选取字段
+jq '.[] | {id, count: (.candidateUserList | length)}' file.json # 添加计算字段
+jq 'del(.candidateUserList)' file.json                         # 删除字段
+```
+
+---
+
+## 🟢 数组与集合
+
+```bash
+jq '.candidateUserList | length' file.json     # 数组长度
+jq '.candidateUserList | unique' file.json     # 数组去重
+jq '.candidateUserList | sort' file.json       # 排序
+jq '.candidateUserList | join(",")' file.json  # 拼接为字符串
+```
+
+---
+
+## 🟢 合并多个文件
+
+```bash
+jq -s '.' *.json > merged.json    # 合并成数组
+jq -s 'add' *.json > merged.json  # 合并数组内容为一个大数组
+```
+
+---
+
+## 🟢 分组与统计
+
+```bash
+# 按 userId 分组，统计每组数量
+jq '.[] | group_by(.userId) | map({id: .[0].userId, count: length})' file.json
+
+# 统计 candidateUserList 数组长度
+jq '.[] | {id: .userId, size: (.candidateUserList | length)}' file.json
+```
+
+---
+
+## 🟢 多条件
+
+```bash
+jq '.[] | select(.userId == "123" and (.candidateUserList | length > 0))' file.json
+```
+
+---
+
+## 🟢 修改与生成新 JSON
+
+```bash
+jq 'map({uid: .userId, users: .candidateUserList})' file.json
+jq '[.[] | {id: .userId, users: .candidateUserList}]' file.json
+```
+
+---
+
+✅ 小技巧：
+
+- `.` 表示当前对象
+- `.[]` 遍历数组
+- `|` 管道连接
+- `select()` 条件过滤
+- `map()` 对数组做映射
+- `length` 获取长度
+- `unique` 去重
+- `del()` 删除字段
