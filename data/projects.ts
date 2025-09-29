@@ -9,6 +9,13 @@ export const PROJECTS: Project[] = [
     builtWith: ['Java'],
   },
   {
+    type: 'work',
+    title: 'nacos-fastapi-mcp-example',
+    imgSrc: '/static/images/nacos-fastapi-mcp-example.png',
+    repo: 'cxhello/nacos-fastapi-mcp-example',
+    builtWith: ['Python', 'OpenAI'],
+  },
+  {
     type: 'self',
     title: 'cxhello.top',
     imgSrc: '/static/favicons/favicon.png',
@@ -22,9 +29,7 @@ export const PROJECTS: Project[] = [
     imgSrc: '/static/images/momentgif-logo-512.png',
     url: 'https://apps.apple.com/us/app/momentgif/id6739975261',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
-    links: [
-      { title: 'App Store', url: 'https://apps.apple.com/us/app/momentgif/id6739975261' }
-    ],
+    links: [{ title: 'App Store', url: 'https://apps.apple.com/us/app/momentgif/id6739975261' }],
   },
   {
     type: 'self',
@@ -33,9 +38,7 @@ export const PROJECTS: Project[] = [
     imgSrc: '/static/images/recordify-logo-512.png',
     url: 'https://apps.apple.com/us/app/recordify/id6739163362',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
-    links: [
-      { title: 'App Store', url: 'https://apps.apple.com/us/app/recordify/id6739163362' }
-    ],
+    links: [{ title: 'App Store', url: 'https://apps.apple.com/us/app/recordify/id6739163362' }],
   },
   {
     type: 'self',
@@ -44,7 +47,7 @@ export const PROJECTS: Project[] = [
     imgSrc: '/static/images/ai-navigation-logo-512.png',
     repo: 'cxhello/nav-site',
     url: 'https://ai-navigation.top',
-    builtWith: ['NextJS', 'TailwindCSS', 'Typescript']
+    builtWith: ['NextJS', 'TailwindCSS', 'Typescript'],
   },
   {
     type: 'self',
@@ -53,6 +56,6 @@ export const PROJECTS: Project[] = [
     imgSrc: '/static/images/ai-chat-logo-512.png',
     repo: 'cxhello/chatbot',
     url: 'https://ai.cxhello.top',
-    builtWith: ['NextJS', 'TailwindCSS', 'Typescript']
-  }
+    builtWith: ['NextJS', 'TailwindCSS', 'Typescript'],
+  },
 ]
