@@ -1,4 +1,6 @@
 {
+  "visual-studio-code": 1,
+  "chrome": 1,
   "windows": 3,
   "nodejs": 2,
   "gradle": 1,
@@ -37,7 +39,9 @@
   "filter": 1,
   "network": 2,
   "websocket": 1,
-  "cursor": 1,
+  "cursor": 4,
+  "ios": 4,
+  "swiftui": 4,
   "jq": 1,
   "github": 1,
   "ssh": 1,

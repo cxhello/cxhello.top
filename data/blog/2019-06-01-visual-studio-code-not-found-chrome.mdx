@@ -1,0 +1,70 @@
+---
+title: 'Visual Studio Code 运行 html 文件右键 Open In Other Browsers 提示找不到 Chrome 的解决办法'
+date: '2019-06-01'
+tags: ['Visual Studio Code', 'Chrome']
+summary: 'Visual Studio Code Not Found Chrome.'
+images: ['/static/images/banners/photo-1529101091764-c3526daf38fe.jpeg']
+authors: ['default']
+---
+
+今天想试一下微软的Visual Studio Code这款代码编辑器，因为其他的IDE虽然功能强大，各种代码提示，但是免不了的原因是体积大，打开会慢，虽然等几秒的时间很短，但是还是受不了。vscode体积小，打开速度快，更强大的是拓展强大，虽然本身功能少，但是架不住人有个强大的拓展库。
+
+在写了个html网页后，用其他浏览器都可以打开网页，但是chrome浏览器是个例外，提示windows找不到chrome，试了各种方法都不行。最后找到了解决方法。
+
+因为chrome安装时不像其他软件的安装程序一样选择安装路径，等等，而是直接将 Chrome 安装在当前的用户目录。如果你移动了Chrome的安装位置，就会出现这个windows找不到Chrome的问题。
+
+于是我就换了一种思路，通过配置tasks.json文件来解决这个问题。
+
+按ctrl+shift+p打开命令面板，输入Configure Task然后依次操作
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20251024142129218.png)
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20251024142223119.png)
+
+然后点击最后一个打开这个文件，进入到了tasks.json。我们可以看到默认配置如下
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20251024142244184.png)
+
+```
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "echo",
+            "type": "shell",
+            "command": "echo Hello"
+        }
+    ]
+}
+```
+
+我们需要对这个代码进行修改，如下
+
+```
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run HTML file with Chrome",
+            "type": "process",
+            "command": "chrome",
+            "args": ["${file}"],
+            "windows": {
+                //这里写你电脑的Chrome浏览器的安装位置
+                "command": "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
+
+```
+
+保存后打开html文件，按下Ctrl+Shift+B就能打开浏览器了。
