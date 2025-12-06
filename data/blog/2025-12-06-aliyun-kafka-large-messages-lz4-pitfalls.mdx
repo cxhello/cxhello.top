@@ -1,0 +1,283 @@
+---
+title: 'Kafka 大报文与压缩算法踩坑复盘：阿里云 Kafka 与多语言客户端实践'
+date: '2025-12-06'
+tags: ['Kafka', 'Python', 'Java']
+summary: 'Kafka Large Messages and Compression Pitfalls: Lessons from Alibaba Cloud Kafka and Multi-language Clients.'
+images: ['/static/images/banners/photo-1610433572201-110753c6cff9.jpeg']
+authors: ['default']
+---
+
+> 适用场景：阿里云 Kafka、Spring Boot、kafka-python、aiokafka、多语言微服务架构
+
+## 背景
+
+> 上游说：“消息肯定发出去了。”  
+> 我们说：“监控里啥都没有，你这消息像蒸发了一样。”
+
+而我这边作为消息的消费者，监控里看不到这批消息的消费记录，日志里也没有任何异常提示——从现象上看，就像这批消息从来没有到过我们系统一样。
+
+顺着这条线往下查，我们先确认“消息到底有没有进 Kafka 集群”，然后一路顺藤摸瓜，查到了：
+
+1. 阿里云 Kafka 默认的 **单条消息大小限制（1MB，上限 10MB）**；
+2. 我们先在 **生产者端** 调了 `max.request.size`，测试环境一切正常，但生产环境的 Broker 仍是默认 1MB，**环境配置不一致**造成了错觉；
+3. Java 侧启用了 `compression.type=lz4` 后，多语言链路里的 Python 客户端（kafka-python / aiokafka）因为没装 LZ4 依赖，直接报错；
+4. 想要“重放历史消息”时，还会受到 **消息保留时长（默认 72 小时）** 的约束。
+
+本文就是对这次排查过程做一个整理，顺便总结一下在「大报文 + 压缩算法 + 历史重放」场景下，阿里云 Kafka 和多语言客户端里容易踩到的几个点。
+
+## 阿里云 Kafka 单条消息大小限制：从 1MB 到 10MB
+
+先说第一个现实边界：**单条消息能有多大？**
+
+在阿里云 Kafka 中：
+
+- 单条消息最大大小有一个实例级的配置；
+- 默认值是 **1MB**；
+- 可以在控制台将其调大，通常上限为 **10MB**（具体取决于实例类型和规格）。
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20251206170257769.png)
+
+![](https://cxhello.oss-cn-beijing.aliyuncs.com/image/20251206170339443.png)
+
+超出这个上限的消息，会在 Broker 端被拒绝，生产者会收到异常。
+
+> 换句话说：**Broker 不调，超过 1MB 的大报文根本进不去集群。**
+
+在“消息像是没到我们系统”这类问题里，第一件事就是确认：  
+消息到底有没有真正写入 Kafka 集群，还是在 Producer → Broker 这一步就被拒了。
+
+## 生产者端 `max.request.size`：测试环境能发 ≠ 生产环境也没问题
+
+### 实际时间线是怎样的？
+
+事情的顺序其实是这样的：
+
+1. 发现业务要支持更大的报文后，我们**先改了生产者**配置，把 `max.request.size` 从默认 1MB 调到 10MB；
+2. 然后在本地 / 测试环境联调：
+   - 测试连接的是“测试 Kafka 集群”；
+   - 而测试环境的 **Broker 最大消息大小之前已经被调到 6MB**（但当时我们并没有特别注意到这点）；
+3. 联调过程里，大消息发出去没报错，测试消费也正常，于是潜意识里打勾：“大消息没问题 ✅”。
+
+在生产者错误堆栈信息如下：
+
+```
+org.springframework.kafka.KafkaException: Send failed; nested exception is org.apache.kafka.common.errors.RecordTooLargeException: The message is 2097210 bytes when serialized which is larger than 1048576, which is the value of the max.request.size configuration.
+at org.springframework.kafka.core.KafkaTemplate.doSend(KafkaTemplate.java:666) at org.springframework.kafka.core.KafkaTemplate.send(KafkaTemplate.java:403) at
+```
+
+问题出在真正上生产的时候：
+
+- 生产环境中，Producer 仍然是那套“10MB 的 `max.request.size`”配置；
+- 但生产 Kafka 实例的“最大消息大小”仍然停在默认的 1MB；
+- 结果就是：**在测试环境一切正常的配置，在生产环境开始报错 / 丢消息**。
+
+总结一下：  
+我们不是一开始就把 **Broker / Producer 两侧都理解透彻地调好**，而是：
+
+> “先调了 Producer，刚好测试环境的 Broker 够大，于是以为一切 OK；  
+> 到了生产才发现 Broker 侧没对齐。”
+
+这个情形非常有代表性：**测试环境能跑通，只能说明“这套配置在测试环境成立”，但不代表生产 Kafka 的实例参数也完全一致。**
+
+### Broker 限制 vs Producer 限制
+
+1. **Broker 侧：最大消息大小**
+   - 阿里云 Kafka 实例有一个“单条消息最大大小”的配置（默认 1MB，可调到 10MB）；
+   - 超出这个值，Broker 直接拒绝写入。
+
+2. **Producer 侧：`max.request.size`**
+   - 生产者自己的“单个请求最大大小”；
+   - 默认也是约 1MB；
+   - 即使 Broker 允许 10MB，如果 Producer 仍是 1MB，大消息依然发不出去。
+
+在我们的测试 / 生产环境中，这两层限制**错位**了：
+
+- **测试环境**：
+  - Broker 最大消息大小已经被调到 6MB；
+  - 我们把 Producer `max.request.size` 调到 10MB → 看起来“一切正常”；
+- **生产环境**：
+  - Producer 同样是 10MB；
+  - 但 Broker 仍然是默认 1MB → 发到生产就出问题了。
+
+### 正确姿势 & 小结
+
+从这次的经历里，至少有两点教训：
+
+1. **大报文支持必须同时关注 Broker 和 Producer 两侧的限制**
+   - Broker：最大消息大小（例如 10MB）
+   - Producer：`max.request.size`（对应调到 10MB）
+   - 消费者侧某些配置（`max.partition.fetch.bytes` 等）也可能需要关注。
+
+2. **“测试 OK”之前，要先确认各环境 Kafka 实例配置是否一致**  
+   特别是以下几类参数：
+   - 最大消息大小 / message.max.bytes；
+   - 消息保留时长；
+   - 分区数、副本数等（虽与本问题不完全相关，但同属环境差异的高发区）。
+
+可以把这一节总结为一句话：
+
+> **Broker 放得下 ≠ Producer 发得出；测试发得出 ≠ 生产也没问题。**  
+> 配置只看一端，或者只看一个环境，都是坑。
+
+## 启用 LZ4 压缩：Java 很开心，Python 全崩溃
+
+在搞定“大消息能发”之后，我们自然想到：**既然消息很大，能不能顺带用压缩算法节省一点带宽？**
+
+于是就有了下面这次连锁反应。
+
+### 配置变更：给 Producer 加上 `compression.type=lz4`
+
+在 Spring Boot 中，给生产者开启 LZ4 压缩非常简单，大概就是：
+
+```yaml
+spring:
+  kafka:
+    producer:
+      properties:
+        max.request.size: 10485760
+      compression-type: lz4
+```
+
+Java 生态里，这个基本是“一行配置”的事情：
+
+- Java Kafka 客户端一般都已经内置了对应的 LZ4 支持；
+- Java 生产者发消息正常；
+- Java 消费者也能正常消费。
+
+如果系统里全是 Java 服务，这几乎不会成为问题。
+
+### 多语言链路：Python 消费端“集体异常”
+
+然而我们的链路并不是纯 Java，而是一个多语言架构：
+
+- 部分下游服务使用 **kafka-python**；
+- 部分下游服务使用 **aiokafka**（基于 asyncio 的 Kafka 客户端）。
+
+在 Java 端加上 `compression.type=lz4` 之后，这些 Python 消费者几乎同时开始报错，错误信息非常集中：
+
+```
+UnsupportedCodecError: Libraries for lz4 compression codec not found
+```
+
+表面意思很清楚：**缺 LZ4 的依赖库**。  
+但如果之前没注意过“压缩算法是否跨语言兼容”，很容易一脸懵。
+
+### 真相：Python 客户端的 LZ4 是“可选依赖”
+
+问题的关键在于：
+
+- **Java Kafka 客户端对 LZ4 支持是自带的**，只要配置 `compression.type=lz4` 就能用；
+- **Python 侧（kafka-python / aiokafka）对 LZ4 支持则是“可选依赖”**：
+  - 不额外安装 LZ4 相关依赖时，它们并不具备解压 LZ4 消息的能力；
+  - 一旦收到 LZ4 压缩的消息，就会报类似：UnsupportedCodecError: Libraries for lz4 compression codec not found
+
+### 修复方案（按客户端分类）
+
+#### aiokafka
+
+为了启用 LZ4 解码，官方推荐使用 extra 依赖，例如：
+
+```
+pip install "aiokafka[lz4]"
+# 使用 PDM 时类似：
+pdm add "aiokafka[lz4]"
+```
+
+#### kafka-python
+
+```
+pip install lz4
+# 使用 PDM 时类似：
+pdm add lz4
+```
+
+### 这一节的教训：配置变更是系统级变更，而不是局部“顺手一改”
+
+从表面看，这次变更只是：
+
+```
+compression.type: lz4
+```
+
+一行配置。
+
+但在一个多语言、多客户端的架构里，这其实是对**整条链路的“协议变更”**：
+
+- 上游开始发 LZ4 压缩的消息；
+- 所有消费者都必须具备 LZ4 解压能力；
+- 任意一个客户端没升级就会直接报错。
+
+类似 Cloudflare 最近那次事故： 一次看起来“只是改了个小配置 + 一个 Rust `.unwrap()`”的改动，结果触发了 2025-11-18 的全球性宕机。[# Cloudflare outage on November 18, 2025](https://blog.cloudflare.com/18-november-2025-outage) 跟大型云厂商事故相比，我们当然只是“小打小闹”。 但本质是一致的：**任何影响“消息格式 / 协议 / 编码方式”的配置，都应该被视作系统级改动，而不是“局部小优化”。**
+
+## 历史消息重放：默认 72 小时保留，过期了就真没了
+
+前面的几个问题解决后，我们还面临一个现实需求：
+
+> “这段时间的消息有问题，需要重放一遍历史消息。”
+
+这时候另一个 Kafka 维度开始发挥影响力：**消息保留时长（Retention）**。
+
+在阿里云 Kafka 中，实例通常有一个「消息保留时长」配置：
+
+- 默认值是 **72 小时**（3 天）；
+- 可以在一定范围内调大（比如 7 天、一周以上等，视实例类型而定）；
+- 超出保留时长的消息会被删除；
+- 如果磁盘空间接近阈值，系统可能会优先删除更早的数据。
+
+现实含义是：
+
+> 如果你一直使用默认的 72 小时保留时长，那么 3 天之前的消息，从物理上就已经不存在了。  
+> 无论你再怎么重置 offset、换消费组，都不可能把这部分消息“重新消费回来”。
+
+所以在设计“历史重放 / 补数”方案时，一定要提前确认：
+
+1. 业务真正需要的重放窗口是多少（3 天？7 天？14 天？）；
+2. Kafka 实例的保留时长是否已经配置到位；
+3. 这样做对磁盘容量和成本的影响是否可接受。
+
+## 最终 Checklist：大报文 + 压缩 + 重放场景自检
+
+实际做类似改造 / 排查前，可以用下面这个 Checklist 自查一遍。
+
+### 大报文支持
+
+-  阿里云 Kafka 实例的「最大消息大小」是否从默认 1MB 调整到了业务需要的值（最多 10MB）？
+-  所有 **Producer** 是否统一设置了对应的 `max.request.size`？
+-  如果是自建 Kafka / 非阿里云：
+  -  Broker `message.max.bytes` / `replica.fetch.max.bytes` 是否足够大？
+  -  Consumer `max.partition.fetch.bytes` / `fetch.max.bytes` 是否匹配大报文？
+
+### 环境差异
+
+- 测试 / 预发 / 生产 Kafka 实例的关键参数（最大消息大小、保留时长等）是否对齐？
+- 是否避免了“只在测试环境验证，却忽略生产实例仍是默认配置”的情况？
+
+### 压缩算法与多语言客户端
+
+- 是否统一了生产者的 `compression.type`（none / gzip / snappy / lz4 / zstd）？
+- 启用 LZ4 时：
+  - 所有 Java 客户端版本均支持 LZ4？
+  - 所有 Python 客户端（kafka-python、aiokafka）都已正确安装 LZ4 依赖（如 `aiokafka[lz4]`、`lz4` 包等）？
+  - 实际上线的容器镜像中已验证 `python -c "import lz4"` 正常？
+
+### 历史重放与消息保留
+
+- 业务期望的重放窗口是多少（72h / 7d / 14d …）？
+- Kafka 实例的消息保留时长配置是否满足这个窗口？
+- 是否考虑到了保留时间拉长后对磁盘容量和费用的影响？
+
+## 说在最后
+
+这次排查表面看只是几个“小问题”：
+
+- 大报文发不出去；
+- 某些客户端解不了 LZ4；
+- 想重放消息才发现历史早就过期了。
+
+但一路查下来，其实刚好把阿里云 Kafka 在「大报文 + 压缩 + 历史重放」场景下的一些边界摸了一遍，也踩出了几个具有代表性的坑：
+
+- **不要只看 Producer，还要看 Broker；不要只看测试，还要看生产；**
+- **不要只看 Java，还要看多语言客户端；**
+- **不要只看配置是否“能跑通”，还要看未来是否“能重放”。**
+
+如果你们的系统里也有「大消息 + 多语言 + Kafka」这几个关键词，非常建议提前把上面的几点做成团队内部的 Kafka 使用规范，贴在 Kafka 文档首页。这样每一个新接入 Kafka 的服务，都可以在踩坑之前，先把坑看一遍。
