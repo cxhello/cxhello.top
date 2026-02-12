@@ -1,0 +1,176 @@
+---
+title: 'Defining the AI Coding Evaluation Engineer'
+date: '2026-02-12'
+tags: ['ai-coding', 'evaluation', 'career', 'benchmark']
+summary: 'AI coding tools are everywhere, but how do we know which is good? SWE-Bench is not enough. I propose a new role — AI Coding Evaluation Engineer — and the 7 dimensions we should be measuring.'
+images: ['/static/images/banners/photo-1555066931-4365d14bab8c.jpeg']
+authors: ['default']
+---
+
+## The Problem Nobody Is Solving
+
+In the past six months, I've used Claude Code for 121 sessions, sent 1,853 messages, triggered 97 sub-agent dispatches, and hit 45 wrong approaches. I've also shipped 3 iOS apps with Cursor, tried Codex (and abandoned it because it didn't support skills), and built custom workflows that push these tools to their limits.
+
+Here's what I've learned: **we have no idea how to measure whether an AI coding tool is actually good.**
+
+SWE-Bench Verified scores are converging — Opus 4.6 at 80.8%, GLM-5 at 77.8%, DeepSeek V3.2 at 74%. But anyone using these tools daily knows they feel _very_ different. The benchmarks are lying to us.
+
+Nathan Lambert calls this the "[post-benchmark era](https://www.interconnects.ai/p/opus-46-vs-codex-53)":
+
+> "Benchmark-based release reactions barely matter anymore."
+
+When five models score 77–81% on the same test, the test has lost its discriminative power. We need something better.
+
+## Why SWE-Bench Is Not Enough
+
+SWE-Bench measures one thing well: can a model fix a bug in a Python repository? That's table stakes now. Here's what it doesn't measure:
+
+**New benchmarks are exposing the gap:**
+
+| Benchmark       | What It Tests          | Best Model Score        | Same Model on SWE-Bench |
+| --------------- | ---------------------- | ----------------------- | ----------------------- |
+| OctoCodingBench | Instruction compliance | 36.2% (Claude 4.5 Opus) | 80.9%                   |
+| ACE-Bench       | End-to-end feature dev | 7.5% (Claude 4 Sonnet)  | 70.4%                   |
+| SWE-EVO         | Multi-file evolution   | 21% (GPT-5)             | 65%                     |
+| ABC-Bench       | Full backend lifecycle | 63.2%                   | —                       |
+
+A model that scores 70–80% on SWE-Bench can drop to **7.5%** when asked to build a complete feature from requirements to delivery. That's not a minor gap — that's a different universe.
+
+MiniMax's OctoCodingBench is particularly revealing. It tests whether agents follow process rules — not just whether the code works. Even Claude 4.5 Opus, the best-performing model, violates process constraints in **two-thirds** of tasks. Examples:
+
+- User's system prompt says "no emoji" → agent inserts smiley faces in comments
+- User requires "backup before modifying" → agent runs `rm -rf` directly
+- Project naming conventions in `Claude.md` → completely ignored
+
+Sound familiar? It should. These are the exact failures I encounter daily in real-world AI coding sessions.
+
+## The 7 Dimensions We're Not Measuring
+
+From 121 Claude Code sessions, 45 wrong approaches, and 36 misunderstood requests, I've identified 7 evaluation dimensions that no standard benchmark covers:
+
+### 1. Plan Ability
+
+Can the model understand a multi-step task and create a reasonable plan before writing code? Or does it dive straight into implementation and get lost halfway through?
+
+### 2. Scope Compliance
+
+Does the model stay within the boundaries of what was asked? Or does it "helpfully" refactor surrounding code, add unnecessary features, and change files it shouldn't touch?
+
+This is what OctoCodingBench measures with its ISR (Instance-level Success Rate) — and even the best models fail 64% of the time.
+
+### 3. Architecture Constraint Understanding
+
+Can the model respect project-specific technical constraints? For example: GraalVM projects can't use reflection. Certain frameworks require specific patterns. A model that generates working code that violates architectural constraints creates more work than it saves.
+
+### 4. Error Recovery
+
+When the model takes a wrong approach (and it will — my data shows 45 wrong approaches in 121 sessions), can it recognize the mistake and self-correct? Or does it double down on the failed approach?
+
+### 5. Multi-File Coordination
+
+Real-world changes rarely touch a single file. SWE-EVO tests this: tasks involving an average of 21 files and 874 tests. GPT-5 drops from 65% to 21% when multi-file coordination is required.
+
+### 6. User Correction Cost
+
+How many times does a human need to intervene to get the correct result? This is perhaps the most important metric for practical adoption — and it's completely absent from every benchmark.
+
+My data: 80% task completion rate means 20% of tasks required significant human intervention or were abandoned. The _cost_ of that 20% matters enormously.
+
+### 7. Long Session Context Retention
+
+In extended coding sessions, can the model remember decisions made earlier? Or does it contradict itself, re-introduce bugs it already fixed, or forget the architecture it agreed to follow?
+
+## A Real-World Case Study: Tool Calling Reliability
+
+Here's a dimension that no coding benchmark measures at all: **tool calling reliability**.
+
+A colleague built a custom skill for data import — structured tool calls with 4 parameters (operation type, file path, batch number, environment config). Same skill, three models:
+
+| Model        | Result          |
+| ------------ | --------------- |
+| Claude Opus  | Works perfectly |
+| MiniMax M2.1 | Works perfectly |
+| GLM-4.7      | Fails           |
+
+The root cause? GLM has a [documented bug](https://huggingface.co/zai-org/GLM-4.7/discussions/18) where it serializes `object` type parameters as JSON strings instead of actual objects. This bug has been independently reported in [SGLang](https://github.com/sgl-project/sglang/issues/15721), [OpenCode](https://github.com/anomalyco/opencode/issues/8102), and [LobeChat](https://github.com/lobehub/lobe-chat/issues/11408).
+
+GLM's overall tool calling success rate is approximately 90.6% — meaning roughly 1 in 10 tool calls fails.
+
+**SWE-Bench cannot tell you any of this.** It doesn't test tool calling. It doesn't test structured parameter passing. It doesn't test the reliability of the agentic infrastructure that makes coding agents actually useful.
+
+## Defining the Role: AI Coding Evaluation Engineer
+
+Just as Google defined SRE (Site Reliability Engineer) for a role the industry needed but didn't have a name for, I believe we need a new role: **AI Coding Evaluation Engineer**.
+
+This is not a traditional QA engineer. Not an ML researcher. Not a coding tool developer. It's someone who sits at the intersection of all three:
+
+| Role                        | Focus                                                | What's Missing                                          |
+| --------------------------- | ---------------------------------------------------- | ------------------------------------------------------- |
+| ML Researcher               | Model capabilities, paper metrics                    | Lacks hands-on tool experience and engineering practice |
+| Full-Stack Engineer         | Code implementation, product delivery                | Lacks evaluation methodology and systematic thinking    |
+| QA Engineer                 | Test coverage, regression detection                  | Lacks AI tool understanding and benchmark design        |
+| **AI Coding Eval Engineer** | **Define standards, measure quality, improve tools** | **Combines all three**                                  |
+
+### Core Competency Model
+
+The role requires depth in three areas:
+
+1. **Tool Depth** — Deep, daily experience with multiple AI coding tools (Claude Code, Cursor, Codex, Cline). Understanding their failure modes from the inside, not from reading about them.
+
+2. **Engineering Breadth** — Multi-language production experience. You can't evaluate a Go coding agent if you've never written Go. The evaluation engineer needs to be a competent engineer first.
+
+3. **Evaluation Methodology** — Understanding benchmark design, statistical methods, and the science of measurement. Reading papers like SWE-Bench, understanding their limitations, and knowing how to design better evaluations.
+
+## The Industry Is Ready
+
+This isn't theoretical. The signals are everywhere:
+
+- **Moonshot AI (Kimi)** is publicly hiring for Coding Evaluation roles
+- **Anthropic** has a sophisticated internal eval system far beyond public SWE-Bench — and published "[Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)" as a methodological guide
+- **OpenAI** has an Applied Evals team ($255–325K base salary) specifically for evaluating AI agents
+- **MiniMax** built and open-sourced OctoCodingBench because they weren't satisfied with existing standards
+- **ByteDance** released Multi-SWE-bench (7 languages, 1,632 tasks) and FullStack-Bench (16 languages, 3,374 problems) — the deepest investment in coding evaluation from any company
+
+According to [Anthropic's 2026 Agentic Coding Trends Report](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf), developers now use AI in 60% of their work, but can only fully delegate 0–20% of tasks. The gap between "AI-assisted" and "AI-delegated" is where evaluation matters most.
+
+## Who Should Consider This Path
+
+You might be a good fit if:
+
+- You use AI coding tools daily and notice their systematic failures
+- You have production experience in multiple programming languages
+- You're curious about _why_ things fail, not just _that_ they fail
+- You enjoy designing experiments and measuring outcomes
+- You can write in English (the evaluation discourse is primarily in English)
+
+You don't need a PhD in ML. You don't need to train models. What you need is **systematic thinking about what "good" means in AI coding** — and the engineering experience to back it up.
+
+## Getting Started
+
+Anthropic's engineering team offers a practical starting point:
+
+> You don't need hundreds of tasks. **20–50 tasks based on real failures** are enough to start.
+
+Here's a concrete path:
+
+1. **Document your failures** — Every time an AI coding tool fails you, write it down. What happened? What should have happened? Which of the 7 dimensions was involved?
+
+2. **Read the methodology** — Start with Anthropic's "[Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)" and [Google Cloud's agent evaluation framework](https://cloud.google.com/blog/topics/developers-practitioners/a-methodical-approach-to-agent-evaluation).
+
+3. **Study the new benchmarks** — OctoCodingBench, ACE-Bench, ABC-Bench, SWE-EVO. Understand what they measure and how they're designed.
+
+4. **Build a mini benchmark** — Take your documented failures and turn them into reproducible test cases. Define scoring criteria. Run multiple tools against them.
+
+5. **Share your findings** — Blog posts, Twitter threads, conference talks. The evaluation space needs more voices from practitioners, not just researchers.
+
+## The Window Is Now
+
+AI coding tools are transitioning from "early adopter toy" to "enterprise procurement decision." When companies start spending money, the first question is "which tool is better?" Whoever can answer that question systematically has leverage.
+
+The window for practitioners to become evaluation experts is open — but it has an expiration date. As the field matures, the unique perspective of a deep user who also understands evaluation methodology will become increasingly rare and valuable.
+
+The benchmarks are broken. Someone needs to fix them. Maybe that someone is you.
+
+---
+
+_This post is part of my exploration of the AI Coding Evaluation Engineer role. Follow [@caixiaohuichn](https://x.com/caixiaohuichn) for ongoing insights, or check out the [benchmark thread](https://x.com/caixiaohuichn/status/2021876674577805530) for a quick overview of the data behind this article._
