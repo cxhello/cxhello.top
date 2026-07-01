@@ -34,10 +34,11 @@ export function AuthorLayout({ children }: Props) {
                 Hi there <Twemoji emoji="waving-hand" />
               </h2>
               <p>
-                I'm <strong>Xiaohui Cai</strong> (alias <strong>Cuthbert</strong> at work), a software
-                engineer from <strong>China</strong>. I have a passion for all things{' '}
-                <strong>Java</strong>. I work mainly with <strong>Java</strong>, <strong>Spring</strong>,{' '}
-                <strong>Maven</strong>, <strong>MySQL</strong>, and <strong>Redis</strong>.
+                I'm <strong>Xiaohui Cai</strong> (alias <strong>Cuthbert</strong> at work), a
+                software engineer from <strong>China</strong>. I have a passion for all things{' '}
+                <strong>Java</strong>. I work mainly with <strong>Java</strong>,{' '}
+                <strong>Spring</strong>, <strong>Maven</strong>, <strong>MySQL</strong>, and{' '}
+                <strong>Redis</strong>.
               </p>
               <p>
                 This blog serves as a journal for documenting and sharing the insights and knowledge
@@ -83,7 +84,7 @@ export function AuthorLayout({ children }: Props) {
                 </a>{' '}
                 &{' '}
                 <a href="https://x.com/hta218_" target="_blank">
-                Tuan Anh Huynh
+                  Tuan Anh Huynh
                 </a>{' '}
                 for the minimal, lightweight, and super easy-to-customize blog starter.
               </p>
@@ -192,7 +193,14 @@ export function AuthorLayout({ children }: Props) {
             <div>
               <h2>Friendly Link</h2>
               <p>
-                <a href="https://yuluo-yx.github.io" target="_blank">牧生</a>
+                <a href="https://yuluo-yx.github.io" target="_blank">
+                  牧生
+                </a>
+              </p>
+              <p>
+                <a href="https://www.lemonflow.live" target="_blank">
+                  lemon
+                </a>
               </p>
             </div>
             {/* <div>
