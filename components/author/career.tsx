@@ -7,11 +7,39 @@ import { GrowingUnderline } from '~/components/ui/growing-underline'
 
 const EXPERIENCES = [
   {
+    org: 'LenzTech',
+    url: 'https://www.lenztechretail.com',
+    logo: '/static/images/lenztech-logo.png',
+    start: 'Jul 2025',
+    end: 'Present',
+    title: 'Software Engineer',
+    icon: 'man-technologist',
+    event: 'career-lenztech',
+    details: () => {
+      return (
+        <ul className="[&>li]:my-2 [&>li]:pl-0">
+          <li>
+            Productionize the retail shelf{' '}
+            <a target="_blank" rel="noopener noreferrer" href="https://www.lenztechretail.com">
+              image-recognition platform
+            </a>
+            : build the engineering services that turn computer-vision capabilities into reliable
+            production systems (Java / Python / Go).
+          </li>
+          <li>
+            Own the observability stack — monitoring, alerting, and distributed tracing — along with
+            Kubernetes operations and GitOps delivery with Argo CD.
+          </li>
+        </ul>
+      )
+    },
+  },
+  {
     org: 'InsightOne',
     url: 'https://www.insightone.cn',
     logo: '/static/images/insightone-logo.png',
     start: 'Apr 2022',
-    end: 'Present',
+    end: 'Jul 2025',
     title: 'Java Software Engineer',
     icon: 'man-technologist',
     event: 'career-insightone',
@@ -20,7 +48,11 @@ const EXPERIENCES = [
         <ul className="[&>li]:my-2 [&>li]:pl-0">
           <li>
             Built Smart{' '}
-            <a target="_blank" rel="noopener noreferrer" href="https://www.insightone.cn/product/insightone">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.insightone.cn/product/insightone"
+            >
               Privacy Computing Platform
             </a>{' '}
             to help Organizations Realize Data Availability Without Visibility.
@@ -33,7 +65,7 @@ const EXPERIENCES = [
     org: 'Ruiyou Technology',
     url: 'https://www.rayootech.com',
     logo: '/static/images/ruiyou-logo.png',
-    start: 'August 2019',
+    start: 'Aug 2019',
     end: 'Apr 2022',
     title: 'Java Software Engineer',
     icon: 'man-technologist',
@@ -43,22 +75,14 @@ const EXPERIENCES = [
         <ul className="[&>li]:my-2 [&>li]:pl-0">
           <li>
             Built{' '}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.hcr.com.cn"
-            >
+            <a target="_blank" rel="noopener noreferrer" href="https://www.hcr.com.cn">
               WeChat Mini Program
             </a>{' '}
             - A social platform to help cigarette enthusiasts
           </li>
           <li>
             Built{' '}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://jr.jdl.com/"
-            >
+            <a target="_blank" rel="noopener noreferrer" href="https://jr.jdl.com/">
               Jingdong Logistics Financial Platform
             </a>{' '}
             - to help merchants with cash shortages
@@ -66,7 +90,7 @@ const EXPERIENCES = [
         </ul>
       )
     },
-  }
+  },
 ]
 
 export function CareerTimeline() {
@@ -81,7 +105,9 @@ export function CareerTimeline() {
   )
 }
 
-function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: boolean }) {
+export type TimelineEntry = (typeof EXPERIENCES)[0]
+
+export function TimelineItem({ exp, last }: { exp: TimelineEntry; last?: boolean }) {
   let { org, title, icon, url, logo, start, end, event, details: Details } = exp
   return (
     <div

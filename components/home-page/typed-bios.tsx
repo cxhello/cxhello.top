@@ -48,7 +48,7 @@ export function TypedBios() {
         <li>I live in Beijing, China.</li>
         <li>I was born in the beautiful Inner Mongolia.</li>
         <li>My first programming language I learned was Java.</li>
-        <li>I work mostly with Java technologies.</li>
+        <li>I work across Java, Python, and Go.</li>
         {/* <li>I'm Tu Le's husband.</li> */}
         {/* <li>
           I'm a dog-person. <Twemoji emoji="dog" />
@@ -56,8 +56,7 @@ export function TypedBios() {
         <li>
           I'm a sport-guy. I love
           <span className="ml-1">
-            <Twemoji emoji="soccer-ball" />,
-            {/* <Twemoji emoji="man-swimming" />, */}
+            <Twemoji emoji="soccer-ball" />,{/* <Twemoji emoji="man-swimming" />, */}
             <Twemoji emoji="ping-pong" />
             {/* <Twemoji emoji="volleyball" /> */}
           </span>

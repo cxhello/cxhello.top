@@ -35,10 +35,11 @@ export function AuthorLayout({ children }: Props) {
               </h2>
               <p>
                 I'm <strong>Xiaohui Cai</strong> (alias <strong>Cuthbert</strong> at work), a
-                software engineer from <strong>China</strong>. I have a passion for all things{' '}
-                <strong>Java</strong>. I work mainly with <strong>Java</strong>,{' '}
-                <strong>Spring</strong>, <strong>Maven</strong>, <strong>MySQL</strong>, and{' '}
-                <strong>Redis</strong>.
+                software engineer from <strong>China</strong>. I started out in the Java world —{' '}
+                <strong>Spring</strong>, <strong>MySQL</strong>, <strong>Redis</strong> — and now
+                work across the stack: backend services in <strong>Java</strong> /{' '}
+                <strong>Python</strong> / <strong>Go</strong>, <strong>Kubernetes</strong>, and
+                observability.
               </p>
               <p>
                 This blog serves as a journal for documenting and sharing the insights and knowledge

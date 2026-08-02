@@ -27,7 +27,7 @@ export function Home({
             <div className="mb-6 mt-4 md:mb-8">
               <p>I have been studying computers at university since 2016.</p>
               <p>I landed my first job as a Java Software Engineer in 2019.</p>
-              <p>I have a passion for Java/Go, backend dev.</p>
+              <p>I have a passion for backend & platform engineering — Java / Python / Go.</p>
               <p>I started this blog to document and share my knowledge & experience.</p>
             </div>
             <BlogLinks />

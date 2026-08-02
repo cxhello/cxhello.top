@@ -39,13 +39,15 @@ const SOCIALS = [
 export function ProfileCardInfo() {
   return (
     <div className="hidden py-4 md:block md:px-5">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Xiaohui Cai (Cuthbert)</h3>
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+        Xiaohui Cai (Cuthbert)
+      </h3>
       <h5 className="py-2 text-gray-500 dark:text-gray-400">Learner | Builder</h5>
       <div className="mb-2 mt-4 space-y-4">
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <BriefcaseBusiness strokeWidth={1.5} size={20} />
           <p className="flex items-center px-2">
-            Java Software Engineer 
+            Software Engineer
             {/* @{' '}
             <a
               target="_blank"
