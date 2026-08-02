@@ -1,6 +1,7 @@
 import type { Author } from 'contentlayer/generated'
 import type { ReactNode } from 'react'
 import { CareerTimeline } from '~/components/author/career'
+import { OpenSourceTimeline } from '~/components/author/open-source'
 import { SocialAccounts } from '~/components/author/social-accounts'
 import { ProfileCard } from '~/components/cards/profile'
 import { Button } from '~/components/ui/button'
@@ -60,6 +61,10 @@ export function AuthorLayout({ children }: Props) {
                 </Button>
               </div>
               <CareerTimeline />
+            </div>
+            <div>
+              <h2>Open source</h2>
+              <OpenSourceTimeline />
             </div>
             <div>
               <h2>Tech stack</h2>
