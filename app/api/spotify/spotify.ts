@@ -23,7 +23,6 @@ async function getAccessToken() {
       refresh_token,
     }),
   })
-  console.log('spotify response', response)
   return response.json()
 }
 
