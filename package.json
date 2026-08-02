@@ -13,6 +13,7 @@
     "db:init": "npx drizzle-kit generate && npx drizzle-kit push",
     "db:studio": "npx drizzle-kit studio --port 8088",
     "seed": "tsx ./scripts/seed.ts",
+    "spotify-auth": "tsx ./scripts/spotify-auth.ts",
     "typecheck": "npx tsc -b"
   },
   "dependencies": {
