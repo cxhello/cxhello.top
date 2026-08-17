@@ -12,7 +12,7 @@ const EXPERIENCES = [
     logo: '/static/images/lenztech-logo.png',
     start: 'Jul 2025',
     end: 'Present',
-    title: 'Software Engineer',
+    title: 'Senior Backend Engineer',
     icon: 'man-technologist',
     event: 'career-lenztech',
     details: () => {
