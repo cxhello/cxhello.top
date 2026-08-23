@@ -51,6 +51,14 @@ authors: ['default']
 4. 布局默认 `PostLayout`（带 TOC 右栏）；front matter `layout: PostBanner|PostSimple` 可切换。
 5. 每篇文章自动获得 `/raw/blog/<slug>` 纯 markdown 输出，并进入 `/llms.txt` 索引。
 
+### 排版建议（影响观感的写作项）
+
+- `summary` 写成钩子（结论前置/悬念），不写"本文介绍了…"。
+- 正文从 `##` 开始（h1 已被标题占用）；h2 一篇 6-10 个；**小标题 ≤12 字**（TOC 右栏仅 290px，长标题会折多行）。
+- 封面图选大面积、低细节、色调统一的图（标题会压在水印上），避免截图/文字密集图；偏暗的图在暗色模式更融合。
+- 短段落（2-4 行）；插叙/提醒用 `> [!NOTE]` / `> [!WARNING]` alert。
+- 行内 code 只放命令/字段/路径等实体；表格 ≤4 列；代码块可用 ```bash:filename 语法加标题条。
+
 ## Git 约定
 
 - Conventional Commits + `git commit --signoff`（DCO 由 git 处理，勿手写 Signed-off-by）。
