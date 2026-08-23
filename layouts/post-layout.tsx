@@ -1,9 +1,9 @@
 import type { Author, Blog } from 'contentlayer/generated'
 import type { ReactNode } from 'react'
 import { BackToPosts } from '~/components/blog/back-to-posts'
-import { Banner } from '~/components/blog/banner'
 import { BlogMeta } from '~/components/blog/blog-meta'
 import { Comments } from '~/components/blog/comments'
+import { HeroImage } from '~/components/blog/hero-image'
 import { PostNav } from '~/components/blog/post-nav'
 import { PostTitle } from '~/components/blog/post-title'
 import { Reactions } from '~/components/blog/reactions'
@@ -30,14 +30,12 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
 
   return (
     <section className="relative isolate mx-auto w-full max-w-[87.5rem] px-4 pt-4 sm:px-6 lg:pt-12 xl:px-12">
+      <HeroImage src={images?.[0] || SITE_METADATA.socialBanner} />
       <ScrollButtons />
-      <article className="pt-6">
+      <article className="pt-[clamp(96px,22vh,260px)]">
         <div className="space-y-4">
           <TagsList tags={tags} />
           <PostTitle>{title}</PostTitle>
-          <div className="space-y-4 pt-4 md:pt-10">
-            <Banner banner={images?.[0] || SITE_METADATA.socialBanner} />
-          </div>
           <div className="flex items-center justify-between gap-2 pb-4 lg:pt-2">
             <BlogMeta
               date={date}
