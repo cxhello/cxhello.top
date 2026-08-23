@@ -4,7 +4,6 @@ import { writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
 import path from 'path'
-import readingTime from 'reading-time'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeCitation from 'rehype-citation'
 import rehypePresetMinify from 'rehype-preset-minify'
@@ -16,6 +15,7 @@ import remarkMath from 'remark-math'
 import { SITE_METADATA } from './data/site-metadata'
 import { allCoreContent } from './utils/contentlayer'
 import { sortPosts } from './utils/misc'
+import { readingStats } from './utils/reading-stats'
 import { remarkCodeTitles } from './utils/remark-code-titles'
 import { remarkExtractFrontmatter } from './utils/remark-extract-frontmatter'
 import { remarkImgToJsx } from './utils/remark-img-to-jsx'
@@ -38,7 +38,7 @@ let icon = fromHtmlIsomorphic(
 )
 
 let computedFields: ComputedFields = {
-  readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
+  readingTime: { type: 'json', resolve: (doc) => readingStats(doc.body.raw) },
   slug: {
     type: 'string',
     resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, ''),

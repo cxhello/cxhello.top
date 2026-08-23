@@ -40,7 +40,11 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
           <div className="flex items-center gap-x-1.5 text-sm text-gray-600 dark:text-gray-400">
             <time dateTime={date}>{formatDate(date)}</time>
             <span className="mx-1 text-gray-400">/</span>
-            <span>{Math.ceil(readingTime.minutes)} mins read</span>
+            <span>
+              {readingTime.isCJK
+                ? `${readingTime.minutes} 分钟`
+                : `${readingTime.minutes} mins read`}
+            </span>
           </div>
           <div className="group relative">
             <h3 className="text-xl font-semibold leading-6">

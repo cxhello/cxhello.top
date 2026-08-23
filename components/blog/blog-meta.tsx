@@ -1,5 +1,5 @@
-import type readingTime from 'reading-time'
 import type { StatsType } from '~/db/schema'
+import type { ReadingStats } from '~/utils/reading-stats'
 import { formatDate, getTimeAgo } from '~/utils/misc'
 import { ViewsCounter } from './views-counter'
 
@@ -8,7 +8,7 @@ type BlogMetaProps = {
   lastmod?: string
   slug: string
   type: StatsType
-  readingTime: ReturnType<typeof readingTime>
+  readingTime: ReadingStats
 }
 
 export function BlogMeta({ date, lastmod, type, slug, readingTime }: BlogMetaProps) {
@@ -29,7 +29,11 @@ export function BlogMeta({ date, lastmod, type, slug, readingTime }: BlogMetaPro
           )}
         </time>
         <span className="text-gray-300 dark:text-gray-700">/</span>
-        <span>{Math.ceil(readingTime.minutes)} mins read</span>
+        <span>
+          {readingTime.isCJK
+            ? `${readingTime.cjkChars.toLocaleString()} 字 · ${readingTime.minutes} 分钟`
+            : `${readingTime.minutes} mins read`}
+        </span>
         <span className="text-gray-300 dark:text-gray-700">/</span>
         <ViewsCounter type={type} slug={slug} />
       </dd>
