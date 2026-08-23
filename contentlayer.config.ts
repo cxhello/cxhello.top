@@ -19,6 +19,7 @@ import { readingStats } from './utils/reading-stats'
 import { remarkCodeTitles } from './utils/remark-code-titles'
 import { remarkExtractFrontmatter } from './utils/remark-extract-frontmatter'
 import { remarkImgToJsx } from './utils/remark-img-to-jsx'
+import { remarkPanguSpacing } from './utils/remark-pangu-spacing'
 import { extractTocHeadings } from './utils/remark-toc-headings'
 
 let root = process.cwd()
@@ -184,6 +185,7 @@ export default makeSource({
     remarkPlugins: [
       remarkExtractFrontmatter,
       remarkGfm,
+      remarkPanguSpacing,
       remarkCodeTitles,
       remarkMath,
       remarkImgToJsx,
