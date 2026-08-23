@@ -52,7 +52,7 @@ export function PostBanner({ content, children }: LayoutProps) {
             />
           </div>
         </div>
-        <div className="prose max-w-none dark:prose-invert">{children}</div>
+        <div className="prose mx-auto w-full max-w-[59.375rem] dark:prose-invert">{children}</div>
         <div className="space-y-8 border-t border-gray-200 pt-4 dark:border-gray-700">
           <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">

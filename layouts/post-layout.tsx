@@ -11,7 +11,6 @@ import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { SocialShare } from '~/components/blog/social-share'
 import { TagsList } from '~/components/blog/tags'
 import { TableOfContents } from '~/components/blog/toc'
-import { Container } from '~/components/ui/container'
 import { GradientDivider } from '~/components/ui/gradient-divider'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { StatsType } from '~/db/schema'
@@ -30,7 +29,7 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
-    <Container className="pt-4 lg:pt-12">
+    <section className="relative isolate mx-auto w-full max-w-[87.5rem] px-4 pt-4 sm:px-6 lg:pt-12 xl:px-12">
       <ScrollButtons />
       <article className="pt-6">
         <div className="space-y-4">
@@ -94,6 +93,6 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
           <Comments configs={{ reactions: '0' }} />
         </div>
       </article>
-    </Container>
+    </section>
   )
 }
