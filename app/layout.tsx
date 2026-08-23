@@ -133,7 +133,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <ShellBackground />
         <ThemeProviders>
-          {/* <UmamiAnalytics websiteId={SITE_METADATA.analytics.umamiAnalytics.websiteId} /> */}
+          <UmamiAnalytics websiteId={SITE_METADATA.analytics.umamiAnalytics.websiteId} />
           <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
             <Header />
             <main className="mb-auto grow">{children}</main>
