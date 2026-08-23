@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { KbarSearchTrigger } from '~/components/search/kbar-trigger'
 import { Container } from '~/components/ui/container'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
@@ -35,7 +35,20 @@ function logASCIItext() {
 
 export function Header() {
   let pathname = usePathname()
+  let [hidden, setHidden] = useState(false)
   useEffect(logASCIItext, [])
+
+  // 下滑隐藏、上滑出现：阅读时让位，回滚随时可用
+  useEffect(() => {
+    let lastY = window.scrollY
+    function onScroll() {
+      let y = window.scrollY
+      setHidden(y > lastY && y > 120)
+      lastY = y
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <Container
@@ -43,7 +56,10 @@ export function Header() {
       className={clsx(
         'bg-white/75 py-2 backdrop-blur dark:bg-dark/75',
         'shadow-sm saturate-100 md:rounded-2xl',
-        SITE_METADATA.stickyNav && 'sticky top-2 z-50 lg:top-3'
+        SITE_METADATA.stickyNav && 'sticky top-2 z-50 lg:top-3',
+        SITE_METADATA.stickyNav &&
+          'transition-transform duration-200 motion-reduce:transition-none',
+        SITE_METADATA.stickyNav && hidden && '-translate-y-[150%]'
       )}
     >
       <div className="flex items-center justify-between gap-3">
