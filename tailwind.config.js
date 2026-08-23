@@ -149,6 +149,9 @@ module.exports = {
             pre: {
               margin: 0,
               code: {
+                backgroundColor: 'transparent',
+                padding: '0',
+                fontSize: '1em',
                 fontWeight: '500',
                 span: {
                   color: 'var(--shiki-light, inherit)',
@@ -205,9 +208,16 @@ module.exports = {
               borderBottom: '2px solid theme(colors.gray.800)',
             },
             code: {
-              color: theme('colors.indigo.500'),
+              color: theme('colors.gray.800'),
+              backgroundColor: theme('colors.gray.100'),
+              borderRadius: theme('borderRadius.md'),
+              paddingInline: '0.375rem',
+              paddingBlock: '0.125rem',
               fontWeight: '500',
+              fontSize: '0.875em',
             },
+            'code::before': { content: 'none' },
+            'code::after': { content: 'none' },
             '.image-container': {
               width: 'fit-content',
               marginLeft: 'auto',
@@ -271,7 +281,8 @@ module.exports = {
               paddingLeft: '.75rem',
             },
             code: {
-              color: theme('colors.primary.400'),
+              color: theme('colors.gray.200'),
+              backgroundColor: theme('colors.gray.800'),
             },
             'h1,h2,h3,h4,h5,h6': {
               color: theme('colors.gray.100'),
