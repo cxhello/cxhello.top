@@ -3,7 +3,7 @@
 import type { Literal, Parent as Root } from 'unist'
 import { visit } from 'unist-util-visit'
 
-const CJK = '\\u2e80-\\u2eff\\u3000-\\u303f\\u3400-\\u4dbf\\u4e00-\\u9fff\\uf900-\\ufaff'
+const CJK = '\\u2e80-\\u2eff\\u3400-\\u4dbf\\u4e00-\\u9fff\\uf900-\\ufaff'
 const CJK_THEN_LATIN = new RegExp(`([${CJK}])([A-Za-z0-9])`, 'g')
 const LATIN_THEN_CJK = new RegExp(`([A-Za-z0-9])([${CJK}])`, 'g')
 

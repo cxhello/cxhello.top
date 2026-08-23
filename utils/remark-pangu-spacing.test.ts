@@ -9,4 +9,7 @@ assert.match(out, /中文 English 和 123 数字/)
 assert.match(out, /`代码code`/)
 assert.doesNotMatch(out, /中文  English/) // 幂等：已有空格不重复加
 
+let out2 = String(remark().use(remarkPanguSpacing).processSync('听《You Will Find Me》这首歌'))
+assert.match(out2, /《You Will Find Me》/) // CJK 标点不加空格，与表意文字区分对待
+
 console.log('remark-pangu-spacing: all assertions passed')
