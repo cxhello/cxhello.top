@@ -21,7 +21,7 @@ This file provides guidance to AI coding agents (Claude Code, Cursor, etc.) when
 - **不要在 dev server 运行时跑 `pnpm build`**：Next 15 两者共用 `.next` 目录，会互相污染，症状是页面样式全丢。先 kill 3434 端口进程再 build；build 后重启 dev 前建议 `rm -rf .next`。
 - **`tailwind.config.js` 改动不会热更新**：必须重启 dev server。
 - **contentlayer 字段改动**（`contentlayer.config.ts`）需要重启 dev server 才会重算。
-- **`json/*.json` 是脚本产物**（`scripts/seed.ts` 生成），不要手改；`books.json` 为空会导致 build 失败。
+- **`json/*.json` 是脚本产物**（`scripts/seed.ts` 生成），不要手改；`books.json` 为空会导致本地 build 失败。**Vercel 的 Build Command 在后台被覆盖为 `yarn seed && yarn build`**（仓库配置里看不到），所以线上每次部署都会重新生成这些数据——仓库里提交的副本只服务于本地 dev/build，陈旧是正常的。
 - lint-staged/prettier 的 pre-commit hook 会自动重排 Tailwind class 顺序和折行——commit 后 diff 与你写入的字面顺序不同是正常的。
 
 ## Design System：双人格（不要打破）
