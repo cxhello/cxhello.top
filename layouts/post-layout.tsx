@@ -4,6 +4,7 @@ import { ArticleEndAd } from '~/components/blog/article-end-ad'
 import { BackToPosts } from '~/components/blog/back-to-posts'
 import { BlogMeta } from '~/components/blog/blog-meta'
 import { Comments } from '~/components/blog/comments'
+import { CopyMarkdownButton } from '~/components/blog/copy-markdown-button'
 import { HeroImage } from '~/components/blog/hero-image'
 import { PostNav } from '~/components/blog/post-nav'
 import { PostTitle } from '~/components/blog/post-title'
@@ -45,12 +46,15 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
               slug={slug}
               readingTime={readingTime}
             />
-            <SocialShare
-              postUrl={postUrl}
-              filePath={filePath}
-              title={title}
-              className="hidden md:flex"
-            />
+            <div className="flex items-center gap-4">
+              <SocialShare
+                postUrl={postUrl}
+                filePath={filePath}
+                title={title}
+                className="hidden md:flex"
+              />
+              <CopyMarkdownButton type={type.toLowerCase()} slug={slug} />
+            </div>
           </div>
         </div>
         <GradientDivider className="mb-2 mt-1" />
