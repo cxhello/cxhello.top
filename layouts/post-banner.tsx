@@ -27,10 +27,10 @@ export function PostBanner({ content, next, prev, children }: LayoutProps) {
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
-    <section className="relative isolate mx-auto w-full max-w-[87.5rem] px-4 pt-4 sm:px-6 lg:pt-12 xl:px-12">
+    <div className="relative isolate">
       <HeroImage src={images?.[0] || SITE_METADATA.socialBanner} />
       <ScrollButtons />
-      <article className="space-y-6 pt-[clamp(96px,22vh,260px)] lg:space-y-16">
+      <article className="mx-auto w-full max-w-[59.375rem] space-y-6 px-[clamp(1rem,4vw,3rem)] pt-[clamp(96px,22vh,260px)] lg:space-y-16">
         <div className="space-y-4">
           <TagsList tags={tags} />
           <PostTitle>{title}</PostTitle>
@@ -47,7 +47,7 @@ export function PostBanner({ content, next, prev, children }: LayoutProps) {
             </div>
           </dl>
         </div>
-        <div className="prose mx-auto w-full max-w-[59.375rem] dark:prose-invert">{children}</div>
+        <div className="prose max-w-none dark:prose-invert">{children}</div>
         <div className="space-y-8 border-t border-gray-200 pt-4 dark:border-gray-700">
           <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">
@@ -62,6 +62,6 @@ export function PostBanner({ content, next, prev, children }: LayoutProps) {
           <Comments />
         </div>
       </article>
-    </section>
+    </div>
   )
 }

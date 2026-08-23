@@ -1,7 +1,6 @@
 import type { Author, Blog } from 'contentlayer/generated'
 import type { ReactNode } from 'react'
 import { ArticleEndAd } from '~/components/blog/article-end-ad'
-import { BackToPosts } from '~/components/blog/back-to-posts'
 import { BlogMeta } from '~/components/blog/blog-meta'
 import { Comments } from '~/components/blog/comments'
 import { CopyMarkdownButton } from '~/components/blog/copy-markdown-button'
@@ -31,72 +30,51 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
-    <section className="relative isolate mx-auto w-full max-w-[87.5rem] px-4 pt-4 sm:px-6 lg:pt-12 xl:px-12">
+    <div className="relative isolate">
       <HeroImage src={images?.[0] || SITE_METADATA.socialBanner} />
       <ScrollButtons />
-      <article className="pt-[clamp(96px,22vh,260px)]">
-        <div className="space-y-4">
-          <TagsList tags={tags} />
-          <PostTitle>{title}</PostTitle>
-          <div className="flex items-center justify-between gap-2 pb-4 lg:pt-2">
-            <BlogMeta
-              date={date}
-              lastmod={lastmod}
-              type={type.toLowerCase() as StatsType}
-              slug={slug}
-              readingTime={readingTime}
-            />
-            <div className="flex items-center gap-4">
-              <SocialShare
-                postUrl={postUrl}
-                filePath={filePath}
-                title={title}
-                className="hidden md:flex"
-              />
-              <CopyMarkdownButton type={type.toLowerCase()} slug={slug} />
-            </div>
-          </div>
-        </div>
-        <GradientDivider className="mb-2 mt-1" />
-        <div className="grid grid-cols-1 gap-12 pb-10 pt-8 lg:grid-cols-12 lg:pt-10">
-          <div className="divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-8 xl:col-span-9">
-            <div className="prose max-w-none dark:prose-invert lg:pb-8">{children}</div>
-          </div>
-          <div className="hidden lg:col-span-4 lg:block xl:col-span-3">
-            <div className="space-y-4 divide-y divide-gray-200 dark:divide-gray-700 lg:sticky lg:top-24">
-              {/* <BackToPosts label="Back to posts" /> */}
-              <TableOfContents toc={toc} />
-              <Reactions className="pt-6" type={type.toLowerCase() as StatsType} slug={slug} />
-              <div className="hidden">
-                {/* <script src="//servedby.eleavers.com/ads/ads.php?t=MzA5NzQ7MjEwNjA7c3F1YXJlLnNxdWFyZV9ib3g=&index=1"></script> */}
-                {/* <script
-                  type="text/javascript"
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                        atOptions = {
-                          'key' : '1a0dbe126a158e715cd3377a597850d8',
-                          'format' : 'iframe',
-                          'height' : 300,
-                          'width' : 160,
-                          'params' : {}
-                        };`,
-                  }}
+      <div className="mx-auto flex w-full gap-10 px-[clamp(1rem,4vw,3rem)] pt-4 lg:pt-12">
+        <div className="min-w-0 flex-1">
+          <article className="mx-auto w-full max-w-[59.375rem] pt-[clamp(96px,22vh,260px)]">
+            <div className="space-y-4">
+              <TagsList tags={tags} />
+              <PostTitle>{title}</PostTitle>
+              <div className="flex items-center justify-between gap-2 pb-4 lg:pt-2">
+                <BlogMeta
+                  date={date}
+                  lastmod={lastmod}
+                  type={type.toLowerCase() as StatsType}
+                  slug={slug}
+                  readingTime={readingTime}
                 />
-                <script
-                  type="text/javascript"
-                  src="//www.topcpmcreativeformat.com/1a0dbe126a158e715cd3377a597850d8/invoke.js"
-                /> */}
+                <div className="flex items-center gap-4">
+                  <SocialShare
+                    postUrl={postUrl}
+                    filePath={filePath}
+                    title={title}
+                    className="hidden md:flex"
+                  />
+                  <CopyMarkdownButton type={type.toLowerCase()} slug={slug} />
+                </div>
               </div>
             </div>
+            <GradientDivider className="mb-2 mt-1" />
+            <div className="prose max-w-none py-8 dark:prose-invert lg:pb-10">{children}</div>
+            <GradientDivider />
+            <div className="space-y-4">
+              <PostNav next={next} nextLabel="Next post" prev={prev} prevLabel="Previous post" />
+              <ArticleEndAd />
+              <Comments configs={{ reactions: '0' }} />
+            </div>
+          </article>
+        </div>
+        <aside className="hidden w-[18.125rem] shrink-0 pt-[clamp(96px,22vh,260px)] xl:block">
+          <div className="sticky top-24 space-y-4 divide-y divide-gray-200 dark:divide-gray-700">
+            <TableOfContents toc={toc} />
+            <Reactions className="pt-6" type={type.toLowerCase() as StatsType} slug={slug} />
           </div>
-        </div>
-        <GradientDivider />
-        <div className="space-y-4">
-          <PostNav next={next} nextLabel="Next post" prev={prev} prevLabel="Previous post" />
-          <ArticleEndAd />
-          <Comments configs={{ reactions: '0' }} />
-        </div>
-      </article>
-    </section>
+        </aside>
+      </div>
+    </div>
   )
 }
