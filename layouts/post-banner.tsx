@@ -1,5 +1,6 @@
 import type { Blog } from 'contentlayer/generated'
 import type { ReactNode } from 'react'
+import { ArticleEndAd } from '~/components/blog/article-end-ad'
 import { BlogMeta } from '~/components/blog/blog-meta'
 import { Comments } from '~/components/blog/comments'
 import { DiscussOnX } from '~/components/blog/discuss-on-x'
@@ -57,6 +58,7 @@ export function PostBanner({ content, next, prev, children }: LayoutProps) {
             {/* <SocialShare postUrl={postUrl} title={title} /> */}
           </div>
           <PostNav next={next} nextLabel="Next post" prev={prev} prevLabel="Previous post" />
+          <ArticleEndAd />
           <Comments />
         </div>
       </article>

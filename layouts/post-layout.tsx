@@ -1,5 +1,6 @@
 import type { Author, Blog } from 'contentlayer/generated'
 import type { ReactNode } from 'react'
+import { ArticleEndAd } from '~/components/blog/article-end-ad'
 import { BackToPosts } from '~/components/blog/back-to-posts'
 import { BlogMeta } from '~/components/blog/blog-meta'
 import { Comments } from '~/components/blog/comments'
@@ -88,6 +89,7 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
         <GradientDivider />
         <div className="space-y-4">
           <PostNav next={next} nextLabel="Next post" prev={prev} prevLabel="Previous post" />
+          <ArticleEndAd />
           <Comments configs={{ reactions: '0' }} />
         </div>
       </article>
