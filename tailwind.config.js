@@ -107,6 +107,8 @@ module.exports = {
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
+            fontFamily: `var(--font-inter), -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', ui-sans-serif, system-ui, sans-serif`,
+            lineHeight: '1.7',
             a: {
               color: theme('colors.primary.500'),
               'text-underline-offset': '4px',
@@ -122,8 +124,12 @@ module.exports = {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
             },
+            h2: {
+              marginTop: '3rem',
+            },
             h3: {
               fontWeight: '600',
+              marginTop: '2.25rem',
             },
             '.remark-code-title': {
               '+ figure': {

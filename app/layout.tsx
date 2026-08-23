@@ -5,7 +5,7 @@ import 'remark-github-blockquote-alert/alert.css'
 
 import clsx from 'clsx'
 import type { Metadata } from 'next'
-import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
+import { Inter, JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
 import { UmamiAnalytics } from '~/components/analytics/umami'
 import { Footer } from '~/components/footer'
 import { Header } from '~/components/header'
@@ -27,6 +27,13 @@ const FONT_NUNITO = Nunito({
   style: ['normal', 'italic'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-nunito',
+})
+
+const FONT_INTER = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  style: ['normal', 'italic'],
+  variable: '--font-inter',
 })
 
 const FONT_JETBRAINS_MONO = JetBrains_Mono({
@@ -86,6 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={clsx(
         'scroll-smooth',
         FONT_NUNITO.variable,
+        FONT_INTER.variable,
         FONT_JETBRAINS_MONO.variable,
         FONT_PLAYPEN_SANS.variable
       )}
