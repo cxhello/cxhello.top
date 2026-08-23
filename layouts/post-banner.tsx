@@ -5,6 +5,7 @@ import { Comments } from '~/components/blog/comments'
 import { DiscussOnX } from '~/components/blog/discuss-on-x'
 import { EditOnGithub } from '~/components/blog/edit-on-github'
 import { HeroImage } from '~/components/blog/hero-image'
+import { PostNav } from '~/components/blog/post-nav'
 import { PostTitle } from '~/components/blog/post-title'
 import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { SocialShare } from '~/components/blog/social-share'
@@ -20,7 +21,7 @@ interface LayoutProps {
   prev?: { path: string; title: string }
 }
 
-export function PostBanner({ content, children }: LayoutProps) {
+export function PostBanner({ content, next, prev, children }: LayoutProps) {
   let { slug, type, title, images, date, lastmod, readingTime, tags, filePath } = content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
@@ -55,6 +56,7 @@ export function PostBanner({ content, children }: LayoutProps) {
             </div>
             {/* <SocialShare postUrl={postUrl} title={title} /> */}
           </div>
+          <PostNav next={next} nextLabel="Next post" prev={prev} prevLabel="Previous post" />
           <Comments />
         </div>
       </article>
