@@ -18,7 +18,7 @@ export function genPageMetadata({ title, description, image, ...rest }: PageSEOP
       url: './',
       siteName: SITE_METADATA.title,
       images: image ? [image] : [SITE_METADATA.socialBanner],
-      locale: 'en_US',
+      locale: 'zh_CN',
       type: 'website',
     },
     twitter: {

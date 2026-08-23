@@ -267,6 +267,8 @@ module.exports = {
             },
             pre: {
               code: {
+                backgroundColor: 'transparent',
+                padding: '0',
                 span: {
                   color: 'var(--shiki-dark, inherit)',
                   fontStyle: 'var(--shiki-dark-font-style, inherit)',

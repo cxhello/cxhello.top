@@ -29,7 +29,7 @@ export function AuthorLayout({ children }: Props) {
           <ProfileCard />
         </div>
         <div className="md:col-span-2 md:pl-12 xl:pl-16">
-          <div className="prose prose-lg dark:prose-invert">
+          <div className="prose prose-lg font-sans dark:prose-invert">
             <div>
               <h2 className="mt-0">
                 Hi there <Twemoji emoji="waving-hand" />
