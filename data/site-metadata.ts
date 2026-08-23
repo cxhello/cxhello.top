@@ -2,9 +2,8 @@ export const SITE_METADATA = {
   title: `Cuthbert's Blog`,
   author: 'Cuthbert',
   headerTitle: `Cuthbert's Blog`,
-  description:
-    'Hi there, I am Cuthbert, a software engineer.',
-  language: 'en-us',
+  description: 'Hi there, I am Cuthbert, a software engineer.',
+  language: 'zh-cn',
   theme: 'system', // system, dark or light
   siteUrl: 'https://cxhello.top',
   siteRepo: 'https://github.com/cxhello/cxhello.top',
@@ -18,7 +17,7 @@ export const SITE_METADATA = {
   // linkedin: 'https://www.linkedin.com',
   // threads: 'https://www.threads.net',
   // instagram: 'https://www.instagram.com',
-  locale: 'en-US',
+  locale: 'zh-CN',
   stickyNav: true,
   goodreadsBookshelfUrl: 'https://www.goodreads.com/user/show/188425083-xiaohui-cai',
   goodreadsFeedUrl: 'https://www.goodreads.com/review/list_rss/188425083',
@@ -26,7 +25,7 @@ export const SITE_METADATA = {
   analytics: {
     umamiAnalytics: {
       websiteId: process.env.NEXT_UMAMI_ID,
-      shareUrl: 'https://cloud.umami.is/share/FgKDmdMFYOuJLeLK/cxhello.top'
+      shareUrl: 'https://cloud.umami.is/share/FgKDmdMFYOuJLeLK/cxhello.top',
     },
   },
   newsletter: {
