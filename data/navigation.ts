@@ -19,6 +19,7 @@ export const FOOTER_NAV_LINKS = [
   { href: '/projects', title: 'Projects' },
   { href: '/tags', title: 'Tags' },
   { href: '/feed.xml', title: 'RSS Feed' },
+  { href: '/privacy', title: 'Privacy' },
 ]
 
 export const FOOTER_PERSONAL_STUFF = [
