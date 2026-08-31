@@ -30,7 +30,7 @@ export let generateStaticParams = async () => {
   let tagCounts = tagData as Record<string, number>
   let tagKeys = Object.keys(tagCounts)
   let paths = tagKeys.map((tag) => ({
-    tag: encodeURI(tag),
+    tag,
   }))
   return paths
 }
