@@ -9,6 +9,9 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string[]
   if (!doc) return new Response('Not found', { status: 404 })
   let md = `# ${doc.title}\n\n> ${doc.summary ?? ''}\n\n${doc.body.raw}`
   return new Response(md, {
-    headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
+    headers: {
+      'Content-Type': 'text/markdown; charset=utf-8',
+      'X-Robots-Tag': 'noindex',
+    },
   })
 }

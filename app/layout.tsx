@@ -6,6 +6,7 @@ import 'remark-github-blockquote-alert/alert.css'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
+import Script from 'next/script'
 import { UmamiAnalytics } from '~/components/analytics/umami'
 import { Footer } from '~/components/footer'
 import { Header } from '~/components/header'
@@ -132,6 +133,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ])}
       >
         <ShellBackground />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7494326995438759"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
         <ThemeProviders>
           <UmamiAnalytics websiteId={SITE_METADATA.analytics.umamiAnalytics.websiteId} />
           <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
