@@ -1,0 +1,139 @@
+---
+title: '部署一个项目管理工具，把生产 Redis 清了六次'
+date: '2026-09-04'
+tags: ['Redis', 'troubleshooting', 'Kubernetes']
+summary: '新应用误连共享 Redis 执行 FLUSHDB，一天六波全业务线告警——用 SLOWLOG 秒级定位元凶的排查全过程。'
+images: ['/static/images/banners/photo-1558494949-ef010cbdcc31.jpeg']
+authors: ['default']
+---
+
+## 那天下午发生了什么
+
+某天下午两点半，告警群突然炸了。
+
+多个项目、多个模块，同一秒成批报错：
+
+```
+RuntimeError: Wrong number of results: 0, which should be 1
+```
+
+错误出现在图像识别平台的各个环节——分割、检测、分类、空间计算——像是有人把底层什么东西一把抽掉了。
+
+## 排除法：不是模型，不是上游
+
+第一反应是某个模型挂了。但告警**跨了所有项目、所有模块**——单点故障不会有这个画面。
+
+查上游服务：proxy 175 个连接、0 积压；模型 pod 全健康，gRPC 队列归零。排除积压形态。
+
+到这一步可以确定：**问题在公共链路**，不在任何一个业务模块。
+
+## 追一条失败请求
+
+挑一条告警追全程：
+
+1. 模型侧日志：推理 0.13 秒完成，日志明确打印「存储结果到 Redis 完成」
+2. 业务服务侧：0.6 秒后查询同一个结果 key——**查不到**
+
+模型明明写进去了，几百毫秒后就凭空消失了。
+
+## 排掉 Redis 自身
+
+会不会是 Redis 内存淘汰？或者偷偷重启了？
+
+```bash
+redis-cli INFO memory
+# used_memory_human: 1.26G
+# maxmemory: 32G
+# evicted_keys: 0
+
+redis-cli INFO server
+# uptime_in_days: 96
+```
+
+1.26G / 32G，用了不到 4%。`evicted_keys=0`，没有淘汰。运行 96 天没重启过。
+
+**Key 不是被淘汰的，是被删的。**
+
+## SLOWLOG：抓到现行
+
+Redis 的 SLOWLOG 会记录所有执行时间超过阈值的命令，包括命令名、参数、执行时长和**客户端 IP**。`FLUSHDB` 一次删掉几十万 key，耗时 129~638 毫秒，必然进 slowlog。
+
+```bash
+redis-cli SLOWLOG GET 128
+```
+
+果然——**六条 FLUSHDB**，带精确时间戳和客户端 IP：
+
+| FLUSHDB 时间 | 告警时间 | 来源 IP    |
+| ------------ | -------- | ---------- |
+| 14:24:40     | 14:24:41 | 10.x.x.83  |
+| 15:12:42     | 15:12:42 | 10.x.x.77  |
+| 15:22:36     | 15:22:36 | 10.x.x.85  |
+| 15:37:17     | 15:37:18 | 10.x.x.100 |
+| 16:04:09     | —        | 10.x.x.87  |
+| 16:11:37     | —        | 10.x.x.94  |
+
+**秒级吻合**。六波 FLUSHDB，六波告警。到这一步已经破案了一半——有什么东西在反复执行 FLUSHDB。
+
+## IP 反查：是谁？
+
+```bash
+kubectl get pods -A -o wide | grep "10.x.x"
+```
+
+> [!NOTE]
+> 注意短命 pod 的 IP 会被复用。反查时要结合 pod 的 age / 创建时间，确认当时那个 IP 归属于哪个 pod。
+
+六个 IP 全部指向同一个 namespace 里的同一组 pod——**当天刚部署的 Plane**（一个开源项目管理工具）。
+
+部署了 6 轮（migrate job 编号 `plane-app-api-migrate-6` 为证），正好 6 次 FLUSHDB。
+
+## 配置实锤
+
+查 Plane 的 Secret：
+
+```yaml
+# plane-app-secrets
+REDIS_URL: redis://:***@shared-redis.internal:6379/0
+```
+
+Plane 的 `REDIS_URL` 指向了**全业务共享的生产 Redis db0**。
+
+Plane 基于 Django，使用 [django-redis](https://github.com/jazzband/django-redis) 做缓存后端。Plane 的 [Docker entrypoint](https://github.com/makeplane/plane/blob/master/apps/api/bin/docker-entrypoint-api.sh) 在每次容器启动时会执行 `python manage.py clear_cache`，而这个命令内部调用的是 `cache.clear()`——django-redis 的 [`clear()` 实现](https://github.com/jazzband/django-redis/blob/master/django_redis/client/default.py)就是一条赤裸裸的 `client.flushdb()`。
+
+它清的不是「自己的缓存」，而是**整个 db0 里所有服务的运行态数据**：任务队列、去重标记、监控计数器、正在等待读取的识别结果……一条命令，全部归零。
+
+## 故障为什么这么隐蔽
+
+FLUSHDB 清掉识别结果 key 之后，业务代码的一个设计隐患放大了故障：查不到结果 key 时，服务**不是报错，而是静默地把空请求当新任务跑**，返回"成功 + 空结果"。
+
+把「结果丢了」伪装成了「模型算出 0 个结果」。
+
+排查时先入为主以为是模型问题，在模型侧转了一大圈才回到 Redis 层面。如果代码在结果 miss 时返回显式错误码（比如 `RESULT_LOST`），定位速度至少快一倍。
+
+## 处置与改进
+
+| 事项                    | 说明                                       |
+| ----------------------- | ------------------------------------------ |
+| Plane 当天下线          | 如再上必须使用独立 Redis 实例              |
+| 禁用 FLUSHDB / FLUSHALL | 在云控制台 rename 掉这两个命令             |
+| 新应用接入规范          | 禁止连接共享 Redis 的核心 db               |
+| 业务代码修复            | 结果 key miss 时返回显式错误，不再静默空跑 |
+
+## 排查工具箱
+
+整个排查**全程只读**，只用了两个工具：
+
+1. **`SLOWLOG GET`**：Redis 慢日志自带命令名、执行时间、客户端 IP:port——危险命令 + 来源一步到位
+2. **`kubectl get pods -A -o wide`**：按 IP 反查 pod 归属
+
+碰到"key 莫名消失"的场景，先查 `SLOWLOG` 和 `evicted_keys`，基本能一步定性是被删还是被淘汰。
+
+## Checklist：共享 Redis 防护
+
+- [ ] 禁用 `FLUSHDB` / `FLUSHALL`（云服务商控制台或 `rename-command` 配置）
+- [ ] 新应用接入必须使用独立 db 编号或独立实例，不允许共享核心 db
+- [ ] 部署前审计应用启动脚本：grep `FLUSHDB` / `FLUSHALL` / `cache.clear()`
+- [ ] Django 项目使用 django-redis 时配置 `KEY_PREFIX`，避免 `clear()` 触发 `FLUSHDB`
+- [ ] Redis 核心运行态数据（队列 / 识别结果）与缓存数据做 db 或实例级隔离
+- [ ] 结果查询 miss 时返回显式错误码（如 `RESULT_LOST`），禁止静默重跑
