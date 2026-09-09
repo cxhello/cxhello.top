@@ -1,0 +1,168 @@
+---
+title: '一个 gRPC GOAWAY，如何击穿三层防线变成业务雪崩'
+date: '2026-09-09'
+tags: ['gRPC', 'troubleshooting', 'Redis']
+summary: 'A routine HTTP/2 GOAWAY was amplified into a cascading failure by a shared gRPC channel close and a destructive Redis BRPOP — three layers of bugs turned a non-event into production chaos.'
+images: ['/static/images/banners/photo-1550751827-4bd374c3f58b.jpeg']
+authors: ['default']
+---
+
+## 现象：模型没问题，结果却丢了
+
+某天下午，告警群弹出一条识别失败。频率不高——每天零星几次——但诡异的是：
+
+1. 模型侧日志显示推理 **20ms 完成**，结果已写入 Redis
+2. 业务服务侧查同一个 key，**查不到**
+
+模型明明算完了、结果也存了，几百毫秒后就凭空消失。一度怀疑是 Redis 问题，但 `evicted_keys=0`，不是淘汰。
+
+追了一条完整的失败请求后，发现这不是一个 bug，而是**三个 bug 叠在一起**。
+
+## 调用链路
+
+先交代背景。这是一个图像识别平台，调用链大致如下：
+
+```
+业务代理（Python, gRPC 客户端）
+  │  经 API 网关（HTTP/2, gRPC）
+  ▼
+推理模型（gRPC 服务端, :8082）
+  │  推理完成后 LPUSH 结果到 Redis
+  ▼
+业务代理从 Redis 读取结果
+```
+
+业务代理通过一个**进程级单例 gRPC channel** 和 API 网关通信，所有线程共用同一条连接。
+
+## 第一层：触发——一个常规的 GOAWAY
+
+```
+15:41:04.286  StatusCode.UNAVAILABLE  details="GOAWAY received"
+```
+
+GOAWAY 是 HTTP/2 协议的标准机制：服务端通知客户端"这条连接即将关闭，请勿在其上开新流"。API 网关触发 GOAWAY 非常常见——配置 reload、连接请求数达上限（`http2_max_requests`）、keepalive 超时。
+
+**正常 gRPC 客户端遇到 GOAWAY 会自动迁到新连接，对业务完全透明。** 这本不该是个事。
+
+但我们的客户端 SDK 不这么认为。
+
+## 第二层：放大——共享 channel 被一把关掉
+
+问题代码（简化后）：
+
+```python
+# 进程级单例，所有线程共用
+model_api = ModelClient(url=GATEWAY_URL)
+
+class ModelClient:
+    def _recreate_channel(self):
+        self.channel.close()           # ★ 关掉共享 channel
+        self._create_channel_and_stub() # 建新的
+
+    def call_model(self, request):
+        for _ in range(5):  # 重试 5 次
+            try:
+                return self.stub.infer(request)
+            except grpc.RpcError:
+                self._recreate_channel()  # 一出错就重建
+        raise RuntimeError("request failed")
+```
+
+**请求 A** 收到 GOAWAY → 触发 `_recreate_channel()` → `channel.close()`。
+
+`close()` 会**立即取消这条 channel 上所有在途的 RPC**。于是**请求 B**（和 A 毫无关系，只是恰好共享同一条 channel）被连带取消：
+
+```
+15:41:04.287  StatusCode.CANCELLED  details="Channel closed!"
+```
+
+GOAWAY 后仅 **1.4 毫秒**，无辜的请求 B 就死了。
+
+而 API 网关的 access log 也印证了：`status 499`（客户端关连接）、`upstream_time 0.002`（上游 2ms 已回复但客户端没等）。模型明明算完了，客户端自己先跑了。
+
+> [!NOTE]
+> 这里的爆炸半径是 **1:N**——一个请求收到 GOAWAY，同进程所有并发请求被殃及。高并发时一次 GOAWAY 可以打掉一整批请求。
+
+## 第三层：致命——结果被消费但没送达
+
+如果只是被取消，重试一次就能救回来。但第三个 bug 让结果**不可恢复**。
+
+推理结果在 Redis 中通过 list 传递：
+
+- **存**：模型推理完成后 `LPUSH` 结果到 list（**只推 1 份**）
+- **取**：业务代理用 `BRPOP` 从 list 中读取（**销毁性消费**，读完即删）
+
+被取消的那次调用，模型侧已经 `BRPOP` 把结果从 Redis 消费走了——消费了，但没来得及送达给调用方。
+
+结果从 Redis 中**永久消失**。
+
+后续 4 次重试发现 list 为空，每次阻塞等待 3 秒后返回 `None`，代码直接在 `None.result` 上崩溃：
+
+```
+StatusCode.UNKNOWN  "'NoneType' object has no attribute 'result'"
+```
+
+而这个 `UNKNOWN` 本身又是 `grpc.RpcError`——又触发 `close()`——又取消其他请求。**自维持循环**，直到 5 次重试全部耗尽。
+
+## 完整时序
+
+```
+15:41:04.281  业务代理发起推理请求
+15:41:04.286  API 网关对共享连接发 GOAWAY（命中另一个请求 A）
+             → 请求 A 触发 channel.close()
+15:41:04.287  请求 B 在途 RPC 被取消：CANCELLED "Channel closed!"
+15:41:04.289  模型推理完成（0.02s）
+15:41:04.291  模型将结果写入 Redis（但被取消的那次已将结果消费走）
+15:41:07      重试 #2：结果 list 为空，阻塞 3s → None → UNKNOWN
+15:41:10      重试 #3：同上
+15:41:13      重试 #4：同上
+15:41:17      重试 #5：同上
+15:41:18      5 次耗尽 → "request is failed"
+```
+
+总耗时 ~14.8 秒。不是超时（超时阈值 400 秒），是 5 轮重试 × 每轮 3 秒阻塞。
+
+## 三种状态码 = 三层 bug
+
+| 状态码        | details                                       | 对应层                         |
+| ------------- | --------------------------------------------- | ------------------------------ |
+| `UNAVAILABLE` | "GOAWAY received"                             | 第一层：触发（正常事件）       |
+| `CANCELLED`   | "Channel closed!"                             | 第二层：共享 channel 级联取消  |
+| `UNKNOWN`     | "'NoneType' object has no attribute 'result'" | 第三层：结果被销毁性消费后丢失 |
+
+排查时看到 `UNKNOWN + NoneType`，很容易误判为模型返回了异常。实际上模型 20ms 就算完了，锅全在通信层。
+
+## 反模式：跟 gRPC 对着干
+
+gRPC 的连接生命周期（GOAWAY、重连、状态迁移）**本该由框架透明处理**。正常的 gRPC channel 遇到 GOAWAY 会自动在新连接上重发请求，业务代码无感知。
+
+我们的代码犯了一个经典错误：**手动接管了 gRPC 的连接管理，而且做反了**。
+
+| 正确做法                | 我们的做法                         |
+| ----------------------- | ---------------------------------- |
+| 信任 gRPC 自动重连      | 手动 `close()` 重建 channel        |
+| 单个 RPC 失败只影响自己 | 关闭共享 channel，殃及所有并发请求 |
+| 结果可重复读            | 销毁性 BRPOP，消费即删除           |
+
+一句话：**gRPC 本该优雅消化的连接事件，被我们当成致命错误处理**——一遇错就掀桌。
+
+## 修复
+
+三层 bug，三个修复：
+
+| 层     | 问题                          | 修复                                                                                |
+| ------ | ----------------------------- | ----------------------------------------------------------------------------------- |
+| 第二层 | 共享 channel + `close()` 级联 | 移除手动 `close()`，让 gRPC 自行处理 GOAWAY 和重连；或改用 channel 池，隔离并发请求 |
+| 第三层 | 销毁性 BRPOP 单份投递         | 改为非销毁性读取（LINDEX/BRPOPLPUSH peek），消费与确认解耦                          |
+| 第三层 | `None.result` 无防御          | 对 `None` 响应返回显式错误码，不再抛 UNKNOWN 误导排查方向                           |
+
+第一层（GOAWAY 本身）不需要修——它是正常的 HTTP/2 行为。
+
+## Checklist：gRPC 客户端连接管理
+
+- [ ] 不要手动 `channel.close()` 来"重建连接"——gRPC 会自己处理
+- [ ] 如果必须共享 channel，确保错误处理不会殃及其他在途 RPC
+- [ ] 高并发场景考虑 channel 池，避免单点连接成为全局瓶颈
+- [ ] 通过 Redis 传递一次性结果时，避免销毁性消费（BRPOP）；优先使用可重复读 + 显式 ACK
+- [ ] gRPC 重试应只重发 RPC，不要重建 channel
+- [ ] 对 `None` / 空响应做防御性检查，返回明确错误码而非让 `NoneType` 异常冒泡
