@@ -1,0 +1,214 @@
+---
+title: 'K8s 切到 cgroup v2 之后，JVM 以为自己有 64 核'
+date: '2026-10-20'
+tags: ['Kubernetes', 'Java', 'cgroup', 'troubleshooting']
+summary: '换了个基础镜像，Pod 恰好落到新节点，JVM 开出 43 个 GC 线程和 30G 的堆——容器只给了 4 核 8G。'
+images: ['/static/images/banners/photo-1766678067437-bcf0c9006cd1.jpeg']
+authors: ['default']
+---
+
+## 一个巧合
+
+有个 Java 服务在生产上偶发 liveness 超时，日志里有 6 秒的空窗，对得上 GC 停顿。它跑的是 JDK 8u161，太老了，不识别容器的 CPU 和内存限制。
+
+修法很直接：换成另一个团队在用的基础镜像（Oracle JDK 8u202）。8u191 之后的 JDK 8 支持容器识别，这是大家都知道的事。
+
+在 UAT 上验证时，我顺手看了一眼 JVM 参数：
+
+```
+ParallelGCThreads = 43
+MaxHeapSize       = 30 GiB
+```
+
+容器的 limit 是 **4 核 8G**。
+
+43 个 GC 线程，正好是按 64 核算出来的（JDK 8 的公式是 `8 + (N−8) × 5/8`，N=64 时得 43）。30G 的堆，正好是节点内存的 1/4。8u202 完全没认出自己在容器里。
+
+查下去才发现，这个 Pod 恰好调度到了运维**当天重建的节点**上。新节点的系统镜像默认是 **cgroup v2**，而 8u202 只认 cgroup v1。
+
+## 为什么现在要关心
+
+这件事不是个例，而是迟早会撞上的：
+
+- **K8s 1.35** 起，kubelet 的 `failCgroupV1` 默认改为 true，cgroup v1 的节点上 kubelet 直接拒绝启动（[KEP-5573](https://www.kubernetes.dev/resources/keps/5573/)）
+- **阿里云 ACK 1.35** 起不再支持 cgroup v1；Alibaba Cloud Linux 3 容器优化版镜像本身就默认 v2
+
+最麻烦的是它的到来方式：**不是你主动升级，而是运维换了节点镜像**。应用代码一行没动，Pod 漂到新节点上，行为就变了。
+
+检查节点用的是哪个版本：
+
+```bash
+stat -fc %T /sys/fs/cgroup    # cgroup2fs = v2，tmpfs = v1
+```
+
+## 运行时怎么识别限制
+
+运行时所谓"识别容器限制"，其实就是去读 cgroup 文件。两个版本的文件布局完全不同：
+
+|                     | v1                                       | v2              |
+| ------------------- | ---------------------------------------- | --------------- |
+| 层级                | 每种资源一棵树                           | 单一统一树      |
+| CPU 限制            | `cpu.cfs_quota_us` + `cpu.cfs_period_us` | `cpu.max`       |
+| 内存限制            | `memory.limit_in_bytes`                  | `memory.max`    |
+| `/proc/self/cgroup` | 多行，每个控制器一行                     | 一行 `0::/path` |
+
+只认 v1 路径的运行时，在 v2 节点上找不到文件，就会**回退到宿主机的值**。
+
+> [!NOTE]
+> 限制本身照样生效——内核照样按 4 核限流、按 8G 杀进程。只是运行时**不知道自己被限制了**，按 64 核 / 256G 的机器去规划线程和堆。
+
+## 认错了会怎样
+
+**CPU：线程开太多，被 CFS 限流**
+
+CPU limit 是每 100ms 周期内的配额，4 核就是 400ms。按 64 核开出来的 GC 线程、ForkJoinPool、Netty event loop 同时干活，配额很快耗尽，剩下的时间容器里所有线程都被挂起。GC 线程在同步屏障上互相等，一个被挂起就拖住全部。
+
+**内存：直接被杀，不留痕迹**
+
+默认堆是节点内存的 1/4。堆涨过 limit，内核直接 OOMKill（exit 137）——**没有 `OutOfMemoryError`，没有 heap dump，日志里什么都没有**。
+
+不过有一点要说清楚：我们回头看了生产上那次 6 秒停顿，**主因其实是 GC 工作量本身**。GC 日志里一次 Young GC 是 `user=5.39 real=1.33`，5.39 秒的 CPU 工作在 4 核上至少要 1.35 秒，线程数配对了也省不掉。线程超配导致的限流只是放大因素。
+
+所以容器识别不是银弹，它防的是**切到 v2 之后情况显著恶化**。
+
+## 各语言支持矩阵
+
+我们盘点了两个生产集群的 611 个容器，按语言整理：
+
+| 运行时                 | 识别 v1 | 识别 v2        | 备注                                             |
+| ---------------------- | ------- | -------------- | ------------------------------------------------ |
+| JDK 8 < 8u191          | ✗       | ✗              | 8u131+ 有实验开关，只认 v1 内存                  |
+| JDK 8u191 ~ 8u362      | ✓       | ✗              | **v2 节点上退化**                                |
+| JDK 8u372+             | ✓       | ✓              |                                                  |
+| JDK 11.0.16+ / 17 / 21 | ✓       | ✓              |                                                  |
+| Python                 | ✗       | ✗              | `os.cpu_count()` 恒为节点核数                    |
+| Go < 1.25              | ✗       | ✗              | `GOMAXPROCS` 默认节点核数                        |
+| Go 1.25+               | ✓       | ✓              | `GOMAXPROCS` 按 CPU limit；`GOMEMLIMIT` 仍需手动 |
+| Node ≤ 18              | —       | ✗              | 实测见下文                                       |
+| Node 20                | —       | 内存 ✓ / CPU ✗ |                                                  |
+| Node 22+               | —       | ✓              |                                                  |
+
+**关键点：JDK 8 的门槛是 8u372，不是 8u191**。8u191 只加了 v1 支持，v2 要到 8u372 才 backport。网上大量文章写的"8u191+ 支持容器"，在 v2 时代已经不成立了。
+
+另一个现实问题：Oracle JDK 8 从 8u211 起改成 OTN 授权，商用要付费，所以很多团队停在 8u202——恰好卡在 v2 的坑里。我们的解法是换成 OpenJDK 发行版 Eclipse Temurin。
+
+## 实测：兜底参数的坑
+
+不是所有服务都能马上换 JDK。常见的兜底思路是用 Downward API 把 limit 注入环境变量，再显式告诉 JVM：
+
+```yaml
+env:
+  - name: CPU_LIMIT
+    valueFrom:
+      resourceFieldRef: { resource: limits.cpu, divisor: '1' }
+  - name: MEM_LIMIT
+    valueFrom:
+      resourceFieldRef: { resource: limits.memory }
+```
+
+然后在 `JAVA_OPTS` 里写 `-XX:ActiveProcessorCount=$(CPU_LIMIT) -XX:MaxRAM=$(MEM_LIMIT) -XX:MaxRAMPercentage=70.0`。
+
+我拿生产上真实的三个基础镜像（8u161、8u202、Temurin 8u462），在本地 cgroup v2 环境、容器限制 2 核 / 1G 下逐个测了一遍：
+
+| 参数                           | 8u161             | 8u202             | 8u462   |
+| ------------------------------ | ----------------- | ----------------- | ------- |
+| 默认                           | 9 线程 / 2002M ❌ | 9 线程 / 2002M ❌ | ✅      |
+| `ActiveProcessorCount=2`       | **JVM 起不来**    | ✅ 2 线程         | —       |
+| 单独 `MaxRAMPercentage=70.0`   | **JVM 起不来**    | ⚠️ **5604M**      | ✅ 718M |
+| `MaxRAM=1g`                    | ✅ 256M           | ✅ 256M           | ✅      |
+| `UseCGroupMemoryLimitForHeap`  | v2 下无效         | v2 下无效         | —       |
+| `ParallelGCThreads=2 -Xmx700m` | ✅                | ✅                | ✅      |
+
+（宿主机 10 核 8G，所以"没识别"表现为 9 个 GC 线程、2G 堆。）
+
+三个结论：
+
+1. **这套兜底在 8u161 上会让 JVM 直接起不来**。`ActiveProcessorCount` 和 `MaxRAMPercentage` 都是 8u191 才有的参数，老版本报 `Unrecognized VM option`。8u161 只能用 `-XX:ParallelGCThreads=$(CPU_LIMIT) -XX:MaxRAM=$(MEM_LIMIT)`。
+2. **单独用 `MaxRAMPercentage` 比不加更危险**。它是"可用内存的百分比"，JVM 没识别到容器时，可用内存就是宿主机内存——1G 的容器算出了 5.6G 的堆。必须和 `MaxRAM` 一起用。
+3. 8u161 上的实验开关 `UseCGroupMemoryLimitForHeap` 在 v2 下完全无效，别指望它。
+
+> [!WARNING]
+> JDK 8 的 `MaxRAMPercentage` 必须写成 `70.0`。写成 `70` 会报 `Improperly specified VM option`，JVM 同样起不来。
+
+## 换了 JDK，GC 也换了
+
+测试时 8u462 有一组数据很奇怪：`ParallelGCThreads=0`。看堆布局才知道，它用的根本不是 ParallelGC：
+
+| 容器 limit | 8u202（不识别） | 8u462（识别） |
+| ---------- | --------------- | ------------- |
+| 2C / 1G    | ParallelGC      | **SerialGC**  |
+| 1C / 4G    | ParallelGC      | **SerialGC**  |
+| 2C / 2G    | ParallelGC      | ParallelGC    |
+| 4C / 8G    | ParallelGC      | ParallelGC    |
+
+JDK 8 会判断自己是不是跑在 "server class" 机器上（≥2 核且内存约 2G 以上），不是的话默认用单线程的 SerialGC。老 JDK 看到的是宿主机，永远是 server class；新 JDK 看到的是容器，**1 核或内存小于 2G 的服务会悄悄换 GC**。
+
+这个变化不会报错，也不会出现在任何日志里。所以迁移时 JVM 参数模板里**一定要显式指定 GC**，不要依赖默认值。
+
+## Node 也躲不掉
+
+Node 靠 libuv 读 cgroup 来决定 V8 的堆上限。容器限制 2 核 / 600M，测了 7 个版本：
+
+| 版本    | libuv       | 堆上限      | `availableParallelism()` |
+| ------- | ----------- | ----------- | ------------------------ |
+| 10      | 1.34.2      | 1456M ❌    | 无此 API                 |
+| 14 / 16 | 1.42 / 1.43 | 2096M ❌    | 无此 API                 |
+| 18      | 1.44.2      | 2096M ❌    | 10 ❌                    |
+| 20      | 1.46.0      | **312M ✅** | 10 ❌                    |
+| 22      | 1.51.0      | 312M ✅     | **2 ✅**                 |
+| 24      | 1.52.1      | 348M ✅     | 2 ✅                     |
+
+- Node 18 及以下，600M 的容器算出了 2G 的堆，等于把 OOMKill 埋在那里（和 [nodejs#47259](https://github.com/nodejs/node/issues/47259) 报告的现象一致）
+- 内存识别从 **Node 20** 开始，CPU 识别从 **Node 22** 开始
+- `os.cpus().length` 所有版本都返回节点核数——用它决定 cluster/worker 数量的代码都会超配
+
+老版本的稳妥做法是显式设置 `--max-old-space-size`。
+
+## 整容器 OOM
+
+v2 还有一个和运行时无关、但影响很大的变化。
+
+K8s 1.28 起，在 cgroup v2 节点上会给容器设置 `memory.oom.group=1`：**容器里任何一个进程 OOM，整个容器一起被杀**。在 v1 下只杀占内存最多的那个进程，常常只是某个 worker，主进程把它拉起来就没事了。
+
+受影响的是所有多进程容器：gunicorn / uvicorn 多 worker、celery、airflow、pm2 cluster，以及同一个容器里塞了多个服务的。以前是"某个 worker 悄悄重启"，切到 v2 后变成"整个 Pod 重启"。我们盘点出 19 个这样的容器。
+
+K8s 1.32 加了 kubelet 配置 `singleProcessOOMKill`，打开后恢复成只杀单个进程。但它是**节点级**的，不能按 Pod 设置。[2i2c](https://2i2c.org/blog/kubernetes-cgroup-changes/) 在 EKS 升级换系统镜像后就踩过这个坑。
+
+## 迁移清单
+
+我们最后换成了 Temurin 8u462 的 Alpine 镜像，迁移中踩到的几个小坑：
+
+- Temurin Alpine 镜像缺 `libgcc`，`libfontmanager.so` 报 `UnsatisfiedLinkError`，AWT 字体和 Excel 导出直接挂，需要手动装
+- fontconfig 在非 root 用户 + `HOME=/` 下刷 `No writable cache directories`，设置 `XDG_CACHE_HOME=/tmp/.cache` 消除
+- 新 JDK 默认禁用 TLSv1 / TLSv1.1，连老旧的 HTTPS 服务或数据库可能握手失败
+
+验证 JVM 有没有识别容器：
+
+```bash
+java -XX:+PrintFlagsFinal -version 2>/dev/null | grep -E ' ParallelGCThreads | MaxHeapSize '
+```
+
+`ParallelGCThreads` 应等于 CPU limit，`MaxHeapSize` 应约为内存 limit 的 1/4。
+
+## Checklist
+
+- [ ] 确认节点 cgroup 版本：`stat -fc %T /sys/fs/cgroup`
+- [ ] 确认集群升级计划：K8s / ACK 1.35 起必须 v2
+- [ ] JDK 8 升到 **8u372+**（不是 8u191+）；Oracle 授权问题可换 Temurin
+- [ ] 暂时换不了 JDK 的，按版本选兜底参数：8u191 ~ 8u362 用 `ActiveProcessorCount` + `MaxRAM`；更老的用 `ParallelGCThreads` + `MaxRAM`
+- [ ] `MaxRAMPercentage` 不单独使用，且写成 `70.0`
+- [ ] JVM 模板显式指定 GC，防止小规格容器悄悄退成 SerialGC
+- [ ] Node 升到 20+（内存）/ 22+（CPU），或显式设置 `--max-old-space-size`
+- [ ] Go 升到 1.25+，或设置 `GOMAXPROCS`；按需设置 `GOMEMLIMIT`
+- [ ] Python 的 torch / numpy 显式设置 `OMP_NUM_THREADS`
+- [ ] 多进程容器核对内存余量，评估 `singleProcessOOMKill`
+- [ ] 监控 `container_cpu_cfs_throttled_periods_total` 和 OOMKilled 重启
+
+## 参考链接
+
+- [The Shift to cgroup v2 in Kubernetes](https://kubernetes.io/blog/2026/10/06/kubernetes-cgroups-v2-shift/) — K8s 官方博客
+- [KEP-5573: Remove cgroup v1 support](https://www.kubernetes.dev/resources/keps/5573/)
+- [ACK 支持的操作系统镜像](https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/overview-of-os-images/)
+- [ACK 节点迁移至 cgroup v2](https://www.alibabacloud.com/help/tc/ack/ack-managed-and-ack-dedicated/user-guide/migrate-nodes-to-cgroupv2)
+- [Solving Out-Of-Memory Issues in Kubernetes with cgroup v2](https://tech.preferred.jp/en/blog/kubernetes-single-process-oom-kill/) — Preferred Networks
+- [nodejs/node#47259: Wrong memory ceiling in cgroup v2](https://github.com/nodejs/node/issues/47259)
