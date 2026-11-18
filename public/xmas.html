@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1d19">
+<meta name="format-detection" content="telephone=no,email=no,address=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>给 吴同学 · 圣诞快乐</title>
+<style>
+  :root{
+    --ink:#f5eddc;
+    --dim:rgba(245,237,220,.62);
+    --gold:#e0c48d;
+    --red:#c95c46;
+    --bg1:#0a1a16;
+    --bg2:#12322b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{
+    background:var(--bg1);
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+  body{
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    flex-direction:column;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:
+      radial-gradient(110% 65% at 50% -6%, rgba(224,196,141,.17), transparent 60%),
+      radial-gradient(85% 50% at 50% 106%, rgba(201,92,70,.16), transparent 62%),
+      linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 45%, var(--bg1) 100%);
+  }
+
+  /* ---------- 雪 ---------- */
+  .snow{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+  }
+  .snow i{
+    position:absolute;
+    top:-6vh;
+    left:var(--x);
+    width:var(--s);
+    height:var(--s);
+    border-radius:50%;
+    background:rgba(255,255,255,.82);
+    box-shadow:0 0 4px rgba(255,255,255,.35);
+    opacity:0;
+    animation:fall var(--d) linear var(--delay) infinite;
+  }
+  @keyframes fall{
+    0%   {transform:translate3d(0,-6vh,0);opacity:0}
+    12%  {opacity:.75}
+    85%  {opacity:.45}
+    100% {transform:translate3d(var(--drift),106vh,0);opacity:0}
+  }
+
+  /* ---------- 页面 ---------- */
+  .page{
+    margin:auto 0;
+    width:100%;
+    padding:calc(24px + env(safe-area-inset-top)) 20px calc(22px + env(safe-area-inset-bottom));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .card{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:380px;
+    padding:22px 26px 26px;
+    text-align:center;
+    border:1px solid rgba(224,196,141,.22);
+    border-radius:6px;
+    background:
+      radial-gradient(120% 55% at 50% 0%, rgba(224,196,141,.11), transparent 62%),
+      linear-gradient(180deg, rgba(20,52,44,.94), rgba(9,24,20,.95));
+    box-shadow:0 24px 60px -30px rgba(0,0,0,.9);
+  }
+  .card::before,
+  .card::after{
+    content:"";
+    position:absolute;
+    width:14px;
+    height:14px;
+    border:1px solid rgba(224,196,141,.48);
+  }
+  .card::before{
+    top:-1px;left:-1px;
+    border-right:0;border-bottom:0;
+    border-top-left-radius:6px;
+  }
+  .card::after{
+    bottom:-1px;right:-1px;
+    border-left:0;border-top:0;
+    border-bottom-right-radius:6px;
+  }
+
+  /* ---------- 圣诞树 ---------- */
+  .treeWrap{
+    position:relative;
+    width:88px;
+    margin:0 auto 14px;
+  }
+  .treeWrap::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:38%;
+    width:150px;
+    height:150px;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(224,196,141,.16), transparent 68%);
+    pointer-events:none;
+  }
+  .tree{
+    position:relative;
+    display:block;
+    width:100%;
+    height:auto;
+    overflow:visible;
+  }
+  .tree .orn{animation:orn 3.8s ease-in-out infinite}
+  .tree .o1{animation-delay:.15s}
+  .tree .o2{animation-delay:1.2s}
+  .tree .o3{animation-delay:2.1s}
+  @keyframes orn{
+    0%,100%{opacity:.62}
+    45%    {opacity:1}
+  }
+  .tree .top{
+    animation:twinkle 4.4s ease-in-out infinite;
+    filter:drop-shadow(0 0 5px rgba(232,207,155,.6));
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.6;transform:scale(1)}
+    50%    {opacity:1;  transform:scale(1.12)}
+  }
+
+  .kicker{
+    font-size:10.5px;
+    letter-spacing:.30em;
+    text-indent:.30em;
+    color:var(--gold);
+    font-weight:500;
+  }
+
+  .kicker-en{
+    margin-left:.42em;
+    letter-spacing:.18em;
+    font-size:.92em;
+    color:rgba(224,196,141,.72);
+  }
+
+  h1{
+    margin:13px 0 0;
+    font-family:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+    font-size:clamp(38px,11.5vw,50px);
+    font-weight:600;
+    letter-spacing:.10em;
+    text-indent:.10em;
+    line-height:1.15;
+    color:#fdf6e6;
+    text-shadow:0 0 26px rgba(224,196,141,.20);
+  }
+
+  .rule{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin:20px 0 22px;
+  }
+  .rule span{
+    display:block;
+    width:42px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(224,196,141,.58));
+  }
+  .rule span:last-child{
+    background:linear-gradient(90deg, rgba(224,196,141,.58), transparent);
+  }
+  .rule em{
+    font-style:normal;
+    font-size:9px;
+    color:var(--red);
+    opacity:.95;
+  }
+
+  .letter p{
+    font-size:14.5px;
+    line-height:2.05;
+    letter-spacing:.045em;
+    color:rgba(245,237,220,.88);
+    margin-bottom:15px;
+  }
+  .letter p:last-child{margin-bottom:0}
+  .letter p.warm{
+    color:#fbf3e1;
+    font-family:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+    font-size:15.5px;
+    letter-spacing:.07em;
+  }
+
+  .en{
+    margin-top:24px;
+    font-family:Georgia,"Times New Roman",serif;
+    font-style:italic;
+    font-size:14px;
+    letter-spacing:.05em;
+    color:var(--gold);
+  }
+  .en b{
+    font-style:normal;
+    font-weight:600;
+    letter-spacing:.08em;
+  }
+
+  .sign{
+    margin-top:8px;
+    font-size:10px;
+    letter-spacing:.28em;
+    text-indent:.28em;
+    color:rgba(245,237,220,.42);
+  }
+
+  .foot{
+    position:relative;
+    z-index:1;
+    margin-top:22px;
+    font-size:9px;
+    letter-spacing:.24em;
+    text-indent:.24em;
+    color:rgba(245,237,220,.32);
+    text-align:center;
+  }
+
+  /* ---------- 入场 ---------- */
+  .rise{
+    opacity:0;
+    transform:translateY(10px);
+    animation:rise .9s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  @keyframes rise{
+    to{opacity:1;transform:translateY(0)}
+  }
+  .d1{animation-delay:.10s}
+  .d2{animation-delay:.24s}
+  .d3{animation-delay:.38s}
+  .d4{animation-delay:.52s}
+  .d5{animation-delay:.66s}
+  .d6{animation-delay:.82s}
+
+  @media (prefers-reduced-motion: reduce){
+    .snow{display:none}
+    .rise{opacity:1;transform:none;animation:none}
+    .tree .orn,.tree .top{animation:none;opacity:1}
+  }
+
+  /* 小屏紧凑一点，尽量一屏放下 */
+  @media (max-height:730px){
+    .page{padding:16px 16px 14px}
+    .card{padding:22px 20px 20px;max-width:360px}
+    .treeWrap{width:62px;margin-bottom:10px}
+    .kicker{font-size:9.5px;letter-spacing:.26em;text-indent:.26em}
+    h1{font-size:clamp(32px,10.5vw,42px);margin-top:9px}
+    .rule{margin:14px 0 16px}
+    .letter p{font-size:13.5px;line-height:1.82;margin-bottom:10px;letter-spacing:.03em}
+    .letter p.warm{font-size:14px}
+    .en{margin-top:16px;font-size:12.5px}
+    .foot{margin-top:14px;font-size:8.5px}
+  }
+</style>
+</head>
+<body>
+
+<div class="snow" aria-hidden="true">
+  <i style="--x:6%;--s:2.4px;--d:15s;--delay:-2s;--drift:12px"></i>
+  <i style="--x:15%;--s:1.8px;--d:19s;--delay:-9s;--drift:-16px"></i>
+  <i style="--x:24%;--s:3px;--d:13s;--delay:-5s;--drift:20px"></i>
+  <i style="--x:33%;--s:2px;--d:21s;--delay:-13s;--drift:-10px"></i>
+  <i style="--x:42%;--s:2.6px;--d:16s;--delay:-1s;--drift:14px"></i>
+  <i style="--x:51%;--s:1.6px;--d:23s;--delay:-7s;--drift:-18px"></i>
+  <i style="--x:60%;--s:2.2px;--d:14s;--delay:-11s;--drift:16px"></i>
+  <i style="--x:69%;--s:3.2px;--d:18s;--delay:-3s;--drift:-12px"></i>
+  <i style="--x:78%;--s:1.9px;--d:22s;--delay:-15s;--drift:18px"></i>
+  <i style="--x:87%;--s:2.5px;--d:15s;--delay:-6s;--drift:-14px"></i>
+  <i style="--x:94%;--s:2px;--d:20s;--delay:-12s;--drift:10px"></i>
+  <i style="--x:3%;--s:1.7px;--d:24s;--delay:-17s;--drift:-8px"></i>
+</div>
+
+<main class="page">
+  <section class="card">
+
+    <div class="treeWrap rise d1">
+      <svg class="tree" viewBox="0 0 76 92" aria-label="圣诞树" role="img">
+      <defs>
+        <linearGradient id="tg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3f8a6d"/>
+          <stop offset="1" stop-color="#1e5142"/>
+        </linearGradient>
+      </defs>
+      <path class="top" d="M38 2 L40.1 7.2 L45.6 8.5 L41.3 12.1 L42.7 17.5 L38 14.5 L33.3 17.5 L34.7 12.1 L30.4 8.5 L35.9 7.2 Z" fill="#e8cf9b"/>
+      <path d="M38 22 L55 44 H21 Z" fill="url(#tg)" stroke="rgba(232,207,155,.16)" stroke-width=".6"/>
+      <path d="M38 36 L60 60 H16 Z" fill="url(#tg)" stroke="rgba(232,207,155,.16)" stroke-width=".6"/>
+      <path d="M38 52 L65 78 H11 Z" fill="url(#tg)" stroke="rgba(232,207,155,.16)" stroke-width=".6"/>
+      <rect x="34.4" y="77" width="7.2" height="9" rx="1.6" fill="#6d4a33"/>
+      <circle class="orn o1" cx="38" cy="31" r="2.3" fill="#e8cf9b"/>
+      <circle class="orn o2" cx="31" cy="40.5" r="2.1" fill="#d3654d"/>
+      <circle class="orn o3" cx="45.5" cy="40" r="1.9" fill="#e8cf9b"/>
+      <circle class="orn o2" cx="38" cy="47" r="2.2" fill="#d3654d"/>
+      <circle class="orn o1" cx="28" cy="56" r="2.1" fill="#e8cf9b"/>
+      <circle class="orn o3" cx="48.5" cy="55.5" r="2.1" fill="#d3654d"/>
+      <circle class="orn o1" cx="38" cy="66" r="2.5" fill="#e8cf9b"/>
+      <circle class="orn o3" cx="24.5" cy="74" r="2.2" fill="#d3654d"/>
+      <circle class="orn o2" cx="51.5" cy="74" r="2.2" fill="#d3654d"/>
+      <circle class="orn o1" cx="38" cy="77" r="2" fill="#e8cf9b"/>
+      </svg>
+    </div>
+
+    <p class="kicker rise d1">给 吴同学<span class="kicker-en">· Rae</span></p>
+    <h1 class="rise d2">圣诞快乐</h1>
+
+    <div class="rule rise d3" aria-hidden="true">
+      <span></span><em>✦</em><span></span>
+    </div>
+
+    <div class="letter">
+      <p class="rise d3">这棵树是提前点亮的，<br>因为想让你打开的时候，<br>一眼就看见光。</p>
+      <p class="rise d4">愿你今晚有热的饮、亮的灯、<br>和笑得停不下来的人。</p>
+      <p class="rise d5">愿往后的日子，烦恼轻一点，<br>好运多一点，<br>睡得踏实，醒来有期待。</p>
+      <p class="warm rise d5">如果圣诞老人今天太忙，<br>那就让我把「要开心」<br>亲手说给你听。</p>
+    </div>
+
+    <p class="en rise d6">Merry Christmas, <b>Rae</b></p>
+    <p class="sign rise d6">2026 · 12 · 25</p>
+  </section>
+
+  <p class="foot rise d6">愿这封信打开的时候，正好是暖的</p>
+</main>
+
+</body>
+</html>
